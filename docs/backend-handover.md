@@ -68,3 +68,4 @@ npm run smoke
    - TinyFish Radar can push scraped bulletins via `POST /api/alerts` with header `X-Radar-Key: <radar_key>`.
    - Bulletins from `.gov.in` and `.nic.in` domains auto-publish; others go to `pending` queue.
    - Connect live Vision model by setting `AI_MODE=live` and `VISION_URL=<m3_endpoint>` in `.env`.
+
