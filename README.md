@@ -324,7 +324,7 @@ npm run smoke
       <img src="https://github.com/identicons/nidhi.png" width="90px;" alt="Nidhi Jha"/><br />
       <sub><b>Nidhi Jha</b></sub><br />
       <sub>⚙️ <b>Backend & Database Lead</b></sub><br />
-      <small>Node.js API • PostgreSQL • PostGIS • Spatial Queries</small>
+      <small>Node.js Express API • PostgreSQL / PostGIS • Spatial Queries • Offline Sync Engine</small>
     </td>
     <td align="center" width="25%">
       <img src="https://github.com/identicons/aarushi.png" width="90px;" alt="Aarushi Mathur"/><br />
