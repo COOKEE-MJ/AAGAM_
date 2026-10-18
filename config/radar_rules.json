@@ -1,0 +1,364 @@
+{
+ "_readme": "Plain-words rules file read by the radar code (Node: src/radar/rules.js, Python: radar/radar_rules.py). Edit this file to change rules - no code change needed. Every hazard says which official body is responsible and how well we verified that. Anything marked 'NOT CONFIRMED' must be checked by a person against the primary page before it is shown to judges as fact.",
+ "publish_rule": {
+  "explain": "An alert found by the radar is published straight away ONLY if its web address is https and ends in .gov.in or .nic.in. Everything else waits as 'pending' until an officer approves it.",
+  "official_host_suffixes": [
+   ".gov.in",
+   ".nic.in"
+  ],
+  "require_https": true,
+  "force_pending_if": [
+   "source address is not .gov.in / .nic.in",
+   "source is not https",
+   "hazard not recognised",
+   "severity could not be worked out",
+   "alert already expired",
+   "alert has no district"
+  ]
+ },
+ "severity": {
+  "explain": "How the radar turns an agency colour code or words into our four levels.",
+  "imd_colour": {
+   "green": null,
+   "yellow": "low",
+   "orange": "medium",
+   "red": "high"
+  },
+  "keywords": {
+   "extreme": [
+    "extremely severe",
+    "super cyclonic",
+    "very severe cyclonic",
+    "red alert",
+    "evacuate immediately",
+    "major tsunami warning"
+   ],
+   "high": [
+    "severe",
+    "very heavy",
+    "extremely heavy",
+    "red",
+    "warning",
+    "tsunami warning"
+   ],
+   "medium": [
+    "heavy",
+    "orange",
+    "watch",
+    "alert"
+   ],
+   "low": [
+    "yellow",
+    "advisory",
+    "be aware",
+    "light"
+   ]
+  },
+  "earthquake_magnitude_bands": {
+   "label": "TEAM RULE - not an official NCS scale. Change if the team prefers.",
+   "low": [
+    3.0,
+    4.4
+   ],
+   "medium": [
+    4.5,
+    5.4
+   ],
+   "high": [
+    5.5,
+    6.4
+   ],
+   "extreme": [
+    6.5,
+    10
+   ]
+  }
+ },
+ "dedupe": {
+  "explain": "The same alert found twice must not create two rows. Key = hazard | district | source host | day. A re-fetch updates the old row.",
+  "fields": [
+   "hazard",
+   "district",
+   "source_host",
+   "day"
+  ]
+ },
+ "hazards": {
+  "cyclone": {
+   "label": "Cyclone",
+   "category": "hydro-meteorological",
+   "official_agency": "India Meteorological Department (IMD) - RSMC Cyclones, New Delhi",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "CONFIRMED on an official page",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/",
+    "https://sachet.ndma.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "cyclone",
+    "cyclonic storm",
+    "depression",
+    "चक्रवात",
+    "ବାତ୍ୟା"
+   ],
+   "advice": "Move to the nearest cyclone shelter. Stay indoors away from windows."
+  },
+  "flood": {
+   "label": "Flood",
+   "category": "hydro-meteorological",
+   "official_agency": "Central Water Commission (CWC) flood forecasts; state flood control rooms",
+   "agency_url": "https://cwc.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "CONFIRMED on an official page",
+   "evidence_urls": [
+    "https://cwc.gov.in/",
+    "https://sachet.ndma.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "flood",
+    "inundation",
+    "river above danger level",
+    "danger level",
+    "बाढ़",
+    "ବନ୍ୟା"
+   ],
+   "advice": "Move to higher ground. Do not walk or drive through flood water."
+  },
+  "heavy_rain": {
+   "label": "Heavy rainfall",
+   "category": "hydro-meteorological",
+   "official_agency": "India Meteorological Department (IMD)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Weather warning product (not a separate notified disaster)",
+   "verification": "CONFIRMED on an official page",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "heavy rain",
+    "very heavy rain",
+    "extremely heavy rain",
+    "heavy rainfall",
+    "भारी बारिश",
+    "ଭାରୀ ବର୍ଷା"
+   ],
+   "advice": "Avoid low-lying areas and underpasses."
+  },
+  "cloudburst": {
+   "label": "Cloudburst / flash flood",
+   "category": "hydro-meteorological",
+   "official_agency": "IMD (warnings); state disaster management authorities",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "PARTLY CONFIRMED - NOT CONFIRMED which exact IMD product carries cloudburst alerts",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "cloudburst",
+    "cloud burst",
+    "flash flood",
+    "बादल फटना"
+   ],
+   "advice": "Move away from streams and gullies to higher ground."
+  },
+  "lightning": {
+   "label": "Lightning / thunderstorm",
+   "category": "hydro-meteorological",
+   "official_agency": "IMD (thunderstorm / lightning nowcasts)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "NOT CONFIRMED on a primary page - only a secondary news report said it is notified",
+   "verification": "NEEDS PRIMARY CHECK of notified status",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "lightning",
+    "thunderstorm",
+    "thunder",
+    "वज्रपात",
+    "ବଜ୍ରପାତ"
+   ],
+   "advice": "Go indoors. Stay away from trees, poles and open fields."
+  },
+  "tsunami": {
+   "label": "Tsunami",
+   "category": "geological",
+   "official_agency": "Indian National Centre for Ocean Information Services (INCOIS) - Indian Tsunami Early Warning Centre",
+   "agency_url": "https://incois.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "CONFIRMED on an official page",
+   "evidence_urls": [
+    "https://incois.gov.in/",
+    "https://sachet.ndma.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "tsunami",
+    "सुनामी"
+   ],
+   "advice": "Move inland and to high ground immediately."
+  },
+  "earthquake": {
+   "label": "Earthquake",
+   "category": "geological",
+   "official_agency": "National Center for Seismology (NCS), Ministry of Earth Sciences",
+   "agency_url": "https://seismo.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "CONFIRMED on an official page",
+   "evidence_urls": [
+    "https://seismo.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "earthquake",
+    "quake",
+    "magnitude",
+    "seismic",
+    "भूकंप",
+    "ଭୂକମ୍ପ"
+   ],
+   "advice": "Drop, cover and hold on. After shaking stops move to an open area."
+  },
+  "landslide": {
+   "label": "Landslide",
+   "category": "geological",
+   "official_agency": "Geological Survey of India (GSI) - landslide forecasting; IMD rain warnings",
+   "agency_url": "https://bhusanket.gsi.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "PARTLY CONFIRMED - GSI forecasting rollout described in future tense on one page; check current status",
+   "evidence_urls": [
+    "https://bhusanket.gsi.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "landslide",
+    "landslip",
+    "mudslide",
+    "भूस्खलन",
+    "ଭୂସ୍ଖଳନ"
+   ],
+   "advice": "Move away from the slope path. Avoid hill roads during heavy rain."
+  },
+  "avalanche": {
+   "label": "Avalanche",
+   "category": "geological",
+   "official_agency": "Defence Geoinformatics Research Establishment (DGRE), DRDO - NOT CONFIRMED, inferred from SACHET source list",
+   "agency_url": "https://sachet.ndma.gov.in/",
+   "notified_status": "Notified disaster (SDRF list: 'snow avalanche' - check exact wording)",
+   "verification": "NOT CONFIRMED agency - inferred",
+   "evidence_urls": [
+    "https://sachet.ndma.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "avalanche",
+    "snow slide",
+    "हिमस्खलन"
+   ],
+   "advice": "Stay away from steep snowy slopes. Follow local army and police advisories."
+  },
+  "heatwave": {
+   "label": "Heatwave",
+   "category": "climatological",
+   "official_agency": "India Meteorological Department (IMD)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "NOT CONFIRMED on a primary page - only a secondary report (Down To Earth) says it was notified",
+   "verification": "NEEDS PRIMARY CHECK of notified status",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "heat wave",
+    "heatwave",
+    "severe heat",
+    "हीट वेव",
+    "लू",
+    "ଉଷ୍ଣ ପ୍ରବାହ"
+   ],
+   "advice": "Stay indoors in the afternoon, drink water often."
+  },
+  "cold_wave": {
+   "label": "Cold wave",
+   "category": "climatological",
+   "official_agency": "India Meteorological Department (IMD)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Notified disaster (SDRF list: 'cold wave / frost')",
+   "verification": "PARTLY CONFIRMED - product details not confirmed",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "cold wave",
+    "cold day",
+    "ground frost",
+    "शीत लहर"
+   ],
+   "advice": "Stay warm and indoors. Check on elderly and homeless people."
+  },
+  "hailstorm": {
+   "label": "Hailstorm",
+   "category": "hydro-meteorological",
+   "official_agency": "India Meteorological Department (IMD)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "PARTLY CONFIRMED - product details not confirmed",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "hailstorm",
+    "hail storm",
+    "hail",
+    "ओलावृष्टि"
+   ],
+   "advice": "Take shelter indoors. Protect vehicles and crops if possible."
+  },
+  "forest_fire": {
+   "label": "Forest fire",
+   "category": "other",
+   "official_agency": "Forest Survey of India (FSI) - fire alerts; state forest departments",
+   "agency_url": "https://fsi.nic.in/",
+   "notified_status": "Notified disaster (handled under forest-fire management)",
+   "verification": "Agency verified via FSI Van Agni & SACHET",
+   "evidence_urls": [
+    "https://fsi.nic.in/",
+    "https://sachet.ndma.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "forest fire",
+    "wildfire",
+    "fire alert",
+    "जंगल की आग"
+   ],
+   "advice": "Move away from fire and smoke. Follow evacuation orders."
+  },
+  "drought": {
+   "label": "Drought",
+   "category": "climatological",
+   "official_agency": "Ministry of Agriculture (Drought Management) / IMD seasonal outlook",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "Notified disaster (SDRF list)",
+   "verification": "Slow-onset: a daily radar is not suitable",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": false,
+   "keywords": [
+    "drought"
+   ],
+   "advice": "Conserve water. Follow district water-supply advisories."
+  }
+ }
+}
+

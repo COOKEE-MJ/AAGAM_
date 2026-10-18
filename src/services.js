@@ -105,5 +105,6 @@ module.exports = {
   sosSelect,
   reportSelect,
   REPORT_TYPES,
+  httpErr,
 };
 
