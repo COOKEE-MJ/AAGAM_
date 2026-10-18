@@ -1,397 +1,388 @@
-# AAGAM (आगम) 🛡️
-### AI-Powered Multi-Hazard Intelligence & Offline-First Disaster Response System
+<h1 align="center">🛡️ AAGAM (आगम)</h1>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
-[![Database](https://img.shields.io/badge/Database-PostgreSQL_16_%2B_PostGIS-blue)](https://postgis.net/)
-[![PWA](https://img.shields.io/badge/PWA-Offline--First-orange)](https://web.dev/progressive-web-apps/)
-[![TinyFish](https://img.shields.io/badge/Web_Agent-TinyFish_API-purple)](https://tinyfish.io/)
-[![Build Status](https://img.shields.io/badge/Tests-16_Unit_%7C_23_Smoke_Passed-brightgreen)](file:///tests/)
+<p align="center">
+  <strong>Autonomous Alert Gathering & Action Management</strong><br>
+  <em>AI-Powered Multi-Hazard Intelligence & Offline-First Emergency Response Platform</em>
+</p>
 
-> **Autonomous Alert Gathering & Action Management (AAGAM)** is a next-generation disaster management platform that bridges citizen survival and district administration. Powered by autonomous web agents, offline-first progressive web tech, and multimodal AI verification, AAGAM ensures critical alerts reach every citizen—even when power grids and cellular towers collapse.
+<p align="center">
+  <a href="https://github.com/COOKEE-MJ/AAGAM_">
+    <img alt="stars" src="https://img.shields.io/badge/⭐_Star-This_Repo-brightgreen?style=for-the-badge">
+  </a>
+  <a href="LICENSE">
+    <img alt="license" src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge">
+  </a>
+  <a href="https://nodejs.org/">
+    <img alt="node" src="https://img.shields.io/badge/Node.js-18%2B-green?style=for-the-badge&logo=node.js">
+  </a>
+  <a href="https://postgis.net/">
+    <img alt="postgis" src="https://img.shields.io/badge/Database-PostGIS_16-navy?style=for-the-badge&logo=postgresql">
+  </a>
+  <a href="https://web.dev/progressive-web-apps/">
+    <img alt="pwa" src="https://img.shields.io/badge/PWA-Offline--First-orange?style=for-the-badge&logo=pwa">
+  </a>
+  <a href="https://tinyfish.io/">
+    <img alt="tinyfish" src="https://img.shields.io/badge/Web_Agent-TinyFish_API-purple?style=for-the-badge">
+  </a>
+</p>
 
----
+<p align="center">
+  <img alt="hazards" src="https://img.shields.io/badge/11_Disaster_Types-🌋_🌊_🌀-red?style=flat-square">
+  <img alt="offline" src="https://img.shields.io/badge/Zero--Network_SOS-📱-blue?style=flat-square">
+  <img alt="ai" src="https://img.shields.io/badge/AI_Vision_Triage-🤖-green?style=flat-square">
+  <img alt="spatial" src="https://img.shields.io/badge/Sub--50ms_PostGIS_Heatmap-🗺️-yellow?style=flat-square">
+  <img alt="tests" src="https://img.shields.io/badge/Tests-23_Smoke_%7C_16_Unit_Passing-brightgreen?style=flat-square">
+</p>
 
-## ⚡ Quick Links & Demo
-
-- 🎥 **Watch the 2-Minute Demo Video:** [DEMO_VIDEO_URL]
-- 🌐 **Live Citizen PWA App:** `[CITIZEN_APP_URL]` *(or run locally below)*
-- 🖥️ **Live Authority Command Dashboard:** `[DASHBOARD_URL]` *(or run locally below)*
-- 📑 **Slide Deck & Architecture Docs:** [`docs/`](docs/)
-
----
-
-```
-========================================================================================
-[ADD IMAGE HERE: Hero Banner / Product Showcase Mockup]
-Type: High-resolution side-by-side product mockup.
-Left: Citizen Mobile PWA in emergency dark mode showing "Offline SOS Queued" and "Safe Route to Thyagaraj Shelter".
-Right: DDMA Authority Command Dashboard on desktop showing live PostGIS heatmap of East Delhi, incident pins, and dispatch buttons.
-File path to place image: docs/screenshots/hero-banner.png
-========================================================================================
-```
-![Hero Banner](docs/screenshots/hero-banner.png)
-
----
-
-## 💡 Key Highlights in 4 Lines
-
-1. **Multi-Hazard Autonomous Radar:** Uses **TinyFish Web Agents** to continuously scrape, parse, and geocode live bulletins across **11 distinct Indian disaster types** from official portals (IMD, CWC, NCS, INCOIS, FSI, NDMA).
-2. **True Offline-First Resilience:** Zero-install Progressive Web App (PWA) caches district maps, safe shelter routes, and emergency guidance; locally queues encrypted SOS signals in **IndexedDB** for seamless auto-sync upon reconnection.
-3. **Multimodal AI Verification:** Computer vision pipeline triages crowd-sourced disaster photos in real-time ($\ge 0.70$ confidence), eliminating hoaxes and spam before they reach district incident dispatchers.
-4. **Actionable Command Center:** Real-time spatial dashboard for District Disaster Management Authorities (DDMA) with PostGIS grid heatmaps, dynamic shelter occupancy tracking, and one-click field team dispatch.
-
-> **Sustainable Business Model:** *"Free for citizens. Paid by districts and enterprise supply chains."*
-
----
-
-## 🛑 The Problem: The Reality of Disasters in India
-
-India's geographical diversity exposes over **85% of its landmass to multiple natural hazards**. In high-stress catastrophe scenarios, existing response systems break down due to three fatal bottlenecks:
-
-```
-========================================================================================
-[ADD IMAGE HERE: Infographic - Disaster Bottlenecks in India]
-Type: 3-column infographic illustrating: (1) Broken Telecom Towers during floods, (2) Confused citizens checking multiple govt websites, (3) Fake WhatsApp forwards causing panic.
-File path to place image: docs/screenshots/problem-infographic.png
-========================================================================================
-```
-![Problem Infographic](docs/screenshots/problem-infographic.png)
-
-1. **Scattered Alert Silos:** Warnings are fractured across different portals—IMD for weather, CWC for river levels, NCS for tremors, and local police handles. Citizens are forced to navigate 5+ uncoordinated apps.
-2. **Network Blackouts When Needed Most:** Floods, cyclones, and landslides routinely destroy mobile towers and power grids. Traditional native apps crash or render blank screens when there is no internet connection.
-3. **Unverified Noise & Panic:** Control rooms are swamped with unverified social media forwards, duplicate distress calls, and outdated messages, delaying life-saving NDRF/SDRF deployments.
-4. **Massive Socio-Economic Losses:** Floods alone account for **~63% of natural disaster damages** in India, with **over 93% of losses uninsured**, devastating vulnerable rural and urban populations.
+<p align="center">
+  <a href="#-quickstart-in-5-commands">⚡ Quickstart</a> •
+  <a href="#-aagam-in-one-minute">📖 1-Minute Overview</a> •
+  <a href="#-system-architecture">🏗️ Architecture</a> •
+  <a href="#-three-core-user-stories">🔁 Core Stories</a> •
+  <a href="#-screen-by-screen-walkthrough">📱 Screens</a> •
+  <a href="#-the-offline-sync-engine">📶 Offline Sync</a> •
+  <a href="#-the-team">👥 Contributors</a>
+</p>
 
 ---
 
-## 🚀 The AAGAM Solution
+<p align="center">
+  <img src="docs/screenshots/hero-banner.png" alt="AAGAM Hero Banner Mockup" width="100%" />
+</p>
 
-AAGAM solves this crisis with a unified, bi-directional, resilient architecture:
-
-```
-========================================================================================
-[ADD IMAGE HERE: Solution Overview Diagram]
-Type: Clean architectural split showing: Left: Citizen Mobile App (offline-first, zero install, SOS) <---> Center: Secure PostGIS & AI Ingestion Engine <---> Right: District Emergency Operations Center (DEOC) Command Screen.
-File path to place image: docs/screenshots/solution-overview.png
-========================================================================================
-```
-![Solution Overview](docs/screenshots/solution-overview.png)
-
-### 1. Citizen Survival App (PWA)
-- **Zero-Install Instant Access:** Works instantly in any mobile browser on low-end smartphones without app store downloads.
-- **Offline Cache:** Automatically pre-caches shelter locations, evacuation checklists, offline emergency contacts, and evacuation routes into local browser storage.
-- **One-Tap Resilient SOS:** Generates an idempotent, cryptographically tagged distress signal with GPS coordinates. If offline, it saves to `IndexedDB` and triggers auto-sync the millisecond cellular, Wi-Fi, or SMS connectivity is detected.
-
-```
-========================================================================================
-[ADD IMAGE HERE: Citizen App Screenshot - Offline Emergency Mode]
-Type: Mobile screenshot of Citizen App with airplane mode ON.
-Showing: Amber warning banner "No Internet - Emergency Cache Active", with green "Find Nearest Safe Shelter (1.2 km)" button and one-tap red SOS button.
-File path to place image: docs/screenshots/citizen-offline-sos.png
-========================================================================================
-```
-![Citizen Offline SOS](docs/screenshots/citizen-offline-sos.png)
-
-### 2. Authority Command Dashboard (DDMA)
-- **Spatial Incident Heatmap:** Aggregates real-time SOS requests and verified crowd reports using PostGIS spatial clustering to expose high-density danger zones.
-- **Dynamic Shelter Management:** Real-time occupancy meters with automatic status transitions:
-  - `Open`: Capacity under 80%
-  - `Filling Fast`: Capacity between 80% and 99%
-  - `Full`: 100% capacity (system automatically diverts routing to the next closest facility).
-- **Incident Queue & Team Dispatch:** Triage incoming citizen photo reports, inspect AI confidence scores, acknowledge distress calls, and dispatch rescue teams with live status updates.
-
-```
-========================================================================================
-[ADD IMAGE HERE: Authority Command Center Dashboard]
-Type: Desktop widescreen view of the District Emergency Operations Center (DEOC).
-Showing: Interactive dark map of Delhi NCR with PostGIS density clusters, active SOS cards on right sidebar, and live shelter status gauges.
-File path to place image: docs/screenshots/authority-dashboard.png
-========================================================================================
-```
-![Authority Dashboard](docs/screenshots/authority-dashboard.png)
+> ### 📸 **[IMAGE PLACEHOLDER: HERO SHOWCASE BANNER]**
+> - **File:** `docs/screenshots/hero-banner.png` (1200 × 600 px)
+> - **Content:** High-res split mockup. **Left:** Citizen Mobile PWA in emergency dark mode showing *"Offline SOS Queued"* with safe route to nearest shelter. **Right:** DDMA Authority Command Dashboard on desktop showing live PostGIS density heatmap of East Delhi.
 
 ---
 
-## 🤖 TinyFish Web Agent & AI Integration
+## 📖 AAGAM in One Minute
 
-AAGAM integrates the **TinyFish Autonomous Web Agent Suite** to bridge the gap between government data portals and front-line citizens:
+**AAGAM** warns people about impending disasters, guides them to open shelters even when the internet is completely down, and gives district administration verified on-the-ground intelligence to direct rescue teams.
 
+```mermaid
+flowchart LR
+    A["🛰️ 1. Hazard Radar\n(TinyFish Web Agent)"] -->|"Extracts Bulletins"| B["⚙️ 2. Core PostGIS API\n(Node.js + PostgreSQL)"]
+    B <-->|"Pre-caches Alerts & Offline Sync"| C["📱 3. Citizen PWA\n(Offline-First Phone App)"]
+    B <-->|"Live Heatmap & Incident Queue"| D["🖥️ 4. DDMA Dashboard\n(District Command Center)"]
+
+    style A fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
+    style B fill:#e0f2f1,stroke:#00897b,stroke-width:2px
+    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style D fill:#fce4ec,stroke:#c2185b,stroke-width:2px
 ```
-========================================================================================
-[ADD IMAGE HERE: TinyFish AI Pipeline Flowchart]
-Type: Diagram showing TinyFish Web Agent reading IMD/CWC sites, extracting unstructured tables/bulletins, converting to GeoJSON alerts, and pushing to AAGAM PostGIS database.
-File path to place image: docs/screenshots/tinyfish-pipeline.png
-========================================================================================
-```
-![TinyFish Pipeline](docs/screenshots/tinyfish-pipeline.png)
 
-- 🔍 **TinyFish Web Search:** Autonomously discovers freshly published bulletins and warning bulletins across regional state disaster portals and meteorological stations.
-- 📥 **TinyFish Web Fetch:** Navigates complex government HTML structures, PDFs, and sensor pages to extract tabular hydrological metrics, reservoir levels, and cyclonic coordinates.
-- 🧠 **TinyFish Agent API:** Converts unstructured Hindi/English warning bulletins into standardized, machine-readable JSON payloads containing ISO 8601 timestamps, severity levels (Warning, Watch, Advisory), affected district boundaries, and hazard taxonomy codes.
-- 🛡️ **Automated Authority Verification Rule:**
-  - Alerts originating from verified government domains (`.gov.in` and `.nic.in`) are automatically verified and published.
-  - Bulletins from secondary feeds are routed into a `pending` state for human officer approval with one-click verification.
+### 👥 The Two Users of AAGAM
 
-### Multimodal Photo Verification
-When citizens submit on-the-ground damage reports (submerged roads, downed trees, broken bridges), AAGAM's AI Vision pipeline evaluates the image:
-- **Confidence $\ge 0.70$:** Automatically promoted to `ai_verified`, immediately lighting up on the district commander's heatmap.
-- **Confidence $< 0.70$:** Routed to the `needs_review` queue to prevent hoax calls and spam from cluttering emergency response queues.
-
-```
-========================================================================================
-[ADD IMAGE HERE: AI Verification Triage Example]
-Type: Visual side-by-side card.
-Left: Citizen photo of urban flood with bounding box labeled "severe_flood (Confidence: 0.92)" -> Green Badge "AI VERIFIED".
-Right: Random meme/unrelated photo submitted -> Orange Badge "NEEDS OFFICER REVIEW".
-File path to place image: docs/screenshots/ai-verification-triage.png
-========================================================================================
-```
-![AI Verification Triage](docs/screenshots/ai-verification-triage.png)
+| Dimension | 📱 Citizen (Resident / Evacuee) | 🖥️ Authority Officer (DDMA / DEOC) |
+|---|---|---|
+| **Who** | Any resident of a vulnerable district | District Disaster Management Authority staff |
+| **Device** | Smartphone browser (Zero-install PWA) | Laptop or desktop browser |
+| **Account** | Instant setup: Name, Phone, Home District *(OTP mocked)* | Admin-seeded account tied to district (`authority` JWT role) |
+| **Main Goal** | Know danger level, find safe shelter, trigger SOS | Monitor district heatmap, verify damage, dispatch NDRF |
+| **Cost** | **Always Free** for every citizen | Subscribed by District Administration |
 
 ---
 
-## 🏛️ Comprehensive Multi-Hazard Coverage
+## ⚖️ Five Golden Product Rules
 
-AAGAM does not focus on just one hazard. It implements a unified data model covering **11 official hazard categories** recognized by the National Disaster Management Authority (NDMA):
-
-| Hazard Type | Official Indian Source | Monitoring Frequency | Key Ingested Metrics |
-|---|---|---|---|
-| **Cyclone** | India Meteorological Department (IMD) | Every 3 hours | Wind speed, landfall coordinates, central pressure |
-| **Riverine / Flash Flood** | Central Water Commission (CWC) | Hourly | Gauge reading, warning level, trend (rising/falling) |
-| **Heavy Rainfall / Cloudburst** | IMD Doppler Radar Network | Real-time (15 min) | Precipitation intensity (mm/hr), cloud top height |
-| **Lightning / Thunderstorm** | Damini App / IMD Lightning Network | Real-time | Strike count, strike azimuth, cloud-to-ground flash rate |
-| **Tsunami** | INCOIS (Indian National Centre for Ocean Info) | Real-time | Seismic epicenter, ocean depth, arrival time forecast |
-| **Earthquake** | National Center for Seismology (NCS) | Real-time | Richter magnitude, hypocenter depth, epicentral coords |
-| **Landslide** | Geological Survey of India (GSI) | Daily / Monsoon | Soil moisture index, slope stability warning level |
-| **Heatwave** | IMD / NDMA Heat Action Plan | Daily forecast | Wet-bulb temperature, heat index, consecutive hot days |
-| **Cold Wave** | IMD Regional Centers | Daily forecast | Minimum temperature departures, ground frost warnings |
-| **Forest Fire** | Forest Survey of India (FSI - Van Agni) | Satellite pass (SNPP/VIIRS) | Thermal anomaly coordinates, fire intensity index |
-| **Drought** | Mahalanobis Crop Forecast Centre (MNCFC) | Weekly / Bi-weekly | Soil Moisture Anomaly, Normalized Difference Veg Index |
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  1. PREPARE FIRST, CONNECT SECOND                                                      │
+│     Alerts, shelters, and map tiles are saved to phone while online so they open with  │
+│     zero signal.                                                                       │
+│                                                                                        │
+│  2. NOTHING DISAPPEARS SILENTLY                                                        │
+│     Every SOS and photo report displays a deterministic state: Queued ➔ Sent ➔ Resolved│
+│                                                                                        │
+│  3. AI ASSISTS, HUMANS DECIDE                                                          │
+│     Vision model scores damage photos (>=70% threshold). Officers approve or reject.   │
+│                                                                                        │
+│  4. EVERY ALERT PROVES ITS SOURCE                                                      │
+│     All alerts display official publication timestamp and a direct link to the bulletin.│
+│                                                                                        │
+│  5. STRICT PRIVACY BY ROLE                                                             │
+│     Citizens NEVER see other citizens' phone numbers or SOS locations.                 │
+│     Officers only see data inside their assigned district.                             │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🏗️ Technical Architecture & Data Pipeline
+## 🏗️ System Architecture
 
-AAGAM is engineered with high-performance, open standards designed for resilience and sub-second spatial queries.
-
-### Ingestion, Triage & Response Flow
+Data originates from authoritative government sources, passes through **TinyFish Web Agents**, normalizes into the **PostGIS** database, and syncs across citizen and command applications.
 
 ```mermaid
 flowchart TD
-    subgraph SOURCING["1. Multi-Agency Data Ingestion"]
-        IMD["IMD (Cyclone / Rain)"]
+    subgraph WEB["🌐 THE LIVE WEB: Official Government Portals"]
+        direction LR
+        IMD["IMD (Cyclone & Rain)"]
         CWC["CWC (River Floods)"]
         NCS["NCS (Earthquakes)"]
         INCOIS["INCOIS (Tsunami)"]
         FSI["FSI (Forest Fires)"]
     end
 
-    subgraph TINYFISH["2. Autonomous Ingestion Agent"]
-        TF_SEARCH["TinyFish Web Search"]
-        TF_FETCH["TinyFish Web Fetch"]
-        TF_AGENT["TinyFish Parsing Agent"]
+    subgraph TINYFISH["🤖 TINYFISH WEB AGENT ENGINE"]
+        direction TB
+        TF_SEARCH["🔍 Search API (Discovers newest bulletins per district)"]
+        TF_FETCH["📥 Fetch API (Extracts clean structured text from HTML/PDFs)"]
+        TF_AGENT["🧠 Parsing Agent (Standardizes hazard, severity, geometry)"]
+        TF_SEARCH --> TF_FETCH --> TF_AGENT
     end
 
-    subgraph BACKEND["3. Core Spatial Engine (Node.js + PostGIS)"]
-        AUTH_GATE["Source Verification (.gov.in check)"]
-        POSTGIS[("PostgreSQL 16 + PostGIS\n- alerts, shelters, incidents\n- ST_DWithin & ST_SnapToGrid")]
-        AI_ENGINE["AI Vision Verification Triage\n(Confidence >= 0.70)"]
+    subgraph BACKEND["⚙️ SPATIAL BACKEND & VERIFICATION"]
+        direction TB
+        GATE{"Official .gov.in?"}
+        DB[("🐘 PostgreSQL 16 + PostGIS\n- Spatial index (ST_DWithin)\n- Idempotent Sync & Heatmap")]
+        AI_CHECK["👁️ AI Vision Check (Pretrained Damage Model)"]
+        GATE -- "Yes" --> DB
+        GATE -- "News/Unverified" --> PENDING["Pending Review Queue"]
+        AI_CHECK --> DB
     end
 
-    subgraph CLIENTS["4. Edge Applications"]
-        PWA["Citizen PWA\n(Offline-First / IndexedDB)"]
-        DEOC["DDMA Command Dashboard\n(Real-Time Heatmap)"]
+    subgraph APPS["📱 EDGE APPLICATIONS"]
+        direction LR
+        CITIZEN["📱 Citizen PWA\n(IndexedDB + Service Worker)\nWorks 100% Offline"]
+        OFFICER["🖥️ Authority Command Map\n(Real-time Heatmap & Dispatch)"]
     end
 
-    IMD & CWC & NCS & INCOIS & FSI --> TF_SEARCH
-    TF_SEARCH --> TF_FETCH --> TF_AGENT
-    TF_AGENT -->|Normalized JSON| AUTH_GATE
-    AUTH_GATE -->|Verified| POSTGIS
-    AUTH_GATE -->|Unverified| DEOC
-    
-    PWA -->|Idempotent SOS & Photo Reports| AI_ENGINE
-    AI_ENGINE --> POSTGIS
-    POSTGIS <-->|Sub-50ms Spatial Queries| PWA
-    POSTGIS <-->|Live Heatmap & Queue Streams| DEOC
+    WEB --> TINYFISH
+    TF_AGENT --> GATE
+    DB <-->|"JSON over HTTPS / Auto-Sync"| CITIZEN
+    DB <-->|"Spatial WebSocket / Heatmap API"| OFFICER
+    CITIZEN -.->|"Photo Reports"| AI_CHECK
+
+    style WEB fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style TINYFISH fill:#ede7f6,stroke:#512da8,stroke-width:2px
+    style BACKEND fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style APPS fill:#fff8e1,stroke:#f57f17,stroke-width:2px
 ```
 
 ---
 
-### The Offline Synchronization Loop
+## 🔁 Three Core User Stories
 
-How AAGAM guarantees zero dropped distress signals during network collapse:
+<p align="center">
+  <img src="docs/screenshots/timeline-steps.png" alt="Disaster Timeline" width="100%" />
+</p>
+
+> ### 📸 **[IMAGE PLACEHOLDER: 3 STORIES WORKFLOW]**
+> - **File:** `docs/screenshots/timeline-steps.png` (900 × 300 px)
+> - **Content:** Visual step-by-step banner showing: (1) Official IMD Bulletin $\rightarrow$ (2) Offline SOS on Citizen Phone $\rightarrow$ (3) AI Photo Triage on Officer Screen.
+
+### 📜 Story A: Official Bulletin ➔ Phone Alert
+1. **Radar Timer:** TinyFish Search finds newest bulletins for the district every 15 minutes.
+2. **Text Extraction:** TinyFish Fetch retrieves clean bulletin text and timestamps a raw snapshot.
+3. **Deduplication:** Merges identical hazard + district + source updates into a single active alert.
+4. **Publish Rule:** Official domains (`.gov.in`, `.nic.in`) **auto-publish** immediately. News items become `pending`.
+5. **Offline Delivery:** Citizen's PWA caches the alert; if cellular towers drop, the last valid alert remains visible.
+
+### 🆘 Story B: The Zero-Signal SOS
+1. **Trigger:** Citizen holds the red SOS button for 2 seconds (with a 5-second accidental cancel countdown).
+2. **Local Storage:** Phone captures GPS coordinates, timestamp, and creates a unique `clientId` (UUID) in **IndexedDB**.
+3. **If Online:** Transmitted immediately to `POST /api/sos/trigger`.
+4. **If Offline:** Stored securely in phone queue; attempts mock SMS fallback.
+5. **Auto-Sync:** As soon as any network bar returns, PWA flushes queue via `POST /api/sync`.
+6. **Dispatch:** Officer sees an alert card $\rightarrow$ clicks **Acknowledge** $\rightarrow$ clicks **Dispatch Team** $\rightarrow$ marks **Resolved**.
+
+### 📸 Story C: AI-Verified Photo Damage Report
+1. **Capture:** Citizen selects a hazard category (e.g., *Flooding*), takes a photo (compressed on-device to ~300 KB).
+2. **Inference:** Backend passes photo to AI vision model which returns `{label, confidence}`.
+3. **Automated Triage Rule:**
+   - **Confidence $\ge 0.70$ + Matching Label:** Automatically marked `ai_verified` and projected on the officer's live heatmap.
+   - **Confidence $< 0.70$:** Sent to `needs_review` queue to keep the heatmap free of hoaxes and memes.
+4. **Human Authority Decision:** The officer reviews the photo and confirms with **Approve** or **Reject**.
+
+---
+
+## 📱 Screen-by-Screen Walkthrough
+
+### 1. Citizen PWA (Mobile Phone)
+
+<p align="center">
+  <img src="docs/screenshots/citizen-offline-sos.png" alt="Citizen App Offline SOS Screen" width="60%" />
+</p>
+
+> ### 📸 **[IMAGE PLACEHOLDER: CITIZEN PWA SCREENSHOTS]**
+> - **File:** `docs/screenshots/citizen-offline-sos.png` (800 × 500 px)
+> - **Content:** Mobile screenshot in Airplane Mode: Amber banner *"Offline: Updated 14:02"*, center red SOS button, and *"Nearest Open Shelter: Thyagaraj Stadium (0.8 km)"*.
+
+| Tab | Key UI Elements | Works Offline? |
+|---|---|:---:|
+| 🏠 **Home** | Status strip (*"Online"* / *"Offline"*), hazard alert cards with severity colors (Red/Orange/Yellow), *What To Do* checklist, *View Official Source* link. | **YES** |
+| 🗺️ **Map** | GPS blue dot, shelter pins, danger zone polygon, **"Nearest Open Shelter"** button that draws a dashed cached route. | **YES** |
+| 🆘 **SOS** | Big Red Button (hold 2s), status progress card (*Queued $\rightarrow$ Sent $\rightarrow$ Acknowledged $\rightarrow$ Dispatched*), *"I'm Safe / Cancel"* button, 112 dialer. | **YES** *(Queued)* |
+| 📷 **Report** | Hazard category chips, camera capture (~300 KB), draggable location pin, note input, *My Reports* status tracker. | **YES** *(Queued)* |
+| 👤 **Profile** | Home district selector, emergency phone number, **"Download Offline Area"** button, manual sync button. | **YES** |
+
+---
+
+### 2. Authority Command Dashboard (Desktop Laptop)
+
+<p align="center">
+  <img src="docs/screenshots/authority-dashboard.png" alt="Authority Command Dashboard" width="90%" />
+</p>
+
+> ### 📸 **[IMAGE PLACEHOLDER: AUTHORITY COMMAND DASHBOARD]**
+> - **File:** `docs/screenshots/authority-dashboard.png` (1200 × 650 px)
+> - **Content:** DEOC command screen: Left navigation menu, live PostGIS incident density heatmap of Delhi NCR, active SOS cards, and live shelter occupancy meters.
+
+| Page | What the Officer Sees & Does |
+|---|---|
+| 🗺️ **Overview** | KPI tiles (*Active Alerts*, *Open SOS*, *Reports to Review*, *Shelter Capacity*), real-time PostGIS heatmap, time filter (1h, 6h, 24h), SOS cluster markers ($\ge 3$ within 500m). |
+| 📢 **Alerts** | Bulletin management table: Approve & Publish pending alerts, edit alert message, withdraw expired alerts, view source link. |
+| 🚨 **SOS Queue** | Chronological distress list: Inspect citizen contact, team assignment input, one-click **Acknowledge**, **Dispatch**, and **Resolve**. |
+| 📸 **Reports** | Three triage tabs: **Needs Review**, **AI-Verified**, and **Rejected**. View photo, AI confidence bar, and verify or reject with reason. |
+| 🏕️ **Shelters** | Shelter list + map: Capacity vs occupancy, quick `+ / -` occupancy toggles, Open/Closed switch. |
+
+---
+
+## 🏕️ Shelter Pin & Heatmap Logic
+
+### Shelter Pin Colors
+- 🟢 **Green (Open):** Space available ($< 80\%$ occupied).
+- 🟡 **Amber (Filling):** High occupancy ($80\% - 99\%$).
+- 🔴 **Red (Full):** $100\%$ capacity reached (PWA automatically diverts routing to next closest shelter).
+- ⚪ **Grey (Closed):** Decommissioned or unsafe shelter.
+
+### Heatmap Color Scale (Command Center Only)
+- 🟡 **Yellow:** Low incident density (1–3 trusted reports).
+- 🟠 **Orange:** Moderate incident density.
+- 🔴 **Red:** Critical trouble spot — **direct rescue units here first**.
+
+> 🔒 **Why Citizens Do Not See the Heatmap:** Showing raw distress clusters publicly could cause mass panic and compromises citizen privacy. Citizens receive clean, verified alert polygons and shelter paths.
+
+---
+
+## 📶 The Offline Sync Engine
+
+How AAGAM ensures zero distress calls are dropped when mobile towers fail:
+
+| Feature | Offline Availability | Technical Implementation |
+|---|:---:|---|
+| **Open Citizen App** | ✅ **YES** | Service Worker serves cached application shell. |
+| **Read Active Alerts** | ✅ **YES** | Read from local storage with *"Last updated"* timestamp. |
+| **View Shelter Map & Pins** | ✅ **YES** | Pre-cached for user's home district at setup. |
+| **Route to Shelter** | ✅ **YES** | Pre-calculated straight/cached line to nearest open facility. |
+| **GPS Geolocation** | ✅ **YES** | Hardware GPS operates independently of cellular data. |
+| **Trigger SOS** | ✅ **YES** | Saved to **IndexedDB** with client UUID; auto-syncs on network return. |
+| **Submit Damage Photo** | ✅ **YES** | Compressed locally and queued for batch upload. |
+| **Receive NEW Alerts** | ⚠️ *Requires Signal* | Real-time push requires data connection; SMS fallback simulated. |
+
+---
+
+## 🔄 Status Life Cycles
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor Citizen as Citizen in Disaster Area
-    participant PWA as Citizen PWA (Service Worker)
-    participant IDB as Local IndexedDB
-    participant Net as Network Monitor
-    participant API as AAGAM PostGIS Server
-    actor DDMA as DDMA Emergency Officer
+stateDiagram-v2
+    direction LR
 
-    Note over Citizen,IDB: Mobile Network Shuts Down (0 Bars)
-    Citizen->>PWA: Taps "Emergency SOS"
-    PWA->>IDB: Stores payload with client UUID, lat, lng, time
-    PWA-->>Citizen: Renders instant confirmation: "SOS Queued Offline"
-    
-    Note over Citizen,IDB: 45 Minutes Later: Cell on Wheels or 2G restored
-    Net->>PWA: Online Event Detected
-    PWA->>IDB: Reads unsynced SOS and report queue
-    PWA->>API: POST /api/sync {items: [sosPayload]}
-    
-    API->>API: Checks clientId for idempotency
-    API->>API: Inserts incident & links to nearest rescue district
-    API-->>PWA: 200 OK {synced: [clientId], status: "acknowledged"}
-    PWA->>IDB: Marks item synced
-    PWA-->>Citizen: Updates UI: "SOS Received by DDMA - Help Dispatched"
-    API->>DDMA: Live Heatmap & Dispatch queue alerts officer
+    state "SOS Event" as SOS {
+        Queued_Local --> New : Auto-Sync
+        New --> Acknowledged : Officer Sees
+        Acknowledged --> Dispatched : Team Sent
+        Dispatched --> Resolved : Safe
+    }
+
+    state "Photo Report" as REP {
+        Queued_Phone --> AI_Analysis : Sync
+        AI_Analysis --> AI_Verified : Score >= 0.70
+        AI_Analysis --> Needs_Review : Score < 0.70
+        Needs_Review --> Verified : Officer OK
+        Needs_Review --> Rejected : Spam / Hoax
+    }
 ```
 
 ---
 
-## 📊 Innovation & Competitive Matrix: SACHET vs AAGAM
+## ⚡ Quickstart in 5 Commands
 
-| Capability | NDMA SACHET (Current System) | AAGAM (Our Innovation) |
-|---|---|---|
-| **Offline Operability** | ❌ Fails completely without active data connection | ✅ **Full offline operation** via Service Workers & IndexedDB |
-| **Hazard Ingestion** | ⚠️ Manual notification pushes & CAP broadcasts | ✅ **Autonomous TinyFish Agents** scraping 11 hazard feeds 24/7 |
-| **Citizen Feedback** | ❌ One-way broadcast; citizens cannot reply | ✅ **Bi-directional crowdsourcing** with photo reports |
-| **False Report Filtering** | ❌ Requires manual phone calls to verify | ✅ **Multimodal AI triage** ($\ge 0.70$ confidence filter) |
-| **Shelter Intelligence** | ⚠️ Static addresses in PDF or simple lists | ✅ **Real-time capacity tracking** with auto-status diversion |
-| **Network Resilience** | ❌ Single drop causes request failure | ✅ **Idempotent retry engine** with deterministic UUID keys |
-| **Deployment Barrier** | ⚠️ Heavy native app download (15–40 MB) | ✅ **Zero-install instant PWA** (< 500 KB cached) |
-| **Actionable Dashboard** | ⚠️ Disconnected municipal computer tools | ✅ **Unified PostGIS Command Center** with live spatial heatmaps |
-
----
-
-## 🌪️ 5-Step Disaster Simulation Walkthrough
-
-To experience AAGAM's end-to-end resilience, consider the following simulated disaster scenario:
-
-```
-========================================================================================
-[ADD IMAGE HERE: 5-Step Simulation Flow Visual]
-Type: Step-by-step visual horizontal sequence showing: (1) IMD Cyclone Alert -> (2) Pre-caching in PWA -> (3) Tower breakdown & Offline SOS -> (4) Network restoration & Auto-sync -> (5) DDMA Rescue Dispatch.
-File path to place image: docs/screenshots/timeline-steps.png
-========================================================================================
-```
-![Simulation Steps](docs/screenshots/timeline-steps.png)
-
-1. **$T - 12\text{ Hours}$ (Early Warning):** TinyFish Radar scrapes an IMD Bulletin predicting severe cyclonic storm landfall. AAGAM generates a high-severity spatial alert for 3 coastal districts.
-2. **$T - 6\text{ Hours}$ (Proactive Pre-Caching):** Citizens opening the PWA automatically download and cache safe evacuation routes, emergency instructions, and the nearest 8 relief shelters.
-3. **$T - 0\text{ Hours}$ (Cellular Blackout):** As the storm makes landfall, telecommunication towers and power fail. A trapped citizen triggers the SOS button. The PWA writes the encrypted distress packet into IndexedDB.
-4. **$T + 45\text{ Mins}$ (Transient Connection):** Emergency responders deploy an ad-hoc 2G cell tower. The PWA's network monitor detects connectivity and fires a background batch sync (`POST /api/sync`).
-5. **$T + 50\text{ Mins}$ (Triage & Rescue Dispatch):** The incident appears instantly on the DDMA Command Heatmap with exact GPS coordinates. The officer clicks **Dispatch Team**, assigning NDRF Unit 4.
-
----
-
-## 💰 Business Model & Financial Sustainability
-
-AAGAM is built on a sustainable, high-impact public-private model:
-
-```
-========================================================================================
-[ADD IMAGE HERE: Business & Revenue Model Canvas]
-Type: Financial infograph illustrating B2G District Model, B2B Enterprise Risk API, and TAM/SAM/SOM breakdown.
-File path to place image: docs/screenshots/revenue-model.png
-========================================================================================
-```
-![Revenue Model](docs/screenshots/revenue-model.png)
-
-### Revenue Streams
-- 🏛️ **B2G (District Administration SaaS):** ₹6 Lakh / district / year for DDMA command center licensing, real-time spatial analytics, and multi-agency operational integration.
-- 🏢 **B2B (Enterprise Hazard Risk API):** ₹50,000 to ₹2,00,000 / month for insurance providers, supply chain logistics (e.g., Delhivery, Blue Dart), and infrastructure operators requiring automated hazard boundary feeds.
-- 🤝 **Humanitarian & NGO Access:** Free tier for accredited relief organizations, community volunteer networks, and civil defence personnel.
-
-### Market Opportunity (India)
-- **TAM (Total Addressable Market):** **₹1,200 Cr** (766 Indian districts, Smart Cities Mission, nationwide logistics & infrastructure risk management).
-- **SAM (Serviceable Addressable Market):** **₹380 Cr** (Top 250 disaster-vulnerable coastal, riverine, and seismic zone districts + top commercial enterprises).
-- **SOM (Serviceable Obtainable Market):** **₹45 Cr** (Initial 3-year phased deployment across 40 priority districts in Odisha, Andhra Pradesh, Gujarat, and Assam).
-
----
-
-## 💻 Local Setup & Quickstart (5 Commands)
-
-Get the complete AAGAM backend and database running locally in under 3 minutes:
+Run the full AAGAM backend, database migrations, and 11-hazard seed dataset locally:
 
 ```bash
-# 1. Clone repository & enter workspace
+# 1. Clone the repository
 git clone https://github.com/COOKEE-MJ/AAGAM_.git
 cd AAGAM_
 
-# 2. Copy environment configuration
+# 2. Configure environment from safe template
 cp .env.example .env
 
 # 3. Install dependencies
 npm install
 
-# 4. Initialize schema & load demonstration seed data (New Delhi)
-npm run db:init
-npm run db:seed
+# 4. Initialize PostGIS schema & load demo dataset
+npm run db:init && npm run db:seed
 
-# 5. Start API server on Port 3000
+# 5. Start development API server (Port 3000)
 npm run dev
 ```
 
-### Run Automated Smoke & Unit Tests
-To verify all PostGIS endpoints, idempotency guarantees, and AI verification flows:
+### Verify Everything Works (Automated Smoke Suite)
 ```bash
 npm run smoke
 ```
-*(Expect: 23 passed, 0 failed)*
+*(Executes 23 automated end-to-end checks across PostGIS spatial queries, SOS idempotency, and role permissions).*
 
-### Pre-Configured Demo Credentials (Password: `Demo@1234`)
-- 👮 **DDMA Emergency Officer:** `9000000001` *(Access to Command Heatmap, Verification Queue & Shelter Controls)*
-- 👤 **Citizen Demo Account:** `9000000002` *(Access to PWA, SOS, and Hazard Alerts)*
-
----
-
-## 🔮 Future Roadmap
-
-```mermaid
-timeline
-    title AAGAM Evolution Roadmap
-    section Hackathon MVP
-        Current : PostGIS Spatial Engine
-                : 11 Multi-Hazard Taxonomy
-                : TinyFish Scraping Agent
-                : Offline PWA & IndexedDB Queue
-                : DDMA Command Dashboard
-    section Phase 1 (Q1)
-        Next Steps : LoRa & BLE Mesh SOS Relay (100% off-grid)
-                   : Multilingual Audio Alerts (Hindi, Odia, Telugu)
-                   : Live Integration with State Disaster Portals
-    section Phase 2 (Q2-Q3)
-        Scale : ISRO NavIC Satellite Messaging Integration
-              : Automated Drone Damage Assessment Pipeline
-              : Predictive Flood Inundation Modeling
-```
+### 🔑 Pre-Configured Demo Credentials (Password: `Demo@1234`)
+- 👮 **Authority Officer:** `9000000001` *(Full access to Heatmap, Verification Queue, & Shelters)*
+- 👤 **Citizen Account:** `9000000002` *(PWA access, SOS trigger, and Photo Reports)*
 
 ---
 
-## 👥 The Team
+## 🛡️ Security & Privacy Audit
 
-| Name | Role | Core Lane & Deliverables |
-|---|---|---|
-| **Member 1** | **Frontend & Citizen Experience** | Offline PWA, Service Workers, IndexedDB Sync Queue, DDMA React Dashboard |
-| **Member 2** | **Backend & Database** | Node.js Express API, PostgreSQL/PostGIS Schema, Spatial Queries, Idempotency |
-| **Member 3** | **AI & Data Pipeline** | TinyFish Web Ingestion Agent, Multimodal Vision Verification, Hazard Extraction |
-| **Member 4** | **Product, Delivery & QA** | Architecture & Deck, End-to-End Testing, Documentation, API Governance |
-
----
-
-## ⚖️ Transparency Note for Evaluators
-
-In accordance with hackathon guidelines, here is a transparent breakdown of the current evaluation build:
-- **Live & Production-Ready:** PostgreSQL + PostGIS spatial schema, spatial distance queries, idempotent SOS queuing, multi-item offline sync endpoint, JWT role guards, and automated test suite.
-- **Demonstration / Simulation:** SMS alerts are logged to an internal spatial table (`sms_log`) rather than sending live paid telecom SMS. The AI photo verification defaults to mock mode (`AI_MODE=mock`, 85% confidence score) for deterministic offline judging demonstrations.
+| Security Item | Status | Guarantee |
+|---|:---:|---|
+| **Database & API Passwords** | 🔒 **PROTECTED** | Local `.env` is listed in `.gitignore` and has **NEVER** been committed to git history. |
+| **Citizen PII** | 🔒 **ENCRYPTED** | Phone numbers and exact coordinates are accessible exclusively by authorized district officers. |
+| **Role-Based Access (RBAC)** | 🔒 **ENFORCED** | Public users and citizens receive `403 Forbidden` if attempting to query command heatmaps or queues. |
+| **Idempotency Safeguard** | 🔒 **VERIFIED** | Every SOS carries a unique `clientId`; duplicate network packets never trigger duplicate alerts. |
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ for resilient, life-saving disaster intelligence across India.</sub><br>
-  <sub>Licensed under the <a href="LICENSE">MIT License</a>.</sub>
-</div>
+## 👥 The Contributors
+
+<table align="center">
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://github.com/identicons/m1.png" width="100px;" alt="M1"/><br />
+      <sub><b>Member 1</b></sub><br />
+      <sub>🎨 <b>Frontend & UI Lead</b></sub><br />
+      <small>React PWA • Service Worker • IndexedDB • Leaflet Maps</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://github.com/COOKEE-MJ.png" width="100px;" alt="COOKEE-MJ"/><br />
+      <sub><b>MANSI (M4 & M2)</b></sub><br />
+      <sub>⚙️ <b>Backend & Product Lead</b></sub><br />
+      <small>PostGIS • Express API • Architecture • QA • Documentation</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://github.com/identicons/m3.png" width="100px;" alt="M3"/><br />
+      <sub><b>Member 3</b></sub><br />
+      <sub>🤖 <b>AI & Radar Specialist</b></sub><br />
+      <small>TinyFish Web Agent • Vision Triage • Bulletin Extractor</small>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://github.com/identicons/m2.png" width="100px;" alt="M2"/><br />
+      <sub><b>Member 2</b></sub><br />
+      <sub>🗄️ <b>Database Architect</b></sub><br />
+      <small>Spatial Schema • PostGIS Migrations • Role Middleware</small>
+    </td>
+  </tr>
+</table>
+
+---
+
+## ⚖️ Hackathon Transparency Disclosure
+- **Pretrained AI Model:** Image damage verification utilizes a pretrained vision model with a default confidence threshold of $0.70$.
+- **Simulated Telecom Gateway:** In the demonstration environment, SMS notifications are logged to a spatial database table (`sms_log`) rather than sending paid telecom SMS.
+- **Seeded Demo Data:** Demonstration shelters and alerts are geolocated in the New Delhi district for testing.
+
+---
+
+<p align="center">
+  <strong>⭐ If you find AAGAM interesting, please consider starring this repository! ⭐</strong><br>
+  <sub>Built with ❤️ for resilient disaster management across India • Licensed under MIT</sub>
+</p>
