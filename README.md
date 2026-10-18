@@ -336,7 +336,7 @@ npm run smoke
       <img src="https://github.com/COOKEE-MJ.png" width="90px;" alt="Mansi"/><br />
       <sub><b>Mansi</b></sub><br />
       <sub>⚙️ <b>Backend Lead & Product Lead</b></sub><br />
-      <small>Node.js Express API • PostgreSQL & PostGIS • Idempotent Offline Sync • Test Automation & QA • System Architecture</small>
+      <small>PostGIS Spatial Architecture • Idempotent Offline Sync • Product Strategy & PRD • E2E QA Testing • Delivery</small>
     </td>
   </tr>
 </table>
