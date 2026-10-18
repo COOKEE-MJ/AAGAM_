@@ -33,7 +33,7 @@ function check(name, ok, extra = '') {
 
   // 2. Login (both phone & email supported)
   const cit = await call('POST', '/api/auth/login', { body: { phone: '9000000002', password: 'Demo@1234' } });
-  const off = await call('POST', '/api/auth/login', { body: { email: 'officer@demo.local', password: 'demo-officer-123' } });
+  const off = await call('POST', '/api/auth/login', { body: { email: 'officer@demo.local', password: 'Demo@1234' } });
   check('citizen login (phone)', cit.status === 200 && cit.json.token);
   check('officer login (email)', off.status === 200 && off.json.token);
   const C = cit.json?.token, O = off.json?.token;
