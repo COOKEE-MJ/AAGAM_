@@ -1,0 +1,592 @@
+{
+  "district": "New Delhi",
+  "center": {
+    "lat": 28.6139,
+    "lng": 77.209
+  },
+  "users": [
+    {
+      "role": "authority",
+      "name": "Demo Officer",
+      "email": "officer@demo.local",
+      "phone": "9000000001",
+      "password": "demo-officer-123",
+      "homeDistrict": "New Delhi",
+      "homeState": "Delhi",
+      "districtScope": "New Delhi"
+    },
+    {
+      "role": "citizen",
+      "name": "Demo Citizen",
+      "email": "citizen@demo.local",
+      "phone": "9000000002",
+      "password": "Demo@1234",
+      "homeDistrict": "New Delhi",
+      "homeState": "Delhi",
+      "districtScope": null
+    },
+    {
+      "role": "citizen",
+      "name": "Rahul Sharma",
+      "email": "citizen2@demo.local",
+      "phone": "9000000003",
+      "password": "Demo@1234",
+      "homeDistrict": "New Delhi",
+      "homeState": "Delhi",
+      "districtScope": null
+    }
+  ],
+  "alerts": [
+    {
+      "hazard": "cyclone",
+      "severity": "extreme",
+      "title": "Severe Cyclone Alert",
+      "message": "Cyclone landfall expected within 12 hours. Coastal and low-lying evacuations ordered.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6239,
+        "lng": 77.219
+      },
+      "radiusKm": 40,
+      "validUntil": "2026-10-19T12:08:36.908Z",
+      "sourceName": "India Meteorological Department (IMD)",
+      "sourceUrl": "https://mausam.imd.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-cyclone"
+    },
+    {
+      "hazard": "flood",
+      "severity": "high",
+      "title": "River Above Warning Level",
+      "message": "Water level rising rapidly. Riverbank residents must move to designated shelters.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.5989,
+        "lng": 77.199
+      },
+      "radiusKm": 25,
+      "validUntil": "2026-10-19T06:08:36.908Z",
+      "sourceName": "Central Water Commission (CWC)",
+      "sourceUrl": "https://ffs.india-water.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-flood"
+    },
+    {
+      "hazard": "rain",
+      "severity": "high",
+      "title": "Heavy Rainfall Warning",
+      "message": "Inundation and waterlogging expected in low-lying city zones.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6339,
+        "lng": 77.194
+      },
+      "radiusKm": 30,
+      "validUntil": "2026-10-19T00:08:36.908Z",
+      "sourceName": "IMD Nowcast",
+      "sourceUrl": "https://mausam.imd.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-rain"
+    },
+    {
+      "hazard": "earthquake",
+      "severity": "medium",
+      "title": "Earthquake Advisory (M 4.6)",
+      "message": "Tremors felt across the district. Report structural damage immediately.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6139,
+        "lng": 77.209
+      },
+      "radiusKm": 50,
+      "validUntil": "2026-10-20T00:08:36.908Z",
+      "sourceName": "National Center for Seismology (NCS)",
+      "sourceUrl": "https://seismo.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-earthquake"
+    },
+    {
+      "hazard": "landslide",
+      "severity": "high",
+      "title": "Landslide Warning on Slopes",
+      "message": "Slope instability detected following intense precipitation.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.5939,
+        "lng": 77.229
+      },
+      "radiusKm": 20,
+      "validUntil": "2026-10-19T08:08:36.908Z",
+      "sourceName": "Geological Survey of India (GSI)",
+      "sourceUrl": "https://www.gsi.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-landslide"
+    },
+    {
+      "hazard": "tsunami",
+      "severity": "medium",
+      "title": "Coastal Surge & Tsunami Watch",
+      "message": "Heightened sea levels observed along regional coastlines.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6439,
+        "lng": 77.229
+      },
+      "radiusKm": 45,
+      "validUntil": "2026-10-19T03:08:36.908Z",
+      "sourceName": "INCOIS Tsunami Warning Centre",
+      "sourceUrl": "https://tsunami.incois.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-tsunami"
+    },
+    {
+      "hazard": "heatwave",
+      "severity": "high",
+      "title": "Severe Heatwave Warning",
+      "message": "Daytime temperatures exceeding 45°C. Avoid outdoor exposure between 11 AM and 4 PM.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": null,
+      "radiusKm": null,
+      "validUntil": "2026-10-20T12:08:36.908Z",
+      "sourceName": "India Meteorological Department (IMD)",
+      "sourceUrl": "https://mausam.imd.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-heatwave"
+    },
+    {
+      "hazard": "lightning",
+      "severity": "medium",
+      "title": "Thunderstorm with Lightning",
+      "message": "Thunderstorm activity detected; take shelter indoors.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6189,
+        "lng": 77.189
+      },
+      "radiusKm": 20,
+      "validUntil": "2026-10-18T18:08:36.908Z",
+      "sourceName": "IMD Damini Lightning Alerts",
+      "sourceUrl": "https://mausam.imd.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-lightning"
+    },
+    {
+      "hazard": "coldwave",
+      "severity": "medium",
+      "title": "Expired Cold Wave Bulletin",
+      "message": "Temperatures dropped below seasonal average.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": null,
+      "radiusKm": null,
+      "validUntil": "2026-10-18T00:08:36.908Z",
+      "sourceName": "IMD Coldwave Desk",
+      "sourceUrl": "https://mausam.imd.gov.in",
+      "status": "published",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-coldwave"
+    },
+    {
+      "hazard": "forest_fire",
+      "severity": "high",
+      "title": "Unconfirmed Forest Fire Notice",
+      "message": "Media report of blaze on regional ridge area.",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "center": {
+        "lat": 28.6539,
+        "lng": 77.179
+      },
+      "radiusKm": 15,
+      "validUntil": "2026-10-19T12:08:36.908Z",
+      "sourceName": "Local Press News",
+      "sourceUrl": "https://dailynews.example.com/fire",
+      "status": "pending",
+      "origin": "radar",
+      "dedupeKey": "alert-New Delhi-forestfire"
+    }
+  ],
+  "shelters": [
+    {
+      "name": "District Community Relief Hall",
+      "type": "community hall",
+      "district": "New Delhi",
+      "address": "Sector 4, Main Road",
+      "location": {
+        "lat": 28.6179,
+        "lng": 77.212
+      },
+      "capacity": 250,
+      "occupancy": 50,
+      "status": "open",
+      "facilities": [
+        "drinking water",
+        "medical kits",
+        "generator power"
+      ],
+      "suitableFor": [
+        "cyclone",
+        "flood",
+        "rain",
+        "earthquake"
+      ],
+      "contact": "011-23456781"
+    },
+    {
+      "name": "Govt Higher Secondary School Shelter",
+      "type": "school",
+      "district": "New Delhi",
+      "address": "Near Central Park",
+      "location": {
+        "lat": 28.6219,
+        "lng": 77.203
+      },
+      "capacity": 300,
+      "occupancy": 245,
+      "status": "filling",
+      "facilities": [
+        "drinking water",
+        "washrooms",
+        "kitchen"
+      ],
+      "suitableFor": [
+        "flood",
+        "cyclone",
+        "lightning"
+      ],
+      "contact": "011-23456782"
+    },
+    {
+      "name": "Civil Hospital Emergency Complex",
+      "type": "hospital",
+      "district": "New Delhi",
+      "address": "Hospital Square, Block B",
+      "location": {
+        "lat": 28.6089,
+        "lng": 77.217
+      },
+      "capacity": 150,
+      "occupancy": 150,
+      "status": "full",
+      "facilities": [
+        "intensive care",
+        "trauma unit",
+        "oxygen supply"
+      ],
+      "suitableFor": [
+        "earthquake",
+        "heatwave",
+        "cyclone",
+        "flood"
+      ],
+      "contact": "011-23456783"
+    },
+    {
+      "name": "Railway Colony Community Center",
+      "type": "community hall",
+      "district": "New Delhi",
+      "address": "Station Road",
+      "location": {
+        "lat": 28.6039,
+        "lng": 77.204
+      },
+      "capacity": 200,
+      "occupancy": 0,
+      "status": "closed",
+      "facilities": [
+        "spacious hall"
+      ],
+      "suitableFor": [
+        "flood",
+        "rain"
+      ],
+      "contact": "011-23456784"
+    },
+    {
+      "name": "Sports Stadium Assembly Grounds",
+      "type": "open assembly point",
+      "district": "New Delhi",
+      "address": "Stadium Avenue",
+      "location": {
+        "lat": 28.6259,
+        "lng": 77.219
+      },
+      "capacity": 800,
+      "occupancy": 120,
+      "status": "open",
+      "facilities": [
+        "open field",
+        "tents",
+        "mobile toilets"
+      ],
+      "suitableFor": [
+        "earthquake",
+        "tsunami"
+      ],
+      "contact": "011-23456785"
+    },
+    {
+      "name": "Municipal Youth Club",
+      "type": "community hall",
+      "district": "New Delhi",
+      "address": "Ward 12, South Colony",
+      "location": {
+        "lat": 28.6289,
+        "lng": 77.197
+      },
+      "capacity": 180,
+      "occupancy": 40,
+      "status": "open",
+      "facilities": [
+        "food distribution",
+        "first aid"
+      ],
+      "suitableFor": [
+        "cyclone",
+        "flood",
+        "heatwave"
+      ],
+      "contact": "011-23456786"
+    },
+    {
+      "name": "Red Cross Disaster Relief Center",
+      "type": "relief camp",
+      "district": "New Delhi",
+      "address": "Ring Road Junction",
+      "location": {
+        "lat": 28.5959,
+        "lng": 77.223
+      },
+      "capacity": 350,
+      "occupancy": 285,
+      "status": "filling",
+      "facilities": [
+        "doctor on duty",
+        "bedding",
+        "counseling"
+      ],
+      "suitableFor": [
+        "flood",
+        "cyclone",
+        "earthquake",
+        "landslide"
+      ],
+      "contact": "011-23456787"
+    },
+    {
+      "name": "Vocational Training Institute Shelter",
+      "type": "institute",
+      "district": "New Delhi",
+      "address": "Industrial Area Phase 1",
+      "location": {
+        "lat": 28.6339,
+        "lng": 77.227
+      },
+      "capacity": 220,
+      "occupancy": 60,
+      "status": "open",
+      "facilities": [
+        "clean water",
+        "solar battery"
+      ],
+      "suitableFor": [
+        "cyclone",
+        "rain",
+        "flood"
+      ],
+      "contact": "011-23456788"
+    }
+  ],
+  "sosEvents": [
+    {
+      "clientId": "seed-sos-1",
+      "location": {
+        "lat": 28.6189,
+        "lng": 77.214
+      },
+      "hazard": "flood",
+      "peopleCount": 4,
+      "injured": true,
+      "note": "Water rising up to first floor, elderly parents inside",
+      "status": "new",
+      "createdAgoMin": 30
+    },
+    {
+      "clientId": "seed-sos-2",
+      "location": {
+        "lat": 28.6197,
+        "lng": 77.2146
+      },
+      "hazard": "flood",
+      "peopleCount": 2,
+      "injured": false,
+      "note": "Stuck on roof, boat rescue needed",
+      "status": "new",
+      "createdAgoMin": 25
+    },
+    {
+      "clientId": "seed-sos-3",
+      "location": {
+        "lat": 28.6182,
+        "lng": 77.2135
+      },
+      "hazard": "flood",
+      "peopleCount": 6,
+      "injured": true,
+      "note": "Wall collapsed, 1 child injured",
+      "status": "new",
+      "createdAgoMin": 15
+    },
+    {
+      "clientId": "seed-sos-4",
+      "location": {
+        "lat": 28.6019,
+        "lng": 77.224
+      },
+      "hazard": "earthquake",
+      "peopleCount": 3,
+      "injured": false,
+      "note": "Staircase cracked, door jammed",
+      "status": "acknowledged",
+      "createdAgoMin": 60
+    },
+    {
+      "clientId": "seed-sos-5",
+      "location": {
+        "lat": 28.6319,
+        "lng": 77.193
+      },
+      "hazard": "landslide",
+      "peopleCount": 1,
+      "injured": false,
+      "note": "Mud blocking front entrance",
+      "status": "dispatched",
+      "createdAgoMin": 90
+    }
+  ],
+  "reports": [
+    {
+      "clientId": "seed-rep-1",
+      "location": {
+        "lat": 28.6179,
+        "lng": 77.215
+      },
+      "type": "flooding",
+      "hazard": "flood",
+      "note": "Main intersection 3 feet under water",
+      "aiLabel": "flood",
+      "aiConfidence": 0.92,
+      "aiMode": "mock",
+      "status": "ai_verified",
+      "hasPhoto": true
+    },
+    {
+      "clientId": "seed-rep-2",
+      "location": {
+        "lat": 28.6199,
+        "lng": 77.213
+      },
+      "type": "building_damage",
+      "hazard": "earthquake",
+      "note": "Commercial complex pillar cracked",
+      "aiLabel": "building_damage",
+      "aiConfidence": 0.88,
+      "aiMode": "mock",
+      "status": "ai_verified",
+      "hasPhoto": true
+    },
+    {
+      "clientId": "seed-rep-3",
+      "location": {
+        "lat": 28.6059,
+        "lng": 77.221
+      },
+      "type": "road_blocked",
+      "hazard": "rain",
+      "note": "Uprooted banyan tree blocking bus route",
+      "aiLabel": "road_blocked",
+      "aiConfidence": 0.84,
+      "aiMode": "mock",
+      "status": "ai_verified",
+      "hasPhoto": true
+    },
+    {
+      "clientId": "seed-rep-4",
+      "location": {
+        "lat": 28.5989,
+        "lng": 77.199
+      },
+      "type": "landslide",
+      "hazard": "landslide",
+      "note": "Hill cut debris on highway",
+      "aiLabel": "landslide",
+      "aiConfidence": 0.79,
+      "aiMode": "mock",
+      "status": "ai_verified",
+      "hasPhoto": true
+    },
+    {
+      "clientId": "seed-rep-5",
+      "location": {
+        "lat": 28.6279,
+        "lng": 77.191
+      },
+      "type": "fire",
+      "hazard": "forest_fire",
+      "note": "Dry grass smoke near outskirts",
+      "aiLabel": "smoke",
+      "aiConfidence": 0.65,
+      "aiMode": "mock",
+      "status": "needs_review",
+      "hasPhoto": true
+    },
+    {
+      "clientId": "seed-rep-6",
+      "location": {
+        "lat": 28.6339,
+        "lng": 77.224
+      },
+      "type": "flooding",
+      "hazard": "flood",
+      "note": "Storm water drain overflowing",
+      "aiLabel": "flood",
+      "aiConfidence": 0.95,
+      "aiMode": "mock",
+      "status": "verified",
+      "hasPhoto": true
+    }
+  ],
+  "smsLogs": [
+    {
+      "toPhone": "control-room",
+      "body": "SOS seed-sos-1 @ 28.6189,77.214",
+      "mode": "mock"
+    },
+    {
+      "toPhone": "control-room",
+      "body": "SOS seed-sos-2 @ 28.6189,77.214",
+      "mode": "mock"
+    },
+    {
+      "toPhone": "control-room",
+      "body": "ALERT: Cyclone warning issued for New Delhi",
+      "mode": "mock"
+    }
+  ]
+}
