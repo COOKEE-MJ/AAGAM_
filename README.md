@@ -335,8 +335,8 @@ npm run smoke
     <td align="center" width="25%">
       <img src="https://github.com/COOKEE-MJ.png" width="90px;" alt="Mansi"/><br />
       <sub><b>Mansi</b></sub><br />
-      <sub>📋 <b>Product, Delivery & QA Lead</b></sub><br />
-      <small>System Architecture • QA & Testing • Documentation</small>
+      <sub>⚙️ <b>Backend Lead & Product Lead</b></sub><br />
+      <small>System Architecture • Backend & PostGIS • QA & Testing • Documentation</small>
     </td>
   </tr>
 </table>
