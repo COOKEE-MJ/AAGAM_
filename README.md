@@ -38,10 +38,9 @@
   <a href="#-quickstart-in-5-commands">⚡ Quickstart</a> •
   <a href="#-aagam-in-one-minute">📖 1-Minute Overview</a> •
   <a href="#-system-architecture">🏗️ Architecture</a> •
-  <a href="#-three-core-user-stories">🔁 Core Stories</a> •
   <a href="#-screen-by-screen-walkthrough">📱 Screens</a> •
   <a href="#-the-offline-sync-engine">📶 Offline Sync</a> •
-  <a href="#-the-team">👥 Contributors</a>
+  <a href="#-the-contributors">👥 Contributors</a>
 </p>
 
 ---
@@ -62,14 +61,19 @@
 
 ```mermaid
 flowchart LR
-    A["🛰️ 1. Hazard Radar\n(TinyFish Web Agent)"] -->|"Extracts Bulletins"| B["⚙️ 2. Core PostGIS API\n(Node.js + PostgreSQL)"]
-    B <-->|"Pre-caches Alerts & Offline Sync"| C["📱 3. Citizen PWA\n(Offline-First Phone App)"]
-    B <-->|"Live Heatmap & Incident Queue"| D["🖥️ 4. DDMA Dashboard\n(District Command Center)"]
+    A["🛰️ 1. Hazard Radar<br/><b>(TinyFish Web Agent)</b>"] -->|"Extracts Bulletins"| B["⚙️ 2. Core PostGIS API<br/><b>(Node.js + PostgreSQL)</b>"]
+    B <-->|"Pre-caches Alerts & Offline Sync"| C["📱 3. Citizen PWA<br/><b>(Offline-First Phone App)</b>"]
+    B <-->|"Live Heatmap & Incident Queue"| D["🖥️ 4. DDMA Dashboard<br/><b>(District Command Center)</b>"]
 
-    style A fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
-    style B fill:#e0f2f1,stroke:#00897b,stroke-width:2px
-    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style D fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef lightBlue fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0F172A;
+    classDef lightGreen fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#0F172A;
+    classDef lightAmber fill:#FFF8E1,stroke:#F57F17,stroke-width:2px,color:#0F172A;
+    classDef lightRose fill:#FCE4EC,stroke:#C2185B,stroke-width:2px,color:#0F172A;
+
+    class A lightBlue;
+    class B lightGreen;
+    class C lightAmber;
+    class D lightRose;
 ```
 
 ### 👥 The Two Users of AAGAM
@@ -86,26 +90,13 @@ flowchart LR
 
 ## ⚖️ Five Golden Product Rules
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│  1. PREPARE FIRST, CONNECT SECOND                                                      │
-│     Alerts, shelters, and map tiles are saved to phone while online so they open with  │
-│     zero signal.                                                                       │
-│                                                                                        │
-│  2. NOTHING DISAPPEARS SILENTLY                                                        │
-│     Every SOS and photo report displays a deterministic state: Queued ➔ Sent ➔ Resolved│
-│                                                                                        │
-│  3. AI ASSISTS, HUMANS DECIDE                                                          │
-│     Vision model scores damage photos (>=70% threshold). Officers approve or reject.   │
-│                                                                                        │
-│  4. EVERY ALERT PROVES ITS SOURCE                                                      │
-│     All alerts display official publication timestamp and a direct link to the bulletin.│
-│                                                                                        │
-│  5. STRICT PRIVACY BY ROLE                                                             │
-│     Citizens NEVER see other citizens' phone numbers or SOS locations.                 │
-│     Officers only see data inside their assigned district.                             │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
+| # | Rule | Core Principle & Technical Guarantee |
+|:---:|---|---|
+| **1** | **Prepare First, Connect Second** | Alerts, shelter lists, and map tiles are cached locally while online so they remain 100% accessible with zero cellular signal. |
+| **2** | **Nothing Disappears Silently** | Every SOS and photo report displays a transparent status: `Queued` ➔ `Sent` ➔ `Acknowledged` ➔ `Dispatched` ➔ `Resolved`. |
+| **3** | **AI Assists, Humans Decide** | Computer vision triage flags high-confidence damage ($\ge 0.70$). District officers retain full authority to approve or reject. |
+| **4** | **Every Alert Proves Its Source** | Every warning displays official publication timestamps and direct links back to IMD, CWC, or NDMA source bulletins. |
+| **5** | **Strict Privacy by Role** | Citizens never see other citizens' phone numbers or SOS coordinates. Officers only access data within their assigned district. |
 
 ---
 
@@ -115,85 +106,56 @@ Data originates from authoritative government sources, passes through **TinyFish
 
 ```mermaid
 flowchart TD
-    subgraph WEB["🌐 THE LIVE WEB: Official Government Portals"]
+    subgraph WEB["🌐 Official Government Feeds"]
         direction LR
-        IMD["IMD (Cyclone & Rain)"]
-        CWC["CWC (River Floods)"]
-        NCS["NCS (Earthquakes)"]
-        INCOIS["INCOIS (Tsunami)"]
-        FSI["FSI (Forest Fires)"]
+        IMD["🛰️ IMD (Cyclone & Rain)"]
+        CWC["🌊 CWC (River Floods)"]
+        NCS["🌋 NCS (Earthquakes)"]
+        INCOIS["🌊 INCOIS (Tsunami)"]
+        FSI["🔥 FSI (Forest Fires)"]
     end
 
-    subgraph TINYFISH["🤖 TINYFISH WEB AGENT ENGINE"]
+    subgraph TINYFISH["🤖 TinyFish Web Agent Engine"]
         direction TB
-        TF_SEARCH["🔍 Search API (Discovers newest bulletins per district)"]
-        TF_FETCH["📥 Fetch API (Extracts clean structured text from HTML/PDFs)"]
-        TF_AGENT["🧠 Parsing Agent (Standardizes hazard, severity, geometry)"]
+        TF_SEARCH["🔍 Search API (Discovers newest bulletins)"]
+        TF_FETCH["📥 Fetch API (Extracts clean text)"]
+        TF_AGENT["🧠 Parsing Agent (Normalizes JSON payload)"]
         TF_SEARCH --> TF_FETCH --> TF_AGENT
     end
 
-    subgraph BACKEND["⚙️ SPATIAL BACKEND & VERIFICATION"]
+    subgraph BACKEND["⚙️ Spatial Backend & Verification Engine"]
         direction TB
         GATE{"Official .gov.in?"}
-        DB[("🐘 PostgreSQL 16 + PostGIS\n- Spatial index (ST_DWithin)\n- Idempotent Sync & Heatmap")]
-        AI_CHECK["👁️ AI Vision Check (Pretrained Damage Model)"]
-        GATE -- "Yes" --> DB
-        GATE -- "News/Unverified" --> PENDING["Pending Review Queue"]
+        DB[("🐘 PostgreSQL 16 + PostGIS\n- Spatial index ST_DWithin\n- Idempotent Sync & Heatmap")]
+        AI_CHECK["👁️ AI Vision Check (Damage Classification)"]
+        PENDING["📋 Pending Review Queue"]
+        GATE -- "Yes (Auto-Publish)" --> DB
+        GATE -- "News / Secondary" --> PENDING
         AI_CHECK --> DB
     end
 
-    subgraph APPS["📱 EDGE APPLICATIONS"]
+    subgraph APPS["📱 Edge Applications"]
         direction LR
         CITIZEN["📱 Citizen PWA\n(IndexedDB + Service Worker)\nWorks 100% Offline"]
-        OFFICER["🖥️ Authority Command Map\n(Real-time Heatmap & Dispatch)"]
+        OFFICER["🖥️ Authority Command Map\n(Real-Time Heatmap & Dispatch)"]
     end
 
-    WEB --> TINYFISH
+    IMD & CWC & NCS & INCOIS & FSI --> TF_SEARCH
     TF_AGENT --> GATE
     DB <-->|"JSON over HTTPS / Auto-Sync"| CITIZEN
     DB <-->|"Spatial WebSocket / Heatmap API"| OFFICER
     CITIZEN -.->|"Photo Reports"| AI_CHECK
 
-    style WEB fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    style TINYFISH fill:#ede7f6,stroke:#512da8,stroke-width:2px
-    style BACKEND fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
-    style APPS fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    classDef lightBlue fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0F172A;
+    classDef lightPurple fill:#EDE7F6,stroke:#5E35B1,stroke-width:2px,color:#0F172A;
+    classDef lightGreen fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#0F172A;
+    classDef lightAmber fill:#FFF8E1,stroke:#F57F17,stroke-width:2px,color:#0F172A;
+
+    class IMD,CWC,NCS,INCOIS,FSI lightBlue;
+    class TF_SEARCH,TF_FETCH,TF_AGENT lightPurple;
+    class GATE,DB,AI_CHECK,PENDING lightGreen;
+    class CITIZEN,OFFICER lightAmber;
 ```
-
----
-
-## 🔁 Three Core User Stories
-
-<p align="center">
-  <img src="docs/screenshots/timeline-steps.png" alt="Disaster Timeline" width="100%" />
-</p>
-
-> ### 📸 **[IMAGE PLACEHOLDER: 3 STORIES WORKFLOW]**
-> - **File:** `docs/screenshots/timeline-steps.png` (900 × 300 px)
-> - **Content:** Visual step-by-step banner showing: (1) Official IMD Bulletin $\rightarrow$ (2) Offline SOS on Citizen Phone $\rightarrow$ (3) AI Photo Triage on Officer Screen.
-
-### 📜 Story A: Official Bulletin ➔ Phone Alert
-1. **Radar Timer:** TinyFish Search finds newest bulletins for the district every 15 minutes.
-2. **Text Extraction:** TinyFish Fetch retrieves clean bulletin text and timestamps a raw snapshot.
-3. **Deduplication:** Merges identical hazard + district + source updates into a single active alert.
-4. **Publish Rule:** Official domains (`.gov.in`, `.nic.in`) **auto-publish** immediately. News items become `pending`.
-5. **Offline Delivery:** Citizen's PWA caches the alert; if cellular towers drop, the last valid alert remains visible.
-
-### 🆘 Story B: The Zero-Signal SOS
-1. **Trigger:** Citizen holds the red SOS button for 2 seconds (with a 5-second accidental cancel countdown).
-2. **Local Storage:** Phone captures GPS coordinates, timestamp, and creates a unique `clientId` (UUID) in **IndexedDB**.
-3. **If Online:** Transmitted immediately to `POST /api/sos/trigger`.
-4. **If Offline:** Stored securely in phone queue; attempts mock SMS fallback.
-5. **Auto-Sync:** As soon as any network bar returns, PWA flushes queue via `POST /api/sync`.
-6. **Dispatch:** Officer sees an alert card $\rightarrow$ clicks **Acknowledge** $\rightarrow$ clicks **Dispatch Team** $\rightarrow$ marks **Resolved**.
-
-### 📸 Story C: AI-Verified Photo Damage Report
-1. **Capture:** Citizen selects a hazard category (e.g., *Flooding*), takes a photo (compressed on-device to ~300 KB).
-2. **Inference:** Backend passes photo to AI vision model which returns `{label, confidence}`.
-3. **Automated Triage Rule:**
-   - **Confidence $\ge 0.70$ + Matching Label:** Automatically marked `ai_verified` and projected on the officer's live heatmap.
-   - **Confidence $< 0.70$:** Sent to `needs_review` queue to keep the heatmap free of hoaxes and memes.
-4. **Human Authority Decision:** The officer reviews the photo and confirms with **Approve** or **Reject**.
 
 ---
 
@@ -276,23 +238,29 @@ How AAGAM ensures zero distress calls are dropped when mobile towers fail:
 ## 🔄 Status Life Cycles
 
 ```mermaid
-stateDiagram-v2
-    direction LR
+flowchart LR
+    subgraph SOS["🆘 SOS Lifecycle"]
+        direction LR
+        S1["1. Queued Offline"] --> S2["2. New (Received)"]
+        S2 --> S3["3. Acknowledged"]
+        S3 --> S4["4. Dispatched"]
+        S4 --> S5["5. Resolved"]
+    end
 
-    state "SOS Event" as SOS {
-        Queued_Local --> New : Auto-Sync
-        New --> Acknowledged : Officer Sees
-        Acknowledged --> Dispatched : Team Sent
-        Dispatched --> Resolved : Safe
-    }
+    subgraph REP["📷 Photo Report Lifecycle"]
+        direction LR
+        R1["1. Queued on Phone"] --> R2["2. AI Vision Triage"]
+        R2 -->|"Score >= 0.70"| R3["3. AI-Verified"]
+        R2 -->|"Score < 0.70"| R4["3. Needs Review"]
+        R4 -->|"Approved"| R5["4. Verified"]
+        R4 -->|"Rejected"| R6["4. Rejected"]
+    end
 
-    state "Photo Report" as REP {
-        Queued_Phone --> AI_Analysis : Sync
-        AI_Analysis --> AI_Verified : Score >= 0.70
-        AI_Analysis --> Needs_Review : Score < 0.70
-        Needs_Review --> Verified : Officer OK
-        Needs_Review --> Rejected : Spam / Hoax
-    }
+    classDef lightBlue fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0F172A;
+    classDef lightGreen fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#0F172A;
+
+    class S1,S2,S3,S4,S5 lightBlue;
+    class R1,R2,R3,R4,R5,R6 lightGreen;
 ```
 
 ---
@@ -347,28 +315,28 @@ npm run smoke
 <table align="center">
   <tr>
     <td align="center" width="25%">
-      <img src="https://github.com/identicons/m1.png" width="100px;" alt="M1"/><br />
-      <sub><b>Member 1</b></sub><br />
+      <img src="https://github.com/identicons/diya.png" width="90px;" alt="Diya Bhatt"/><br />
+      <sub><b>Diya Bhatt</b></sub><br />
       <sub>🎨 <b>Frontend & UI Lead</b></sub><br />
       <small>React PWA • Service Worker • IndexedDB • Leaflet Maps</small>
     </td>
     <td align="center" width="25%">
-      <img src="https://github.com/COOKEE-MJ.png" width="100px;" alt="COOKEE-MJ"/><br />
-      <sub><b>MANSI (M4 & M2)</b></sub><br />
-      <sub>⚙️ <b>Backend & Product Lead</b></sub><br />
-      <small>PostGIS • Express API • Architecture • QA • Documentation</small>
+      <img src="https://github.com/identicons/nidhi.png" width="90px;" alt="Nidhi Jha"/><br />
+      <sub><b>Nidhi Jha</b></sub><br />
+      <sub>⚙️ <b>Backend & Database Lead</b></sub><br />
+      <small>Node.js API • PostgreSQL • PostGIS • Spatial Queries</small>
     </td>
     <td align="center" width="25%">
-      <img src="https://github.com/identicons/m3.png" width="100px;" alt="M3"/><br />
-      <sub><b>Member 3</b></sub><br />
-      <sub>🤖 <b>AI & Radar Specialist</b></sub><br />
+      <img src="https://github.com/identicons/aarushi.png" width="90px;" alt="Aarushi Mathur"/><br />
+      <sub><b>Aarushi Mathur</b></sub><br />
+      <sub>🤖 <b>AI & GIS Specialist</b></sub><br />
       <small>TinyFish Web Agent • Vision Triage • Bulletin Extractor</small>
     </td>
     <td align="center" width="25%">
-      <img src="https://github.com/identicons/m2.png" width="100px;" alt="M2"/><br />
-      <sub><b>Member 2</b></sub><br />
-      <sub>🗄️ <b>Database Architect</b></sub><br />
-      <small>Spatial Schema • PostGIS Migrations • Role Middleware</small>
+      <img src="https://github.com/COOKEE-MJ.png" width="90px;" alt="Mansi"/><br />
+      <sub><b>Mansi</b></sub><br />
+      <sub>📋 <b>Product, Delivery & QA Lead</b></sub><br />
+      <small>System Architecture • QA & Testing • Documentation</small>
     </td>
   </tr>
 </table>
@@ -383,6 +351,6 @@ npm run smoke
 ---
 
 <p align="center">
-  <strong>⭐ If you find AAGAM interesting, please consider starring this repository! ⭐</strong><br>
+  <strong>⭐ Star this Repo!! ⭐</strong><br>
   <sub>Built with ❤️ for resilient disaster management across India • Licensed under MIT</sub>
 </p>
