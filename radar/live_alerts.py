@@ -20,22 +20,14 @@ def normalize_live_alert(record):
     if not district or not issue_date:
         return None
 
-    # Preserve raw IMD codes until their meanings are verified.
+    # Preserve the original IMD values.
     forecast = record.get("forecast", {})
     colors = record.get("warningColors", {})
     warning_text = record.get("warningText", {})
 
-
-    # Official IMD district warning colour codes.
-    color_labels = {
-        1: "Red",
-        2: "Orange",
-        3: "Yellow",
-        4: "Green",
-    }
-
+    # Keep colour meanings unverified until confirmed.
     warning_color_labels = {
-        day: color_labels.get(code, "Unverified")
+        day: "Unverified" if code is not None else None
         for day, code in colors.items()
     }
 
@@ -58,20 +50,50 @@ def normalize_live_alert(record):
 
 
 def main():
-    records = fetch_imd_warnings(limit=100)
+    # Fetch records. Do not overwrite existing output if fetching fails.
+    try:
+        records = fetch_imd_warnings()
+    except RuntimeError as error:
+        print(
+            "Could not retrieve a complete set of IMD records:",
+            error,
+        )
+        print("Existing output file was not replaced.")
+        return
 
     if not records:
         print("No live records retrieved; output file was not replaced.")
         return
 
+    # Normalize the retrieved records.
     alerts = [
         alert
         for record in records
         if (alert := normalize_live_alert(record)) is not None
     ]
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
-        json.dump(alerts, file, indent=2, ensure_ascii=False)
+    # Write to a temporary file before replacing the existing output.
+    temp_file = OUTPUT_FILE.with_suffix(".tmp")
+
+    try:
+        with open(temp_file, "w", encoding="utf-8") as file:
+            json.dump(alerts, file, indent=2, ensure_ascii=False)
+            file.write("\n")
+
+        temp_file.replace(OUTPUT_FILE)
+
+    except OSError as error:
+        print("Could not safely save the new alerts:", error)
+        print("The previous output file was preserved if replacement failed.")
+
+        # Clean up a leftover temporary file if possible.
+        try:
+            if temp_file.exists():
+                temp_file.unlink()
+        except OSError:
+            pass
+
+        return
 
     print("Live records retrieved:", len(records))
     print("Records normalized:", len(alerts))
