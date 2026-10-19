@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAGAM — Emergency Safety Dashboard</title>
+<meta name="theme-color" content="#2563eb">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#475569;--line:#cbd5e1;--red:#dc2626;--blue:#2563eb;--amber:#d97706;--green:#059669;--shadow:0 4px 6px -1px rgba(0,0,0,.08);--r:12px}
+[data-theme=dark]{--bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;--line:#30363d;--red:#ef4444;--blue:#3b82f6;--shadow:0 4px 6px -1px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0}
+.hidden{display:none!important}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);display:flex;flex-direction:column}
+@media(min-width:768px){.app{max-width:720px;border:0 solid var(--line);border-width:0 1px}}
+header{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:.7rem}
+.logo{width:40px;height:40px;background:var(--blue);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:1.2rem}
+.brand h1{font-size:1.2rem;font-weight:800;line-height:1.1}
+.brand small{font-size:.72rem;color:var(--muted);font-weight:600}
+.hctl{display:flex;align-items:center;gap:.5rem}
+select,input[type=text],textarea{font-family:inherit;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:.45rem .6rem;font-size:.85rem;outline:none;width:100%}
+.hctl select{width:auto;font-weight:700}
+select:focus,input:focus,textarea:focus{border-color:var(--blue)}
+.ibtn{background:none;border:1px solid var(--line);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer}
+.badge-off{background:var(--amber);color:#fff;font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:20px}
+main{flex:1;padding-bottom:5rem}
+.view{display:none}.view.active{display:block}
+.vh{padding:1.1rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+.vh h2{font-size:1.2rem;font-weight:800}.vh p{font-size:.85rem;color:var(--muted)}
+.hero{padding:2.5rem 1.25rem 1.5rem;background:linear-gradient(135deg,#1e3a8a,#0f172a);color:#fff}
+.hero .loc{display:inline-block;background:rgba(37,99,235,.3);border:1px solid #3b82f6;color:#bfdbfe;font-size:.75rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:.7rem}
+.hero h2{font-size:1.5rem;font-weight:800}.hero p{color:#cbd5e1;font-size:.9rem;margin:.4rem 0}
+.hero small{color:#94a3b8;font-size:.75rem}
+.aqi{margin:1rem 1.25rem;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:var(--r);padding:1rem;box-shadow:var(--shadow)}
+.aqi div{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem}
+.aqi span{color:var(--amber)}.aqi p{font-size:.8rem;color:var(--muted);margin-top:.3rem}
+.sos-sec{padding:1.5rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+.row{display:flex;gap:1.25rem;justify-content:center}
+.round{width:136px;height:136px;border-radius:50%;border:5px solid;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .1s}
+.round:active{transform:scale(.95)}
+.round b{font-size:1.9rem;font-weight:800;line-height:1.1}
+.round small{font-size:.62rem;font-weight:700;text-align:center;padding:0 .6rem}
+#sos-btn{background:radial-gradient(circle,#ef4444,#b91c1c);border-color:#fecaca}
+#call-btn{background:radial-gradient(circle,#2563eb,#1d4ed8);border-color:#bfdbfe}
+.sos-bar{display:flex;align-items:center;justify-content:center;gap:.7rem;background:var(--red);color:#fff;font-weight:800;padding:.7rem;border-radius:8px;margin-top:1rem}
+.sm{padding:.3rem .6rem;font-size:.75rem;border-radius:6px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem}
+.sm.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+.note{font-size:.75rem;color:var(--muted);background:var(--bg);border:1px solid var(--line);padding:.7rem;border-radius:8px;margin-top:.9rem}
+.stack{padding:1.25rem;display:flex;flex-direction:column;gap:.9rem}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;box-shadow:var(--shadow)}
+.item:hover{border-color:var(--blue)}
+.ico{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1.2rem;flex-shrink:0}
+.item h3{font-size:1rem;font-weight:800}.item p{font-size:.8rem;color:var(--muted)}
+.item .grow{flex:1}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:.4rem 0;z-index:50}
+@media(min-width:768px){nav{max-width:720px}}
+nav button{flex:1;background:none;border:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.2rem;font:700 .7rem inherit;font-family:inherit;cursor:pointer;padding:.25rem}
+nav i{font-size:1.15rem}nav .active{color:var(--blue)}
+.tabs{display:flex;gap:.5rem;padding:1rem 1.25rem}
+.tab{background:var(--card);border:1px solid var(--line);color:var(--text);padding:.4rem 1rem;border-radius:20px;font:700 .8rem inherit;font-family:inherit;cursor:pointer}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.list{padding:0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1rem;box-shadow:var(--shadow)}
+.alert{border-left:5px solid var(--blue)}.alert.high{border-left-color:var(--amber)}
+.alert .top{display:flex;justify-content:space-between;gap:.5rem;margin-bottom:.4rem}
+.alert h3{font-size:.95rem;font-weight:800}
+.sev{font-size:.65rem;font-weight:800;text-transform:uppercase;padding:.2rem .5rem;border-radius:4px;background:rgba(37,99,235,.15);color:var(--blue);height:fit-content}
+.high .sev{background:rgba(217,119,6,.15);color:var(--amber)}
+.meta{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;margin-bottom:.6rem}
+.bar{display:flex;gap:.5rem;padding:.75rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+#map{height:320px;width:100%}
+.mapmsg{background:var(--amber);color:#fff;font-size:.75rem;text-align:center;padding:.4rem}
+.shelter{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.shelter h4{font-size:.9rem;font-weight:800}.shelter p{font-size:.75rem;color:var(--muted)}
+.acts{display:flex;gap:.4rem}
+form{padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.lbl{font-size:.8rem;font-weight:700;margin-bottom:.4rem;display:block}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cat{border:1px solid var(--line);background:var(--card);padding:.7rem;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:700}
+.cat:has(input:checked){border-color:var(--blue);background:rgba(37,99,235,.1)}
+.cat i{color:var(--blue)}
+.btns{display:flex;gap:.7rem}.btns button{flex:1;padding:.75rem;border-radius:8px;font:700 .85rem inherit;font-family:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.btns .pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.pcard{display:flex;gap:1rem;align-items:center}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);flex-shrink:0}
+.initials{display:grid;place-items:center;background:var(--blue);color:#fff;font-size:1.8rem;font-weight:800}
+.pcard h3{font-size:1.15rem;font-weight:800}
+.pcard p{font-size:.82rem;color:var(--muted)}
+.sech{font-size:1rem;font-weight:800;margin:.2rem 0 .6rem}
+.contact{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.contact:last-child{border:0}
+.contact small{display:block;color:var(--muted);font-size:.75rem}
+.rep{padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.85rem}.rep:last-child{border:0}
+.rep small{color:var(--muted);display:block;font-size:.72rem}
+.prep h3{color:var(--blue);font-size:1rem;font-weight:800;margin-bottom:.5rem}
+.prep ul{padding-left:1.2rem;font-size:.85rem;color:var(--muted);display:flex;flex-direction:column;gap:.35rem}
+.backdrop{position:fixed;inset:0;background:rgba(15,23,42,.75);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem}
+.modal{background:var(--card);width:100%;max-width:420px;max-height:85vh;overflow:auto;border-radius:var(--r);border:1px solid var(--line)}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:1px solid var(--line);font-weight:800}
+.mh button{background:none;border:none;color:var(--text);font-size:1.1rem;cursor:pointer}
+.mb{padding:1rem;display:flex;flex-direction:column;gap:.7rem;font-size:.85rem}
+.mb label{font-size:.75rem;font-weight:700}
+.setrow{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0}
+.hc{--muted:#1e293b;--line:#475569}[data-theme=dark].hc{--muted:#e2e8f0}
+.hc body{font-weight:700}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo"><i class="fa-solid fa-shield-halved"></i></div><div><h1 data-i18n="app">AAGAM</h1><small data-i18n="sub">Emergency Safety Dashboard</small></div></div>
+  <div class="hctl">
+    <span id="off" class="badge-off hidden"><i class="fa-solid fa-circle-exclamation"></i> <span data-i18n="offline">Offline</span></span>
+    <select id="lang" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option></select>
+    <button id="theme" class="ibtn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+  </div>
+</header>
+<main>
+<!-- HOME -->
+<section id="v-home" class="view active">
+  <div class="hero">
+    <span class="loc"><i class="fa-solid fa-location-dot"></i> <span id="loc-text"></span></span>
+    <h2 data-i18n="hero_t">Emergency Response & Preparedness</h2>
+    <p data-i18n="hero_d">Quick access to alerts, shelters, and emergency tools.</p>
+    <small><i class="fa-regular fa-clock"></i> <span data-i18n="updated">Opened on:</span> <span id="stamp"></span></small>
+  </div>
+  <div class="aqi"><div><b data-i18n="aqi">Air Quality Index (AQI)</b><span>450 · Severe</span></div><p data-i18n="aqi_d">Severe pollution (sample data). Vulnerable people should stay indoors and use N95 masks.</p></div>
+  <div class="sos-sec">
+    <div class="row">
+      <button id="sos-btn" class="round" aria-label="SOS"><b>SOS</b><small data-i18n="sos_s">TAP FOR BUZZER</small></button>
+      <a id="call-btn" class="round" href="tel:112" aria-label="Call 112"><b><i class="fa-solid fa-phone"></i> 112</b><small data-i18n="call_s">CALL EMERGENCY</small></a>
+    </div>
+    <div id="sos-bar" class="sos-bar hidden"><i class="fa-solid fa-triangle-exclamation"></i><span data-i18n="sos_on">SOS BUZZER ACTIVE</span><button id="sos-stop" class="sm" data-i18n="stop">Stop</button></div>
+    <div class="note"><b data-i18n="proto">Prototype:</b> <span data-i18n="proto_d">SOS only sounds an alarm on this device. It does not contact anyone. In an emergency, press 112.</span></div>
+  </div>
+  <div class="stack">
+    <div class="item" data-go="map"><div class="ico" style="background:var(--blue)"><i class="fa-solid fa-location-dot"></i></div><div class="grow"><h3 data-i18n="c_shel">Nearby Shelters</h3><p data-i18n="c_shel_d">Find relief camps and medical stations on the map.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="item" data-go="alerts"><div class="ico" style="background:var(--amber)"><i class="fa-solid fa-bell"></i></div><div class="grow"><h3 data-i18n="c_alert">View Alerts</h3><p data-i18n="c_alert_d">Warnings for floods, air quality, heat and heavy rain.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="item" data-go="prep"><div class="ico" style="background:var(--green)"><i class="fa-solid fa-book-medical"></i></div><div class="grow"><h3 data-i18n="c_prep">Emergency Preparedness</h3><p data-i18n="c_prep_d">Checklists and safety steps for disasters.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+  </div>
+</section>
+<!-- ALERTS -->
+<section id="v-alerts" class="view">
+  <div class="vh"><h2 data-i18n="alerts">Emergency Alerts</h2><p data-i18n="alerts_d">Warnings and weather advisories (sample data in this prototype).</p></div>
+  <div class="tabs"><button class="tab active" data-f="active" data-i18n="active">Active</button><button class="tab" data-f="past" data-i18n="past">Past</button><button class="tab" data-f="all" data-i18n="all">All</button></div>
+  <div id="alerts" class="list"></div>
+</section>
+<!-- MAP -->
+<section id="v-map" class="view">
+  <div class="vh"><h2 data-i18n="map">Shelter Map</h2><p data-i18n="map_d">Relief shelters and medical stations in Delhi.</p></div>
+  <div class="bar"><input type="text" id="search" data-ph="search" placeholder="Search shelter or area"><button id="locate" class="sm"><i class="fa-solid fa-crosshairs"></i> <span data-i18n="myloc">My Location</span></button></div>
+  <div id="map"></div>
+  <div id="mapmsg" class="mapmsg hidden" data-i18n="map_off">Map needs internet. The shelter list below still works.</div>
+  <div style="padding:1.25rem"><h3 class="sech" data-i18n="shelters">Shelters Directory</h3><div id="shelters" class="list" style="padding:0"></div></div>
+</section>
+<!-- REPORT -->
+<section id="v-report" class="view">
+  <div class="vh"><h2 data-i18n="report">Report a Disaster</h2><p data-i18n="report_d">Report a natural disaster happening near you.</p></div>
+  <form id="form">
+    <div><span class="lbl"><span data-i18n="cat">Type of natural disaster</span> *</span><div class="cats" id="cats"></div></div>
+    <div><label class="lbl" for="details"><span data-i18n="details">What is happening and where?</span> *</label><textarea id="details" rows="4" required data-ph="details_ph" placeholder="Landmark, people affected, immediate danger"></textarea></div>
+    <label style="font-size:.8rem;font-weight:600;display:flex;gap:.5rem;align-items:center"><input type="checkbox" id="gps"> <span data-i18n="gps">Include my GPS location</span></label>
+    <div id="gps-s" style="font-size:.75rem;color:var(--muted)"></div>
+    <div class="btns"><button type="button" id="review" data-i18n="review">Review</button><button type="submit" class="pri" data-i18n="submit">Submit report</button></div>
+  </form>
+</section>
+<!-- PROFILE -->
+<section id="v-profile" class="view">
+  <div class="stack">
+    <div class="card"><div class="pcard"><div id="avatar"></div><div style="flex:1;min-width:0"><h3 id="p-name"></h3><p id="p-phone"></p><p id="p-addr"></p></div></div>
+      <div class="btns" style="margin-top:.9rem"><button id="edit" data-i18n="edit">Edit profile</button></div></div>
+    <div class="card"><h3 class="sech" data-i18n="myreports">My Reports</h3><div id="p-reports"></div></div>
+    <div class="card"><h3 class="sech" data-i18n="emnums">Important Emergency Numbers</h3><div id="p-nums"></div></div>
+    <div class="card"><h3 class="sech" data-i18n="help">Help</h3><p style="font-size:.85rem;color:var(--muted)" data-i18n="help_t">Tap SOS to sound an alarm, or 112 to call emergency services. Check Alerts, find shelters on the Map, or report a disaster.</p></div>
+    <div class="item" id="open-set"><div class="ico" style="background:var(--muted)"><i class="fa-solid fa-gear"></i></div><div class="grow"><h3 data-i18n="settings">Settings</h3><p data-i18n="settings_d">Contrast, saved data</p></div></div>
+    <div class="item" id="open-src"><div class="ico" style="background:var(--muted)"><i class="fa-solid fa-circle-info"></i></div><div class="grow"><h3 data-i18n="sources">Information Sources</h3><p>IMD · CPCB · NDMA</p></div></div>
+  </div>
+</section>
+<!-- PREP -->
+<section id="v-prep" class="view">
+  <div class="vh"><button class="sm" data-go="home" style="margin-bottom:.5rem"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="back">Back</span></button><h2 data-i18n="c_prep">Emergency Preparedness</h2></div>
+  <div id="prep" class="stack"></div>
+</section>
+</main>
+<nav>
+  <button data-go="home" class="active"><i class="fa-solid fa-house"></i><span data-i18n="n_home">Home</span></button>
+  <button data-go="alerts"><i class="fa-solid fa-bell"></i><span data-i18n="n_alerts">Alerts</span></button>
+  <button data-go="map"><i class="fa-solid fa-map-location-dot"></i><span data-i18n="n_map">Map</span></button>
+  <button data-go="report"><i class="fa-solid fa-triangle-exclamation"></i><span data-i18n="n_report">Report</span></button>
+  <button data-go="profile"><i class="fa-solid fa-user"></i><span data-i18n="n_profile">Profile</span></button>
+</nav>
+<div id="backdrop" class="backdrop hidden"><div class="modal"><div class="mh"><span id="m-title"></span><button id="m-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div><div class="mb" id="m-body"></div></div></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const T={
+en:{app:"AAGAM",sub:"Emergency Safety Dashboard",offline:"Offline",hero_t:"Emergency Response & Preparedness",hero_d:"Quick access to alerts, shelters, and emergency tools.",updated:"Opened on:",aqi:"Air Quality Index (AQI)",aqi_d:"Severe pollution (sample data). Vulnerable people should stay indoors and use N95 masks.",sos_s:"TAP FOR BUZZER",call_s:"CALL EMERGENCY",sos_on:"SOS BUZZER ACTIVE",stop:"Stop",proto:"Prototype:",proto_d:"SOS only sounds an alarm on this device. It does not contact anyone. In an emergency, press 112.",c_shel:"Nearby Shelters",c_shel_d:"Find relief camps and medical stations on the map.",c_alert:"View Alerts",c_alert_d:"Warnings for floods, air quality, heat and heavy rain.",c_prep:"Emergency Preparedness",c_prep_d:"Checklists and safety steps for disasters.",alerts:"Emergency Alerts",alerts_d:"Warnings and weather advisories (sample data in this prototype).",active:"Active",past:"Past",all:"All",map:"Shelter Map",map_d:"Relief shelters and medical stations in Delhi.",search:"Search shelter or area",myloc:"My Location",map_off:"Map needs internet. The shelter list below still works.",shelters:"Shelters Directory",report:"Report a Disaster",report_d:"Report a natural disaster happening near you.",cat:"Type of natural disaster",details:"What is happening and where?",details_ph:"Landmark, people affected, immediate danger",gps:"Include my GPS location",review:"Review",submit:"Submit report",edit:"Edit profile",myreports:"My Reports",emnums:"Important Emergency Numbers",help:"Help",help_t:"Tap SOS to sound an alarm, or 112 to call emergency services. Check Alerts, find shelters on the Map, or report a disaster.",settings:"Settings",settings_d:"Contrast, saved data",sources:"Information Sources",back:"Back",n_home:"Home",n_alerts:"Alerts",n_map:"Map",n_report:"Report",n_profile:"Profile",
+default_loc:"New Delhi, India",gps_loc:"Your GPS location",bulletin:"View Bulletin",issued:"Issued",updated_l:"Updated",route:"Route",away:"km away",no_dist:"Tap My Location for distance",no_alerts:"No alerts here.",no_reports:"You haven't reported anything yet.",saved_dev:"Saved on this device",gps_wait:"Getting location…",gps_ok:"Location added",gps_fail:"Location unavailable. Check permission.",need:"Choose a disaster type and describe it first.",sum:"Report summary",lcat:"Type",ldet:"Details",lgps:"GPS",none:"Not included",done_t:"Report saved",done_b:"Saved on this device only. This prototype has no server, so no one has received it. For urgent help call 112.",close:"Close",save:"Save",name:"Full name",phone:"Phone number",addr:"Address",medical:"Medical notes (optional)",photo:"Profile photo",set_contrast:"High contrast",clear:"Clear saved data",clear_q:"Delete reports, saved shelters and profile from this device?",src_t:"Sources",src_b:"Alerts are sample data. A live version should pull from IMD (weather), CPCB (air quality) and NDMA / SDMA (disasters).",confirm_dial:"Call 112 now?",no_geo:"Location is not supported on this device.",dflt_name:"Add your name",dflt_phone:"Add phone number",dflt_addr:"Add address",
+cats:["Flood","Earthquake","Landslide","Cyclone / Storm","Heatwave","Forest Fire"],
+prep:[{t:"Go-Bag Checklist",l:["Water: 3 litres per person per day, for 3 days","Dry food for 3 days","Torch, radio and spare batteries","First-aid kit and regular medicines","Copies of ID in a waterproof pouch"]},{t:"Flood & Earthquake Safety",l:["Flood: move to higher ground. Never walk or drive through moving water.","Switch off electricity and gas if it is safe to do so.","Earthquake: drop, cover and hold under sturdy furniture.","Stay away from windows, walls and power lines."]},{t:"Air Pollution & Heat",l:["Stay indoors in severe pollution or extreme heat.","Wear an N95 mask outside when AQI is above 400.","Drink water and ORS regularly."]}]},
+hi:{app:"आगम",sub:"आपातकालीन सुरक्षा डैशबोर्ड",offline:"ऑफ़लाइन",hero_t:"आपातकालीन प्रतिक्रिया और तैयारी",hero_d:"चेतावनियों, आश्रयों और आपातकालीन उपकरणों तक त्वरित पहुँच।",updated:"खोला गया:",aqi:"वायु गुणवत्ता सूचकांक (AQI)",aqi_d:"गंभीर प्रदूषण (नमूना डेटा)। संवेदनशील लोग घर में रहें और N95 मास्क लगाएँ।",sos_s:"बज़र के लिए दबाएँ",call_s:"आपातकालीन कॉल",sos_on:"एसओएस बज़र चालू",stop:"बंद करें",proto:"प्रोटोटाइप:",proto_d:"एसओएस केवल इस डिवाइस पर अलार्म बजाता है, किसी को सूचना नहीं भेजता। आपात स्थिति में 112 दबाएँ।",c_shel:"निकटवर्ती आश्रय",c_shel_d:"मानचित्र पर राहत शिविर और चिकित्सा केंद्र खोजें।",c_alert:"चेतावनी देखें",c_alert_d:"बाढ़, वायु गुणवत्ता, लू और भारी बारिश की चेतावनियाँ।",c_prep:"आपातकालीन तैयारी",c_prep_d:"आपदाओं के लिए चेकलिस्ट और सुरक्षा कदम।",alerts:"आपातकालीन चेतावनियाँ",alerts_d:"चेतावनियाँ और मौसम परामर्श (इस प्रोटोटाइप में नमूना डेटा)।",active:"सक्रिय",past:"पिछली",all:"सभी",map:"आश्रय मानचित्र",map_d:"दिल्ली में राहत आश्रय और चिकित्सा केंद्र।",search:"आश्रय या क्षेत्र खोजें",myloc:"मेरा स्थान",map_off:"मानचित्र के लिए इंटरनेट चाहिए। नीचे सूची उपलब्ध है।",shelters:"आश्रय निर्देशिका",report:"आपदा की रिपोर्ट करें",report_d:"अपने पास हो रही प्राकृतिक आपदा की रिपोर्ट करें।",cat:"प्राकृतिक आपदा का प्रकार",details:"क्या हो रहा है और कहाँ?",details_ph:"लैंडमार्क, प्रभावित लोग, तत्काल खतरा",gps:"मेरा जीपीएस स्थान शामिल करें",review:"समीक्षा",submit:"रिपोर्ट सबमिट करें",edit:"प्रोफ़ाइल संपादित करें",myreports:"मेरी रिपोर्ट",emnums:"महत्वपूर्ण आपातकालीन नंबर",help:"सहायता",help_t:"अलार्म के लिए SOS दबाएँ, या आपातकालीन सेवा के लिए 112 पर कॉल करें। चेतावनियाँ देखें, मानचित्र पर आश्रय खोजें, या आपदा की रिपोर्ट करें।",settings:"सेटिंग्स",settings_d:"कंट्रास्ट, सहेजा डेटा",sources:"जानकारी के स्रोत",back:"वापस",n_home:"होम",n_alerts:"चेतावनी",n_map:"मानचित्र",n_report:"रिपोर्ट",n_profile:"प्रोफ़ाइल",
+default_loc:"नई दिल्ली, भारत",gps_loc:"आपका जीपीएस स्थान",bulletin:"बुलेटिन देखें",issued:"जारी",updated_l:"अपडेट",route:"रास्ता",away:"किमी दूर",no_dist:"दूरी के लिए मेरा स्थान दबाएँ",no_alerts:"कोई चेतावनी नहीं।",no_reports:"आपने अभी तक कोई रिपोर्ट नहीं की है।",saved_dev:"इस डिवाइस पर सहेजी गई",gps_wait:"स्थान लिया जा रहा है…",gps_ok:"स्थान जोड़ा गया",gps_fail:"स्थान उपलब्ध नहीं। अनुमति जाँचें।",need:"पहले आपदा का प्रकार चुनें और विवरण लिखें।",sum:"रिपोर्ट सारांश",lcat:"प्रकार",ldet:"विवरण",lgps:"जीपीएस",none:"शामिल नहीं",done_t:"रिपोर्ट सहेजी गई",done_b:"केवल इस डिवाइस पर सहेजी गई। इस प्रोटोटाइप में सर्वर नहीं है, इसलिए किसी को नहीं पहुँची। तत्काल मदद के लिए 112 पर कॉल करें।",close:"बंद करें",save:"सहेजें",name:"पूरा नाम",phone:"फ़ोन नंबर",addr:"पता",medical:"चिकित्सा नोट (वैकल्पिक)",photo:"प्रोफ़ाइल फ़ोटो",set_contrast:"उच्च कंट्रास्ट",clear:"सहेजा डेटा मिटाएँ",clear_q:"इस डिवाइस से रिपोर्ट, सहेजे आश्रय और प्रोफ़ाइल मिटाएँ?",src_t:"स्रोत",src_b:"चेतावनियाँ नमूना डेटा हैं। लाइव संस्करण में IMD (मौसम), CPCB (वायु गुणवत्ता) और NDMA / SDMA (आपदा) से डेटा लेना चाहिए।",confirm_dial:"अभी 112 पर कॉल करें?",no_geo:"इस डिवाइस पर स्थान सुविधा समर्थित नहीं है।",dflt_name:"अपना नाम जोड़ें",dflt_phone:"फ़ोन नंबर जोड़ें",dflt_addr:"पता जोड़ें",
+cats:["बाढ़","भूकंप","भूस्खलन","चक्रवात / तूफ़ान","लू","जंगल की आग"],
+prep:[{t:"गो-बैग चेकलिस्ट",l:["पानी: प्रति व्यक्ति प्रतिदिन 3 लीटर, 3 दिन के लिए","3 दिन का सूखा भोजन","टॉर्च, रेडियो और अतिरिक्त बैटरी","प्राथमिक चिकित्सा किट और नियमित दवाइयाँ","पहचान पत्रों की प्रतियाँ जलरोधक पाउच में"]},{t:"बाढ़ और भूकंप सुरक्षा",l:["बाढ़: ऊँचे स्थान पर जाएँ। बहते पानी में न चलें, न गाड़ी चलाएँ।","सुरक्षित हो तो बिजली और गैस बंद करें।","भूकंप: झुकें, सिर ढकें और मज़बूत फ़र्नीचर के नीचे रुकें।","खिड़कियों, दीवारों और बिजली के तारों से दूर रहें।"]},{t:"वायु प्रदूषण और गर्मी",l:["गंभीर प्रदूषण या अत्यधिक गर्मी में घर के अंदर रहें।","AQI 400 से ऊपर होने पर बाहर N95 मास्क पहनें।","नियमित रूप से पानी और ORS पिएँ।"]}]}
+};
+const CAT_ICONS=['fa-water','fa-house-crack','fa-hill-rockslide','fa-wind','fa-temperature-high','fa-fire'];
+const CAT_KEYS=["Flood","Earthquake","Landslide","Cyclone / Storm","Heatwave","Forest Fire"];
+
+const NUMBERS=[
+ {en:"National Emergency",hi:"राष्ट्रीय आपातकालीन",n:"112"},
+ {en:"Police",hi:"पुलिस",n:"100"},
+ {en:"Fire",hi:"दमकल",n:"101"},
+ {en:"Ambulance",hi:"एम्बुलेंस",n:"102"},
+ {en:"Disaster Management (Delhi)",hi:"आपदा प्रबंधन (दिल्ली)",n:"1077"},
+ {en:"Women Helpline",hi:"महिला हेल्पलाइन",n:"1091"},
+ {en:"Child Helpline",hi:"चाइल्ड हेल्पलाइन",n:"1098"}
+];
+const ALERTS=[
+ {id:1,title:"Severe Air Quality Warning (AQI > 450)",sev:"high",loc:"Delhi & NCR",issued:"Oct 19, 2026, 08:00 IST",valid:"Valid until Oct 21, 2026",status:"active",text:"Vulnerable people should stay indoors due to severe particulate pollution."},
+ {id:2,title:"Yamuna River Flood Advisory",sev:"high",loc:"Low-lying areas near Old Railway Bridge, Delhi",issued:"Oct 18, 2026, 16:30 IST",valid:"Valid until Oct 20, 2026",status:"active",text:"Water level is above the danger mark. Evacuation teams are deployed near Yamuna Bazar."},
+ {id:3,title:"Heatwave Red Alert",sev:"moderate",loc:"North & West regions",issued:"May 15, 2026, 11:00 IST",valid:"Expired",status:"past",text:"Maximum temperatures reached 46°C. Outdoor workers were advised to take precautions."},
+ {id:4,title:"Thunderstorm with Gusty Winds",sev:"moderate",loc:"Delhi districts",issued:"Sep 10, 2026, 14:00 IST",valid:"Expired",status:"past",text:"Sudden squalls with winds up to 60 km/h were recorded."}
+];
+const SHELTERS=[
+ {id:"s1",name:"SDMA Relief Camp, Connaught Place",addr:"Near Central Park, Rajiv Chowk",lat:28.6280,lng:77.2090,cap:"250 of 500 spaces free"},
+ {id:"s2",name:"Yamuna Bazar Community Safe Centre",addr:"Near Old Railway Bridge, Kashmere Gate",lat:28.6650,lng:77.2300,cap:"120 of 300 spaces free"},
+ {id:"s3",name:"AIIMS Emergency Medical Relief Camp",addr:"Sri Aurobindo Marg, Ansari Nagar",lat:28.5672,lng:77.2100,cap:"Trauma care and blood bank"},
+ {id:"s4",name:"Dwarka Sector 12 Sports Complex Shelter",addr:"Sector 12, Dwarka",lat:28.5823,lng:77.0450,cap:"800 of 1200 spaces free"}
+];
+
+const S={lang:store.get('aagam_lang','en'),theme:store.get('aagam_theme',matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),
+ contrast:store.get('aagam_contrast',false),reports:store.get('aagam_reports',[]),
+ profile:store.get('aagam_profile',{name:"",phone:"",addr:"New Delhi",medical:"",photo:""}),
+ loc:null,sos:false,offline:!navigator.onLine,filter:'active',query:''};
+const t=k=>(T[S.lang]&&T[S.lang][k])||T.en[k]||k;
+
+/* ---------- i18n / theme ---------- */
+function applyLang(){
+ document.documentElement.lang=S.lang;
+ $$('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+ $$('[data-ph]').forEach(e=>e.placeholder=t(e.dataset.ph));
+ renderCats();renderAlerts();renderShelters();renderProfile();renderPrep();updateLoc();
+}
+function applyTheme(){
+ document.documentElement.dataset.theme=S.theme;
+ document.documentElement.classList.toggle('hc',S.contrast);
+ $('#theme i').className='fa-solid '+(S.theme==='dark'?'fa-sun':'fa-moon');
+}
+function updateLoc(){
+ $('#loc-text').textContent=S.loc?`${t('gps_loc')}: ${S.loc.lat.toFixed(3)}, ${S.loc.lng.toFixed(3)}`:t('default_loc');
+}
+
+/* ---------- navigation ---------- */
+let map=null;
+function go(id){
+ $$('.view').forEach(v=>v.classList.remove('active'));
+ $('#v-'+id).classList.add('active');
+ $$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+ scrollTo(0,0);
+ if(id==='map'&&map)setTimeout(()=>map.invalidateSize(),150);
+}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
+
+/* ---------- modal ---------- */
+function openModal(title,html){$('#m-title').textContent=title;$('#m-body').innerHTML=html;$('#backdrop').classList.remove('hidden')}
+function closeModal(){$('#backdrop').classList.add('hidden')}
+$('#m-close').onclick=closeModal;
+$('#backdrop').onclick=e=>{if(e.target.id==='backdrop')closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ---------- SOS buzzer ---------- */
+let ac=null,osc=null,iv=null;
+function startSOS(){
+ if(S.sos)return;
+ try{
+  ac=new(window.AudioContext||window.webkitAudioContext)();
+  osc=ac.createOscillator();const g=ac.createGain();
+  osc.type='sawtooth';g.gain.value=.3;osc.connect(g);g.connect(ac.destination);osc.start();
+  let hi=true;const tick=()=>{osc.frequency.setValueAtTime(hi?880:660,ac.currentTime);hi=!hi};
+  tick();iv=setInterval(tick,400);
+ }catch(e){}
+ S.sos=true;$('#sos-bar').classList.remove('hidden');
+}
+function stopSOS(){
+ clearInterval(iv);iv=null;
+ try{osc&&osc.stop();ac&&ac.close()}catch(e){}
+ osc=ac=null;S.sos=false;$('#sos-bar').classList.add('hidden');
+}
+$('#sos-btn').onclick=startSOS;$('#sos-stop').onclick=stopSOS;
+$('#call-btn').onclick=e=>{if(!confirm(t('confirm_dial')))e.preventDefault()};
+
+/* ---------- geolocation ---------- */
+function getLoc(ok,fail){
+ if(!navigator.geolocation){alert(t('no_geo'));fail&&fail();return}
+ navigator.geolocation.getCurrentPosition(p=>{S.loc={lat:p.coords.latitude,lng:p.coords.longitude};updateLoc();renderShelters();ok&&ok()},()=>fail&&fail(),{enableHighAccuracy:true,timeout:10000});
+}
+function km(a,b,c,d){const r=x=>x*Math.PI/180,h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 12742*Math.asin(Math.sqrt(h))}
+
+/* ---------- alerts ---------- */
+function renderAlerts(){
+ const list=ALERTS.filter(a=>S.filter==='all'||a.status===S.filter);
+ $('#alerts').innerHTML=list.length?list.map(a=>`<div class="card alert ${esc(a.sev)}"><div class="top"><h3>${esc(a.title)}</h3><span class="sev">${esc(a.sev)}</span></div><div class="meta"><span><i class="fa-solid fa-location-dot"></i> ${esc(a.loc)}</span><span><i class="fa-regular fa-clock"></i> ${t('issued')}: ${esc(a.issued)}</span><span><i class="fa-solid fa-hourglass-half"></i> ${esc(a.valid)}</span></div><button class="sm" data-b="${a.id}"><i class="fa-solid fa-file-lines"></i> ${t('bulletin')}</button></div>`).join(''):`<p style="text-align:center;padding:2rem;color:var(--muted)">${t('no_alerts')}</p>`;
+}
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');S.filter=b.dataset.f;renderAlerts()});
+$('#alerts').onclick=e=>{const b=e.target.closest('[data-b]');if(!b)return;const a=ALERTS.find(x=>x.id==b.dataset.b);if(a)openModal(a.title,`<p><b>${esc(a.sev.toUpperCase())}</b> · ${esc(a.loc)}</p><p>${esc(a.text)}</p><p style="color:var(--muted);font-size:.75rem">${esc(a.issued)} · ${esc(a.valid)}</p>`)};
+
+/* ---------- map & shelters ---------- */
+function initMap(){
+ const msg=$('#mapmsg');
+ try{
+  map=L.map('map').setView([28.6139,77.2090],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  SHELTERS.forEach(s=>L.marker([s.lat,s.lng]).addTo(map).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.addr)}<br>${esc(s.cap)}`));
+ }catch(e){msg.classList.remove('hidden')}
+}
+function renderShelters(){
+ const q=S.query.toLowerCase();
+ let list=SHELTERS.filter(s=>(s.name+' '+s.addr).toLowerCase().includes(q)).map(s=>({...s,d:S.loc?km(S.loc.lat,S.loc.lng,s.lat,s.lng):null}));
+ if(S.loc)list.sort((a,b)=>a.d-b.d);
+ $('#shelters').innerHTML=list.map(s=>`<div class="card shelter"><div><h4>${esc(s.name)}</h4><p>${esc(s.addr)}</p><p><b>${s.d!==null?s.d.toFixed(1)+' '+t('away'):t('no_dist')}</b> · ${esc(s.cap)}</p></div><div class="acts"><a class="sm pri" target="_blank" rel="noopener" href="https://www.openstreetmap.org/directions?to=${s.lat}%2C${s.lng}"><i class="fa-solid fa-diamond-turn-right"></i> ${t('route')}</a></div></div>`).join('');
+}
+$('#search').oninput=e=>{S.query=e.target.value;renderShelters()};
+$('#locate').onclick=()=>getLoc(()=>{if(map){map.setView([S.loc.lat,S.loc.lng],14);L.marker([S.loc.lat,S.loc.lng]).addTo(map).bindPopup(t('gps_loc')).openPopup()}});
+
+/* ---------- reporting (natural disasters only) ---------- */
+function renderCats(){
+ const sel=(document.querySelector('input[name=cat]:checked')||{}).value;
+ $('#cats').innerHTML=CAT_KEYS.map((k,i)=>`<label class="cat"><input type="radio" name="cat" value="${i}" ${sel==i?'checked':''} ${i===0?'required':''}><i class="fa-solid ${CAT_ICONS[i]}"></i><span>${t('cats')[i]}</span></label>`).join('');
+}
+$('#gps').onchange=e=>{
+ const s=$('#gps-s');
+ if(e.target.checked){s.textContent=t('gps_wait');getLoc(()=>s.textContent=t('gps_ok')+': '+S.loc.lat.toFixed(4)+', '+S.loc.lng.toFixed(4),()=>{s.textContent=t('gps_fail');e.target.checked=false})}
+ else s.textContent='';
+};
+function formData(){
+ const c=document.querySelector('input[name=cat]:checked'),d=$('#details').value.trim();
+ return c&&d?{cat:+c.value,details:d,gps:$('#gps').checked&&S.loc?S.loc:null}:null;
+}
+$('#review').onclick=()=>{
+ const f=formData();if(!f){alert(t('need'));return}
+ openModal(t('sum'),`<p><b>${t('lcat')}:</b> ${esc(t('cats')[f.cat])}</p><p><b>${t('ldet')}:</b> ${esc(f.details)}</p><p><b>${t('lgps')}:</b> ${f.gps?f.gps.lat.toFixed(4)+', '+f.gps.lng.toFixed(4):t('none')}</p>`);
+};
+$('#form').onsubmit=e=>{
+ e.preventDefault();const f=formData();if(!f){alert(t('need'));return}
+ S.reports.unshift({id:Date.now(),cat:f.cat,details:f.details,gps:f.gps,time:new Date().toISOString()});
+ store.set('aagam_reports',S.reports);
+ e.target.reset();$('#gps-s').textContent='';renderProfile();
+ openModal(t('done_t'),`<p>${t('done_b')}</p><button class="sm pri" onclick="closeModal();go('profile')">${t('myreports')}</button>`);
+};
+/* ---------- profile ---------- */
+function initials(n){return (n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('')||'?').toUpperCase()}
+function renderProfile(){
+ const p=S.profile;
+ $('#avatar').innerHTML=p.photo?`<img class="avatar" src="${esc(p.photo)}" alt="">`:`<div class="avatar initials">${esc(initials(p.name))}</div>`;
+ $('#p-name').textContent=p.name||t('dflt_name');
+ $('#p-phone').innerHTML=`<i class="fa-solid fa-phone"></i> ${esc(p.phone||t('dflt_phone'))}`;
+ $('#p-addr').innerHTML=`<i class="fa-solid fa-location-dot"></i> ${esc(p.addr||t('dflt_addr'))}`;
+ const loc=S.lang==='hi'?'hi-IN':'en-IN';
+ $('#p-reports').innerHTML=S.reports.length?S.reports.map(r=>`<div class="rep"><b>${esc(t('cats')[r.cat])}</b> · ${esc(r.details)}<small>${new Date(r.time).toLocaleString(loc)}${r.gps?' · '+r.gps.lat.toFixed(3)+', '+r.gps.lng.toFixed(3):''} · ${t('saved_dev')}</small></div>`).join(''):`<p style="font-size:.85rem;color:var(--muted)">${t('no_reports')}</p>`;
+ $('#p-nums').innerHTML=NUMBERS.map(n=>`<div class="contact"><div><b>${esc(n[S.lang]||n.en)}</b></div><a class="sm pri" href="tel:${n.n}"><i class="fa-solid fa-phone"></i> ${n.n}</a></div>`).join('');
+}
+$('#edit').onclick=()=>{
+ const p=S.profile;
+ openModal(t('edit'),`<label>${t('photo')}</label><input type="file" id="f-photo" accept="image/*">
+ <label>${t('name')}</label><input type="text" id="f-name" value="${esc(p.name)}">
+ <label>${t('phone')}</label><input type="text" id="f-phone" value="${esc(p.phone)}" inputmode="tel">
+ <label>${t('addr')}</label><input type="text" id="f-addr" value="${esc(p.addr)}">
+ <label>${t('medical')}</label><input type="text" id="f-med" value="${esc(p.medical)}">
+ <button class="sm pri" id="f-save" style="justify-content:center;padding:.6rem">${t('save')}</button>`);
+ let photo=p.photo;
+ $('#f-photo').onchange=e=>{
+  const file=e.target.files[0];if(!file)return;
+  const img=new Image(),url=URL.createObjectURL(file);
+  img.onload=()=>{const c=document.createElement('canvas'),m=Math.min(img.width,img.height);c.width=c.height=220;c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,220,220);photo=c.toDataURL('image/jpeg',.8);URL.revokeObjectURL(url)};
+  img.src=url;
+ };
+ $('#f-save').onclick=()=>{
+  S.profile={name:$('#f-name').value.trim(),phone:$('#f-phone').value.trim(),addr:$('#f-addr').value.trim(),medical:$('#f-med').value.trim(),photo};
+  store.set('aagam_profile',S.profile);renderProfile();closeModal();
+ };
+};
+$('#open-set').onclick=()=>{
+ openModal(t('settings'),`<div class="setrow"><label for="s-hc">${t('set_contrast')}</label><input type="checkbox" id="s-hc" ${S.contrast?'checked':''}></div><button class="sm" id="s-clear" style="justify-content:center;padding:.6rem">${t('clear')}</button>`);
+ $('#s-hc').onchange=e=>{S.contrast=e.target.checked;store.set('aagam_contrast',S.contrast);applyTheme()};
+ $('#s-clear').onclick=()=>{if(confirm(t('clear_q'))){try{Object.keys(localStorage).filter(k=>k.startsWith('aagam_')).forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()}};
+};
+$('#open-src').onclick=()=>openModal(t('src_t'),`<p>${t('src_b')}</p>`);
+
+/* ---------- preparedness ---------- */
+function renderPrep(){
+ $('#prep').innerHTML=t('prep').map(c=>`<div class="card prep"><h3>${esc(c.t)}</h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+}
+
+/* ---------- online / offline ---------- */
+function setOnline(){
+ S.offline=!navigator.onLine;
+ $('#off').classList.toggle('hidden',!S.offline);
+ $('#mapmsg').classList.toggle('hidden',!S.offline);
+}
+addEventListener('online',setOnline);addEventListener('offline',setOnline);
+
+/* ---------- init ---------- */
+$('#theme').onclick=()=>{S.theme=S.theme==='dark'?'light':'dark';store.set('aagam_theme',S.theme);applyTheme()};
+$('#lang').value=S.lang;
+$('#lang').onchange=e=>{S.lang=e.target.value;store.set('aagam_lang',S.lang);applyLang()};
+$('#stamp').textContent=new Date().toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+applyTheme();initMap();setOnline();applyLang();
+</script>
+</body>
+</html>
