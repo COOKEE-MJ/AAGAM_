@@ -25,6 +25,20 @@ def normalize_live_alert(record):
     colors = record.get("warningColors", {})
     warning_text = record.get("warningText", {})
 
+
+    # Official IMD district warning colour codes.
+    color_labels = {
+        1: "Red",
+        2: "Orange",
+        3: "Yellow",
+        4: "Green",
+    }
+
+    warning_color_labels = {
+        day: color_labels.get(code, "Unverified")
+        for day, code in colors.items()
+    }
+
     return {
         "hazard": None,
         "severity": "Unclassified",
@@ -33,6 +47,7 @@ def normalize_live_alert(record):
         "issueDate": issue_date,
         "forecast": forecast,
         "warningColors": colors,
+        "warningColorLabels": warning_color_labels,
         "warningText": warning_text,
         "validUntil": None,
         "sourceUrl": record.get("sourceUrl"),
