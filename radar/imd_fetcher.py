@@ -14,7 +14,7 @@ def fetch_imd_warnings(limit=100, district=None):
         "request": "GetFeature",
         "typeNames": "imd:district_warnings_india",
         "count": limit,
-        "sortBy": "ID A",
+        "sortBy": "ID ASC",
         "outputFormat": "application/json",
         "propertyName": (
             "ID,District,state,Date,"
