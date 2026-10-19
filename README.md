@@ -307,6 +307,7 @@ npm run smoke
 | **Citizen PII** | 🔒 **ENCRYPTED** | Phone numbers and exact coordinates are accessible exclusively by authorized district officers. |
 | **Role-Based Access (RBAC)** | 🔒 **ENFORCED** | Public users and citizens receive `403 Forbidden` if attempting to query command heatmaps or queues. |
 | **Idempotency Safeguard** | 🔒 **VERIFIED** | Every SOS carries a unique `clientId`; duplicate network packets never trigger duplicate alerts. |
+| **Data Retention (DPDPA 2023)** | 🔒 **AUTOMATED** | Incident photos purged after 30 days; phone numbers masked after 90 days. Runs once at start and then every 24 hours using a simple timer. For a real deployment this would move to a proper scheduler (cron / pg_cron). |
 
 ---
 

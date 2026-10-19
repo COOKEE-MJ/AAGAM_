@@ -37,5 +37,18 @@ app.use((err, _req, res, _next) => {
 });
 
 const port = process.env.PORT || 3000;
-if (require.main === module) app.listen(port, () => console.log(`AAGAM API on :${port} (AI_MODE=${process.env.AI_MODE || 'mock'})`));
+if (require.main === module) {
+  app.listen(port, () => console.log(`AAGAM API on :${port} (AI_MODE=${process.env.AI_MODE || 'mock'})`));
+
+  const { runRetentionSweep } = require('./services/retention');
+  function runCleanup() {
+    runRetentionSweep()
+      .then((r) => console.log('daily clean-up done:', r))
+      .catch((e) => console.error('daily clean-up FAILED:', e.message)); // never crash the server
+  }
+  if (process.env.NODE_ENV !== 'test' && process.env.RETENTION_ENABLED !== 'false') {
+    setTimeout(runCleanup, 30 * 1000); // once, 30 s after start
+    setInterval(runCleanup, 24 * 60 * 60 * 1000).unref(); // then every 24 hours
+  }
+}
 module.exports = app;
