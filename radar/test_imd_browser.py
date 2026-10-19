@@ -3,8 +3,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 from tinyfish import TinyFish
 
+
 RADAR_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = RADAR_DIR.parent
+
+# Load the radar .env first, then the project-root .env
 load_dotenv(RADAR_DIR / ".env")
+load_dotenv(PROJECT_ROOT / ".env", override=False)
+
 
 print("1. Starting TinyFish test...", flush=True)
 

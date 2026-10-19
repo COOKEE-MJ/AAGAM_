@@ -5,8 +5,15 @@ from dotenv import load_dotenv
 from tinyfish import TinyFish
 
 # Find the radar folder and load its API key
+
+# Find the project root and radar folder
 RADAR_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = RADAR_DIR.parent
+
+# Load the radar .env first, then fill missing values from the root .env
 load_dotenv(RADAR_DIR / ".env")
+load_dotenv(PROJECT_ROOT / ".env", override=False)
+
 
 # Read the saved search results
 results_file = RADAR_DIR / "output" / "alerts.json"

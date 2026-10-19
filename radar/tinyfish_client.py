@@ -8,8 +8,12 @@ from dotenv import load_dotenv
 from tinyfish import TinyFish
 
 # Find the project root, regardless of the terminal's location.
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(Path(__file__).resolve().parent / ".env")
+
+# Check both the radar folder and the project root for .env
+load_dotenv(PROJECT_ROOT / "radar" / ".env")
+load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 
 def main():

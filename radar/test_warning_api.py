@@ -1,4 +1,17 @@
 
+"""
+Research probe for the legacy IMD district warning API.
+
+The endpoint may return HTTP 401 if the requesting IP address
+has not been whitelisted. This is an access restriction observed
+during investigation, not necessarily a client-side code defect.
+
+The project uses the public IMD GeoServer WFS endpoint in
+radar/imd_fetcher.py as an alternative data source.
+
+This script is diagnostic only; it does not guarantee API access.
+"""
+
 import requests
 import json
 

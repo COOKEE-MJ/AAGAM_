@@ -1,12 +1,18 @@
 
-.env
-.venv/
-__pycache__/
-
-
-.venv/
-__pycache__/
-*.py[cod]
+# Environment variables
 .env
 .env.*
 !.env.example
+
+# Virtual environments
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Generated JSON snapshots
+
+# Generated JSON snapshots
+/output/*.json
+!/output/sample_normalized_alerts.json

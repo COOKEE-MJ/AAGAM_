@@ -1,10 +1,22 @@
 
+"""
+Research probe for the legacy IMD district-warning API.
+
+The endpoint may return HTTP 401 when the requesting IP address
+has not been whitelisted. This is an access restriction observed
+during investigation, not necessarily a defect in this script.
+
+The project uses the public IMD GeoServer WFS endpoint in
+radar/imd_fetcher.py as an alternative data source.
+
+The ID 573 below is an example ID, not a confirmed Gurugram ID.
+This diagnostic script does not guarantee API access.
+"""
+
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
 # Official IMD legacy district-warning endpoint.
-# 573 is an example ID from IMD documentation,
-# NOT a confirmed ID for Gurugram.
 url = "https://mausam.imd.gov.in/api/warnings_district_api.php?id=573"
 
 request = Request(
