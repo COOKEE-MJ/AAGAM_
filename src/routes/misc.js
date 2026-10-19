@@ -33,6 +33,23 @@ router.get('/sms-log', requireAuth, requireRole('authority'), async (_req, res, 
   } catch (e) { next(e); }
 });
 
+// GET /api/audit-log (officer): view recent audit trail entries
+router.get('/audit-log', requireAuth, requireRole('authority'), async (req, res, next) => {
+  try {
+    const { targetType, targetId, limit = 100 } = req.query;
+    const where = [];
+    const p = [];
+    if (targetType) { p.push(targetType); where.push(`target_type = $${p.length}`); }
+    if (targetId) { p.push(String(targetId)); where.push(`target_id = $${p.length}`); }
+    p.push(Number(limit) || 100);
+    const sql = `SELECT id, actor_id AS "actorId", actor_role AS "actorRole", action, target_type AS "targetType", target_id AS "targetId", detail, at
+                 FROM audit_log ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
+                 ORDER BY id DESC LIMIT $${p.length}`;
+    const rows = (await query(sql, p)).rows;
+    res.json({ audit: rows });
+  } catch (e) { next(e); }
+});
+
 router.get('/health', async (_req, res) => {
   try {
     await query('SELECT 1');

@@ -185,6 +185,84 @@ function check(name, ok, extra = '') {
   const sm = await call('GET', '/api/sms-log', { token: O });
   check('mock SMS log reachable', sm.status === 200);
 
+  // 12. Alert updates & cancellations (Job 2: CAP message lifecycle)
+  const alertSrcId = 'smoke-src-id-' + run;
+
+  // Test 1: Post a new official alert (medium). Then post msgType:"update" with the same sourceAlertId, severity high.
+  const a1 = await radarPost({
+    msgType: 'alert',
+    sourceAlertId: alertSrcId,
+    hazard: 'cyclone',
+    severity: 'medium',
+    title: 'Initial Cyclone Alert',
+    district: 'Puri',
+    sourceName: 'IMD',
+    sourceUrl: 'https://mausam.imd.gov.in/cyclone-1',
+    dedupeKey: 'smoke-cap-day1-' + run,
+  });
+  check('Job2 T1: new official alert created', a1.status === 201 && a1.json.action === 'created' && a1.json.id, JSON.stringify(a1.json));
+
+  const a1Update = await radarPost({
+    msgType: 'update',
+    sourceAlertId: alertSrcId,
+    severity: 'high',
+    title: 'Upgraded Cyclone Alert',
+    sourceUrl: 'https://mausam.imd.gov.in/cyclone-1',
+  });
+  check('Job2 T1: update keeps same id & action=updated', a1Update.status === 200 && a1Update.json.action === 'updated' && a1Update.json.id === a1.json.id, JSON.stringify(a1Update.json));
+
+  // Test 2: Post the update again the next day (use a different dedupeKey but the same sourceAlertId)
+  const a1NextDay = await radarPost({
+    msgType: 'update',
+    sourceAlertId: alertSrcId,
+    dedupeKey: 'smoke-cap-day2-' + run,
+    severity: 'high',
+    title: 'Day 2 Cyclone Alert',
+    sourceUrl: 'https://mausam.imd.gov.in/cyclone-1',
+  });
+  check('Job2 T2: matching by sourceAlertId works across days', a1NextDay.status === 200 && a1NextDay.json.id === a1.json.id);
+
+  // Test 3: Post msgType:"cancel" from the official source.
+  const a1Cancel = await radarPost({
+    msgType: 'cancel',
+    sourceAlertId: alertSrcId,
+    sourceUrl: 'https://mausam.imd.gov.in/cyclone-1',
+  });
+  check('Job2 T3: cancel returns action=cancelled', a1Cancel.status === 200 && a1Cancel.json.action === 'cancelled' && a1Cancel.json.status === 'withdrawn');
+
+  const pubAfterCancel = await call('GET', '/api/alerts?hazard=cyclone&district=Puri');
+  check('Job2 T3: cancelled alert no longer in citizen GET /api/alerts', !pubAfterCancel.json.alerts.some((a) => a.id === a1.json.id));
+
+  // Test 4: Post an update after the cancel.
+  const a1PostCancelUpdate = await radarPost({
+    msgType: 'update',
+    sourceAlertId: alertSrcId,
+    severity: 'extreme',
+    sourceUrl: 'https://mausam.imd.gov.in/cyclone-1',
+  });
+  check('Job2 T4: update on withdrawn alert is ignored', a1PostCancelUpdate.status === 200 && a1PostCancelUpdate.json.action === 'ignored');
+
+  // Test 5: Post a cancel for the same alert id from a non-government site.
+  const fakeCancel = await radarPost({
+    msgType: 'cancel',
+    sourceAlertId: alertSrcId,
+    sourceUrl: 'https://www.example-news.com/fake-cancel',
+  });
+  check('Job2 T5: cancel from non-government site returns needs_officer', fakeCancel.status === 200 && fakeCancel.json.action === 'needs_officer');
+
+  // Test 6: Post a cancel for an id that does not exist.
+  const noMatchCancel = await radarPost({
+    msgType: 'cancel',
+    sourceAlertId: 'non-existent-alert-' + run,
+    sourceUrl: 'https://mausam.imd.gov.in/x',
+  });
+  check('Job2 T6: cancel for non-existent id returns no_match', noMatchCancel.status === 200 && noMatchCancel.json.action === 'no_match');
+
+  // Test 7: Check the audit log for the update and the cancel.
+  const auditRes = await call('GET', '/api/audit-log?targetId=' + a1.json.id, { token: O });
+  const auditActions = (auditRes.json?.audit || []).map((x) => x.action);
+  check('Job2 T7: audit log contains alert.update and alert.cancel', auditActions.includes('alert.update') && auditActions.includes('alert.cancel'), JSON.stringify(auditActions));
+
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })().catch((e) => {

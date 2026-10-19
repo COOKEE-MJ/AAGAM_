@@ -98,6 +98,21 @@ function toGridCell(lat, lng, cellSize = 0.05) {
   return { lat: Number(snapLat.toFixed(4)), lng: Number(snapLng.toFixed(4)) };
 }
 
+/**
+ * ALERT ACTION DECISION (Job 2: CAP Alert/Update/Cancel lifecycle)
+ */
+function decideAlertAction({ msgType = 'alert', exists = false, isOfficial = false, isWithdrawn = false } = {}) {
+  if (msgType === 'alert') return { action: 'created' };
+  if (!exists) return { action: 'no_match' };
+  if (!isOfficial) return { action: 'needs_officer' };
+  if (msgType === 'cancel') return { action: 'cancelled' };
+  if (msgType === 'update') {
+    if (isWithdrawn) return { action: 'ignored' };
+    return { action: 'updated' };
+  }
+  return { action: 'no_match' };
+}
+
 module.exports = {
   REPORT_TYPES,
   TYPE_LABELS,
@@ -108,6 +123,7 @@ module.exports = {
   canTransition,
   distanceMeters,
   markClusters,
-  toGridCell
+  toGridCell,
+  decideAlertAction
 };
 

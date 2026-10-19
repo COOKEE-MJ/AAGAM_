@@ -8,7 +8,8 @@ import {
   isOfficialSource,
   canTransition,
   markClusters,
-  distanceMeters
+  distanceMeters,
+  decideAlertAction
 } from '../src/rules.js';
 import { HAZARD_LIST } from '../src/hazards.js';
 
@@ -98,5 +99,25 @@ test('16. markClusters: marks items as isCluster when 3 or more are within 500m'
   assert.equal(clustered[1].isCluster, true);
   assert.equal(clustered[2].isCluster, true);
   assert.equal(clustered[3].isCluster, false);
+});
+
+test('17. decideAlertAction: new alert returns action=created', () => {
+  assert.equal(decideAlertAction({ msgType: 'alert' }).action, 'created');
+});
+
+test('18. decideAlertAction: update and cancel without match return action=no_match', () => {
+  assert.equal(decideAlertAction({ msgType: 'update', exists: false }).action, 'no_match');
+  assert.equal(decideAlertAction({ msgType: 'cancel', exists: false }).action, 'no_match');
+});
+
+test('19. decideAlertAction: official update returns updated, official cancel returns cancelled', () => {
+  assert.equal(decideAlertAction({ msgType: 'update', exists: true, isOfficial: true }).action, 'updated');
+  assert.equal(decideAlertAction({ msgType: 'cancel', exists: true, isOfficial: true }).action, 'cancelled');
+});
+
+test('20. decideAlertAction: unofficial returns needs_officer; withdrawn update is ignored', () => {
+  assert.equal(decideAlertAction({ msgType: 'update', exists: true, isOfficial: false }).action, 'needs_officer');
+  assert.equal(decideAlertAction({ msgType: 'cancel', exists: true, isOfficial: false }).action, 'needs_officer');
+  assert.equal(decideAlertAction({ msgType: 'update', exists: true, isOfficial: true, isWithdrawn: true }).action, 'ignored');
 });
 

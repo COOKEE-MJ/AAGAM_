@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS alerts (
   valid_until          timestamptz,
   source_name          text NOT NULL,
   source_url           text NOT NULL,
+  source_alert_id      text,                     -- Agency's unique alert ID (for matching updates/cancellations across days)
   source_published_at  timestamptz,              -- Timestamp when the source agency published it
   is_official_source   boolean NOT NULL DEFAULT false, -- Verified https .gov.in / .nic.in source
   extraction_status    text NOT NULL DEFAULT 'parsed_by_ai' CHECK (extraction_status IN ('official_feed','parsed_by_ai','manual')),
@@ -60,6 +61,7 @@ CREATE TABLE IF NOT EXISTS alerts (
 );
 CREATE INDEX IF NOT EXISTS alerts_center_gix ON alerts USING gist (center);
 CREATE INDEX IF NOT EXISTS alerts_status_idx ON alerts (status, district);
+CREATE INDEX IF NOT EXISTS alerts_source_alert_id_idx ON alerts (source_alert_id);
 
 -- 4. Shelters (Capacities, real-time occupancy & suitability)
 CREATE TABLE IF NOT EXISTS shelters (
