@@ -43,6 +43,8 @@ t('hazard: earthquake', r.detectHazard('M 5.2 earthquake near Leh') === 'earthqu
 t('hazard: cyclone in Hindi', r.detectHazard('चक्रवात की चेतावनी') === 'cyclone');
 t('hazard: landslide', r.detectHazard('Landslide blocks highway') === 'landslide');
 t('hazard: tsunami', r.detectHazard('Tsunami warning for Andaman') === 'tsunami');
+t('hazard: dust storm', r.detectHazard('Dust storm warning for west Rajasthan') === 'dust_storm');
+t('hazard: dust storm in Hindi', r.detectHazard('धूल भरी आंधी की चेतावनी') === 'dust_storm');
 t('drought is not radar-enabled', r.detectHazard('severe drought conditions') === null);
 t('colour red -> high', r.detectSeverity({ colour: 'red' }) === 'high');
 t('colour yellow -> low', r.detectSeverity({ colour: 'yellow' }) === 'low');

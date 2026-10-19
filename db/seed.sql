@@ -15,6 +15,7 @@ INSERT INTO hazard_types (code, label, category, default_advice) VALUES
  ('drought',    'Drought',                 'climatological',       'Conserve water. Follow district water-supply advisories.'),
  ('forest_fire','Forest fire',             'other',                'Move away from the fire and smoke. Follow evacuation orders from authorities.'),
  ('hailstorm',  'Hailstorm',               'hydro-meteorological', 'Take shelter indoors. Stay away from windows and skylights.'),
+ ('dust_storm', 'Dust storm',              'hydro-meteorological', 'Stay indoors, close windows, cover nose and mouth. Avoid driving and keep away from trees and hoardings.'),
  ('avalanche',  'Avalanche',               'geological',           'Stay away from steep snowy slopes. Follow local army and police advisories.')
 ON CONFLICT (code) DO NOTHING;
 

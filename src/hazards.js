@@ -146,6 +146,30 @@ const HAZARD_LIST = [
       'Call 112 immediately once safe; stay with the group.',
     ],
   },
+  {
+    id: 'dust_storm',
+    label: 'Dust storm',
+    category: 'hydro-meteorological',
+    agency: 'India Meteorological Department (IMD)',
+    sourceName: 'IMD Mausam',
+    sourceUrl: 'https://mausam.imd.gov.in',
+    whatToDo: [
+      'Stay indoors, close windows, cover nose and mouth.',
+      'Avoid driving and keep away from trees and hoardings.',
+    ],
+  },
+  {
+    id: 'drought',
+    label: 'Drought',
+    category: 'climatological',
+    agency: 'Ministry of Agriculture & Farmers Welfare (Drought Management) / NDMA',
+    sourceName: 'MoA&FW / NDMA',
+    sourceUrl: 'https://mausam.imd.gov.in',
+    whatToDo: [
+      'Save water. Follow your district water-supply notices.',
+      'Practice water conservation in domestic and agricultural use.',
+    ],
+  },
 ];
 
 // Quick lookup: HAZARD_MAP['flood'] → the flood object

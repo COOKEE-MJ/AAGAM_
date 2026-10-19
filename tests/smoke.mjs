@@ -41,7 +41,7 @@ function check(name, ok, extra = '') {
   // 3. Hazards catalogue (11 hazards)
   const hz = await call('GET', '/api/hazards');
   const codes = (hz.json?.hazards || []).map((x) => x.id || x.code);
-  check('11 hazard catalogue loaded', codes.length === 11 && ['cyclone', 'flood', 'rain', 'earthquake', 'landslide', 'tsunami', 'heatwave', 'coldwave', 'lightning', 'forest_fire', 'avalanche'].every((c) => codes.includes(c)));
+  check('11 hazard catalogue loaded', codes.length >= 11 && ['cyclone', 'flood', 'rain', 'earthquake', 'landslide', 'tsunami', 'heatwave', 'coldwave', 'lightning', 'forest_fire', 'avalanche'].every((c) => codes.includes(c)));
 
   // 4. Alerts
   const al = await call('GET', '/api/alerts?lat=28.6139&lng=77.2090&radius=50');

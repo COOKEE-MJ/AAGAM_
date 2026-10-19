@@ -57,7 +57,7 @@
   "earthquake_magnitude_bands": {
    "label": "TEAM RULE - not an official NCS scale. Change if the team prefers.",
    "low": [
-    3.0,
+    3,
     4.4
    ],
    "medium": [
@@ -346,19 +346,39 @@
   "drought": {
    "label": "Drought",
    "category": "climatological",
-   "official_agency": "Ministry of Agriculture (Drought Management) / IMD seasonal outlook",
+   "official_agency": "Ministry of Agriculture & Farmers Welfare (Drought Management) / NDMA",
    "agency_url": "https://mausam.imd.gov.in/",
-   "notified_status": "Notified disaster (SDRF list)",
+   "notified_status": "NOT CONFIRMED - check IMD / NDMA pages",
    "verification": "Slow-onset: a daily radar is not suitable",
    "evidence_urls": [
     "https://mausam.imd.gov.in/"
    ],
    "radar_enabled": false,
    "keywords": [
-    "drought"
+    "drought",
+    "सूखा"
    ],
-   "advice": "Conserve water. Follow district water-supply advisories."
+   "advice": "Save water. Follow your district's water-supply notices."
+  },
+  "dust_storm": {
+   "label": "Dust storm",
+   "category": "hydro-meteorological",
+   "official_agency": "India Meteorological Department (IMD)",
+   "agency_url": "https://mausam.imd.gov.in/",
+   "notified_status": "NOT CONFIRMED - check IMD / NDMA pages",
+   "verification": "Agency mapping taken from team audit; verify on IMD page",
+   "evidence_urls": [
+    "https://mausam.imd.gov.in/"
+   ],
+   "radar_enabled": true,
+   "keywords": [
+    "dust storm",
+    "duststorm",
+    "dust-storm",
+    "dusty wind",
+    "धूल भरी आंधी"
+   ],
+   "advice": "Stay indoors, close windows, cover nose and mouth. Avoid driving and keep away from trees and hoardings."
   }
  }
 }
-
