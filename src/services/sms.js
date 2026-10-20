@@ -1,5 +1,5 @@
 // Mock SMS gateway. Nothing is sent. Rows in sms_log are the demo proof ("SMS sent (mocked)").
-// Label it as mocked in the README and the demo video.
+// Label it as mocked in the README and live pitch presentation.
 const { query } = require('../db');
 
 async function sendMockSms({ toPhone, body, sosId = null }) {

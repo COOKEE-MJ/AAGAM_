@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAGAM ΓÇö Emergency Safety Dashboard</title>
+<meta name="theme-color" content="#2563eb">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#475569;--line:#cbd5e1;--red:#dc2626;--blue:#2563eb;--amber:#d97706;--green:#059669;--shadow:0 4px 6px -1px rgba(0,0,0,.08);--r:12px}
+[data-theme=dark]{--bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;--line:#30363d;--red:#ef4444;--blue:#3b82f6;--shadow:0 4px 6px -1px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0}
+.hidden{display:none!important}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);display:flex;flex-direction:column}
+@media(min-width:768px){.app{max-width:720px;border:0 solid var(--line);border-width:0 1px}}
+header{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:.7rem}
+.logo{width:40px;height:40px;background:var(--blue);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:1.2rem}
+.brand h1{font-size:1.2rem;font-weight:800;line-height:1.1}
+.brand small{font-size:.72rem;color:var(--muted);font-weight:600}
+.hctl{display:flex;align-items:center;gap:.5rem}
+select,input[type=text],textarea{font-family:inherit;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:.45rem .6rem;font-size:.85rem;outline:none;width:100%}
+.hctl select{width:auto;font-weight:700}
+select:focus,input:focus,textarea:focus{border-color:var(--blue)}
+.ibtn{background:none;border:1px solid var(--line);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer}
+.badge-off{background:var(--amber);color:#fff;font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:20px}
+main{flex:1;padding-bottom:5rem}
+.view{display:none}.view.active{display:block}
+.vh{padding:1.1rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+.vh h2{font-size:1.2rem;font-weight:800}.vh p{font-size:.85rem;color:var(--muted)}
+.hero{padding:2.5rem 1.25rem 1.5rem;background:linear-gradient(135deg,#1e3a8a,#0f172a);color:#fff}
+.hero .loc{display:inline-block;background:rgba(37,99,235,.3);border:1px solid #3b82f6;color:#bfdbfe;font-size:.75rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:.7rem}
+.hero h2{font-size:1.5rem;font-weight:800}.hero p{color:#cbd5e1;font-size:.9rem;margin:.4rem 0}
+.hero small{color:#94a3b8;font-size:.75rem}
+.aqi{margin:1rem 1.25rem;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:var(--r);padding:1rem;box-shadow:var(--shadow)}
+.aqi div{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem}
+.aqi span{color:var(--amber)}.aqi p{font-size:.8rem;color:var(--muted);margin-top:.3rem}
+.sos-sec{padding:1.5rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+.row{display:flex;gap:1.25rem;justify-content:center}
+.round{width:136px;height:136px;border-radius:50%;border:5px solid;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .1s}
+.round:active{transform:scale(.95)}
+.round b{font-size:1.9rem;font-weight:800;line-height:1.1}
+.round small{font-size:.62rem;font-weight:700;text-align:center;padding:0 .6rem}
+#sos-btn{background:radial-gradient(circle,#ef4444,#b91c1c);border-color:#fecaca}
+#call-btn{background:radial-gradient(circle,#2563eb,#1d4ed8);border-color:#bfdbfe}
+.sos-bar{display:flex;align-items:center;justify-content:center;gap:.7rem;background:var(--red);color:#fff;font-weight:800;padding:.7rem;border-radius:8px;margin-top:1rem}
+.sm{padding:.3rem .6rem;font-size:.75rem;border-radius:6px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem}
+.sm.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+.note{font-size:.75rem;color:var(--muted);background:var(--bg);border:1px solid var(--line);padding:.7rem;border-radius:8px;margin-top:.9rem}
+.stack{padding:1.25rem;display:flex;flex-direction:column;gap:.9rem}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;box-shadow:var(--shadow)}
+.item:hover{border-color:var(--blue)}
+.ico{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1.2rem;flex-shrink:0}
+.item h3{font-size:1rem;font-weight:800}.item p{font-size:.8rem;color:var(--muted)}
+.item .grow{flex:1}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--line);display:flex;padding:.4rem 0;z-index:50}
+@media(min-width:768px){nav{max-width:720px}}
+nav button{flex:1;background:none;border:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.2rem;font:700 .7rem inherit;font-family:inherit;cursor:pointer;padding:.25rem}
+nav i{font-size:1.15rem}nav .active{color:var(--blue)}
+.tabs{display:flex;gap:.5rem;padding:1rem 1.25rem}
+.tab{background:var(--card);border:1px solid var(--line);color:var(--text);padding:.4rem 1rem;border-radius:20px;font:700 .8rem inherit;font-family:inherit;cursor:pointer}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.list{padding:0 1.25rem 1.25rem;display:flex;flex-direction:column;gap:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1rem;box-shadow:var(--shadow)}
+.alert{border-left:5px solid var(--blue)}.alert.extreme{border-left-color:var(--red)}.alert.high{border-left-color:var(--red)}.alert.medium{border-left-color:var(--amber)}.alert.low{border-left-color:var(--blue)}
+.alert .top{display:flex;justify-content:space-between;gap:.5rem;margin-bottom:.4rem}
+.alert h3{font-size:.95rem;font-weight:800}
+.sev{font-size:.65rem;font-weight:800;text-transform:uppercase;padding:.2rem .5rem;border-radius:4px;background:rgba(37,99,235,.15);color:var(--blue);height:fit-content}
+.extreme .sev,.high .sev{background:rgba(220,38,38,.15);color:var(--red)}
+.medium .sev{background:rgba(217,119,6,.15);color:var(--amber)}
+.low .sev{background:rgba(37,99,235,.15);color:var(--blue)}
+.meta{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;margin-bottom:.6rem}
+.bar{display:flex;gap:.5rem;padding:.75rem 1.25rem;background:var(--card);border-bottom:1px solid var(--line)}
+#map{height:320px;width:100%}
+.mapmsg{background:var(--amber);color:#fff;font-size:.75rem;text-align:center;padding:.4rem}
+.shelter{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.shelter h4{font-size:.9rem;font-weight:800}.shelter p{font-size:.75rem;color:var(--muted)}
+.acts{display:flex;gap:.4rem}
+form{padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.lbl{font-size:.8rem;font-weight:700;margin-bottom:.4rem;display:block}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cat{border:1px solid var(--line);background:var(--card);padding:.7rem;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:700}
+.cat:has(input:checked){border-color:var(--blue);background:rgba(37,99,235,.1)}
+.cat i{color:var(--blue)}
+.btns{display:flex;gap:.7rem}.btns button{flex:1;padding:.75rem;border-radius:8px;font:700 .85rem inherit;font-family:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.btns .pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.pcard{display:flex;gap:1rem;align-items:center}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid var(--blue);flex-shrink:0}
+.initials{display:grid;place-items:center;background:var(--blue);color:#fff;font-size:1.8rem;font-weight:800}
+.pcard h3{font-size:1.15rem;font-weight:800}
+.pcard p{font-size:.82rem;color:var(--muted)}
+.sech{font-size:1rem;font-weight:800;margin:.2rem 0 .6rem}
+.contact{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+.contact:last-child{border:0}
+.contact small{display:block;color:var(--muted);font-size:.75rem}
+.rep{padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.85rem}.rep:last-child{border:0}
+.rep small{color:var(--muted);display:block;font-size:.72rem}
+.prep h3{color:var(--blue);font-size:1rem;font-weight:800;margin-bottom:.5rem}
+.prep ul{padding-left:1.2rem;font-size:.85rem;color:var(--muted);display:flex;flex-direction:column;gap:.35rem}
+.backdrop{position:fixed;inset:0;background:rgba(15,23,42,.75);display:flex;align-items:center;justify-content:center;z-index:100;padding:1rem}
+.modal{background:var(--card);width:100%;max-width:420px;max-height:85vh;overflow:auto;border-radius:var(--r);border:1px solid var(--line)}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:1px solid var(--line);font-weight:800}
+.mh button{background:none;border:none;color:var(--text);font-size:1.1rem;cursor:pointer}
+.mb{padding:1rem;display:flex;flex-direction:column;gap:.7rem;font-size:.85rem}
+.mb label{font-size:.75rem;font-weight:700}
+.setrow{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0}
+.hc{--muted:#1e293b;--line:#475569}[data-theme=dark].hc{--muted:#e2e8f0}
+.hc body{font-weight:700}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo"><i class="fa-solid fa-shield-halved"></i></div><div><h1 data-i18n="app">AAGAM</h1><small data-i18n="sub">Emergency Safety Dashboard</small></div></div>
+  <div class="hctl">
+    <span id="off" class="badge-off hidden"><i class="fa-solid fa-circle-exclamation"></i> <span data-i18n="offline">Offline</span></span>
+    <select id="lang" aria-label="Language"><option value="en">English</option><option value="hi">αñ╣αñ┐αñ¿αÑìαñªαÑÇ</option></select>
+    <button id="theme" class="ibtn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+  </div>
+</header>
+<main>
+<!-- HOME -->
+<section id="v-home" class="view active">
+  <div class="hero">
+    <span class="loc"><i class="fa-solid fa-location-dot"></i> <span id="loc-text"></span></span>
+    <h2 data-i18n="hero_t">Emergency Response & Preparedness</h2>
+    <p data-i18n="hero_d">Quick access to alerts, shelters, and emergency tools.</p>
+    <small><i class="fa-regular fa-clock"></i> <span data-i18n="updated">Opened on:</span> <span id="stamp"></span></small>
+  </div>
+  <div class="aqi"><div><b data-i18n="aqi">Air Quality Index (AQI)</b><span>450 ┬╖ Severe</span></div><p data-i18n="aqi_d">Severe pollution (sample data). Vulnerable people should stay indoors and use N95 masks.</p></div>
+  <div class="sos-sec">
+    <div class="row">
+      <button id="sos-btn" class="round" aria-label="SOS"><b>SOS</b><small data-i18n="sos_s">TAP FOR SOS</small></button>
+      <a id="call-btn" class="round" href="tel:112" aria-label="Call 112"><b><i class="fa-solid fa-phone"></i> 112</b><small data-i18n="call_s">CALL EMERGENCY</small></a>
+    </div>
+    <div id="sos-bar" class="sos-bar hidden"><i class="fa-solid fa-triangle-exclamation"></i><span id="sos-status-text" data-i18n="sos_on">SOS ACTIVE & TRANSMITTING</span><button id="sos-stop" class="sm" data-i18n="stop">Stop</button></div>
+    <div class="note"><b data-i18n="proto">Emergency Beacon:</b> <span id="sos-note-text" data-i18n="proto_d">Dispatches your GPS distress beacon directly to Authority Operations. If offline, queued for auto-sync.</span></div>
+  </div>
+  <div class="stack">
+    <div class="item" data-go="map"><div class="ico" style="background:var(--blue)"><i class="fa-solid fa-location-dot"></i></div><div class="grow"><h3 data-i18n="c_shel">Nearby Shelters</h3><p data-i18n="c_shel_d">Find relief camps and medical stations on the map.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="item" data-go="alerts"><div class="ico" style="background:var(--amber)"><i class="fa-solid fa-bell"></i></div><div class="grow"><h3 data-i18n="c_alert">View Alerts</h3><p data-i18n="c_alert_d">Warnings for floods, air quality, heat and heavy rain.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+    <div class="item" data-go="prep"><div class="ico" style="background:var(--green)"><i class="fa-solid fa-book-medical"></i></div><div class="grow"><h3 data-i18n="c_prep">Emergency Preparedness</h3><p data-i18n="c_prep_d">Checklists and safety steps for disasters.</p></div><i class="fa-solid fa-chevron-right"></i></div>
+  </div>
+</section>
+<!-- ALERTS -->
+<section id="v-alerts" class="view">
+  <div class="vh"><h2 data-i18n="alerts">Emergency Alerts</h2><p data-i18n="alerts_d">Warnings and weather advisories (sample data in this prototype).</p></div>
+  <div class="tabs"><button class="tab active" data-f="active" data-i18n="active">Active</button><button class="tab" data-f="past" data-i18n="past">Past</button><button class="tab" data-f="all" data-i18n="all">All</button></div>
+  <div id="alerts" class="list"></div>
+</section>
+<!-- MAP -->
+<section id="v-map" class="view">
+  <div class="vh"><h2 data-i18n="map">Shelter Map</h2><p data-i18n="map_d">Relief shelters and medical stations in Delhi.</p></div>
+  <div class="bar"><input type="text" id="search" data-ph="search" placeholder="Search shelter or area"><button id="locate" class="sm"><i class="fa-solid fa-crosshairs"></i> <span data-i18n="myloc">My Location</span></button></div>
+  <div id="map"></div>
+  <div id="mapmsg" class="mapmsg hidden" data-i18n="map_off">Map needs internet. The shelter list below still works.</div>
+  <div style="padding:1.25rem"><h3 class="sech" data-i18n="shelters">Shelters Directory</h3><div id="shelters" class="list" style="padding:0"></div></div>
+</section>
+<!-- REPORT -->
+<section id="v-report" class="view">
+  <div class="vh"><h2 data-i18n="report">Report a Disaster</h2><p data-i18n="report_d">Report a natural disaster happening near you.</p></div>
+  <form id="form">
+    <div><span class="lbl"><span data-i18n="cat">Type of natural disaster</span> *</span><div class="cats" id="cats"></div></div>
+    <div><label class="lbl" for="details"><span data-i18n="details">What is happening and where?</span> *</label><textarea id="details" rows="4" required data-ph="details_ph" placeholder="Landmark, people affected, immediate danger"></textarea></div>
+    <label style="font-size:.8rem;font-weight:600;display:flex;gap:.5rem;align-items:center"><input type="checkbox" id="gps"> <span data-i18n="gps">Include my GPS location</span></label>
+    <div id="gps-s" style="font-size:.75rem;color:var(--muted)"></div>
+    <div class="btns"><button type="button" id="review" data-i18n="review">Review</button><button type="submit" class="pri" data-i18n="submit">Submit report</button></div>
+  </form>
+</section>
+<!-- PROFILE -->
+<section id="v-profile" class="view">
+  <div class="stack">
+    <div class="card"><div class="pcard"><div id="avatar"></div><div style="flex:1;min-width:0"><h3 id="p-name"></h3><p id="p-phone"></p><p id="p-addr"></p></div></div>
+      <div class="btns" style="margin-top:.9rem"><button id="edit" data-i18n="edit">Edit profile</button></div></div>
+    <div class="card"><h3 class="sech" data-i18n="myreports">My Reports</h3><div id="p-reports"></div></div>
+    <div class="card"><h3 class="sech" data-i18n="emnums">Important Emergency Numbers</h3><div id="p-nums"></div></div>
+    <div class="card"><h3 class="sech" data-i18n="help">Help</h3><p style="font-size:.85rem;color:var(--muted)" data-i18n="help_t">Tap SOS to sound an alarm, or 112 to call emergency services. Check Alerts, find shelters on the Map, or report a disaster.</p></div>
+    <div class="item" id="open-set"><div class="ico" style="background:var(--muted)"><i class="fa-solid fa-gear"></i></div><div class="grow"><h3 data-i18n="settings">Settings</h3><p data-i18n="settings_d">Contrast, saved data</p></div></div>
+    <div class="item" id="open-src"><div class="ico" style="background:var(--muted)"><i class="fa-solid fa-circle-info"></i></div><div class="grow"><h3 data-i18n="sources">Information Sources</h3><p>IMD ┬╖ CPCB ┬╖ NDMA</p></div></div>
+  </div>
+</section>
+<!-- PREP -->
+<section id="v-prep" class="view">
+  <div class="vh"><button class="sm" data-go="home" style="margin-bottom:.5rem"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="back">Back</span></button><h2 data-i18n="c_prep">Emergency Preparedness</h2></div>
+  <div id="prep" class="stack"></div>
+</section>
+</main>
+<nav>
+  <button data-go="home" class="active"><i class="fa-solid fa-house"></i><span data-i18n="n_home">Home</span></button>
+  <button data-go="alerts"><i class="fa-solid fa-bell"></i><span data-i18n="n_alerts">Alerts</span></button>
+  <button data-go="map"><i class="fa-solid fa-map-location-dot"></i><span data-i18n="n_map">Map</span></button>
+  <button data-go="report"><i class="fa-solid fa-triangle-exclamation"></i><span data-i18n="n_report">Report</span></button>
+  <button data-go="profile"><i class="fa-solid fa-user"></i><span data-i18n="n_profile">Profile</span></button>
+</nav>
+<div id="backdrop" class="backdrop hidden"><div class="modal"><div class="mh"><span id="m-title"></span><button id="m-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div><div class="mb" id="m-body"></div></div></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const T={
+en:{app:"AAGAM",sub:"Emergency Safety Dashboard",offline:"Offline",hero_t:"Emergency Response & Preparedness",hero_d:"Quick access to alerts, shelters, and emergency tools.",updated:"Opened on:",aqi:"Air Quality Index (AQI)",aqi_d:"Severe pollution (sample data). Vulnerable people should stay indoors and use N95 masks.",sos_s:"TAP FOR SOS",call_s:"CALL EMERGENCY",sos_on:"SOS ACTIVE & TRANSMITTING",stop:"Stop",proto:"Live Emergency SOS:",proto_d:"Transmits GPS distress beacon directly to Authority Operations. If offline, queued for auto-sync. In danger, call 112.",c_shel:"Nearby Shelters",c_shel_d:"Find relief camps and medical stations on the map.",c_alert:"View Alerts",c_alert_d:"Warnings for floods, air quality, heat and heavy rain.",c_prep:"Emergency Preparedness",c_prep_d:"Checklists and safety steps for disasters.",alerts:"Emergency Alerts",alerts_d:"Warnings and weather advisories (sample data in this prototype).",active:"Active",past:"Past",all:"All",map:"Shelter Map",map_d:"Relief shelters and medical stations in Delhi.",search:"Search shelter or area",myloc:"My Location",map_off:"Map needs internet. The shelter list below still works.",shelters:"Shelters Directory",report:"Report a Disaster",report_d:"Report a natural disaster happening near you.",cat:"Type of natural disaster",details:"What is happening and where?",details_ph:"Landmark, people affected, immediate danger",gps:"Include my GPS location",review:"Review",submit:"Submit report",edit:"Edit profile",myreports:"My Reports",emnums:"Important Emergency Numbers",help:"Help",help_t:"Tap SOS to sound an alarm, or 112 to call emergency services. Check Alerts, find shelters on the Map, or report a disaster.",settings:"Settings",settings_d:"Contrast, saved data",sources:"Information Sources",back:"Back",n_home:"Home",n_alerts:"Alerts",n_map:"Map",n_report:"Report",n_profile:"Profile",
+default_loc:"New Delhi, India",gps_loc:"Your GPS location",bulletin:"View Bulletin",issued:"Issued",updated_l:"Updated",route:"Route",away:"km away",no_dist:"Tap My Location for distance",no_alerts:"No alerts here.",no_reports:"You haven't reported anything yet.",saved_dev:"Saved on this device",gps_wait:"Getting locationΓÇª",gps_ok:"Location added",gps_fail:"Location unavailable. Check permission.",need:"Choose a disaster type and describe it first.",sum:"Report summary",lcat:"Type",ldet:"Details",lgps:"GPS",none:"Not included",done_t:"Report Submitted",done_b:"Disaster incident report sent to Authority Operations Desk! Immediate safety reference recorded. For urgent life-saving assistance, call 112.",close:"Close",save:"Save",name:"Full name",phone:"Phone number",addr:"Address",medical:"Medical notes (optional)",photo:"Profile photo",set_contrast:"High contrast",clear:"Clear saved data",clear_q:"Delete reports, saved shelters and profile from this device?",src_t:"Sources",src_b:"Alerts are sample data. A live version should pull from IMD (weather), CPCB (air quality) and NDMA / SDMA (disasters).",confirm_dial:"Call 112 now?",no_geo:"Location is not supported on this device.",dflt_name:"Add your name",dflt_phone:"Add phone number",dflt_addr:"Add address",
+cats:["Flood","Earthquake","Landslide","Cyclone / Storm","Heatwave","Forest Fire"],
+prep:[{t:"Go-Bag Checklist",l:["Water: 3 litres per person per day, for 3 days","Dry food for 3 days","Torch, radio and spare batteries","First-aid kit and regular medicines","Copies of ID in a waterproof pouch"]},{t:"Flood & Earthquake Safety",l:["Flood: move to higher ground. Never walk or drive through moving water.","Switch off electricity and gas if it is safe to do so.","Earthquake: drop, cover and hold under sturdy furniture.","Stay away from windows, walls and power lines."]},{t:"Air Pollution & Heat",l:["Stay indoors in severe pollution or extreme heat.","Wear an N95 mask outside when AQI is above 400.","Drink water and ORS regularly."]}]},
+hi:{app:"αñåαñùαñ«",sub:"αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñ╕αÑüαñ░αñòαÑìαñ╖αñ╛ αñíαÑêαñ╢αñ¼αÑïαñ░αÑìαñí",offline:"αñæαñ½αñ╝αñ▓αñ╛αñçαñ¿",hero_t:"αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñ¬αÑìαñ░αññαñ┐αñòαÑìαñ░αñ┐αñ»αñ╛ αñöαñ░ αññαÑêαñ»αñ╛αñ░αÑÇ",hero_d:"αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αÑïαñé, αñåαñ╢αÑìαñ░αñ»αÑïαñé αñöαñ░ αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñëαñ¬αñòαñ░αñúαÑïαñé αññαñò αññαÑìαñ╡αñ░αñ┐αññ αñ¬αñ╣αÑüαñüαñÜαÑñ",updated:"αñûαÑïαñ▓αñ╛ αñùαñ»αñ╛:",aqi:"αñ╡αñ╛αñ»αÑü αñùαÑüαñúαñ╡αññαÑìαññαñ╛ αñ╕αÑéαñÜαñòαñ╛αñéαñò (AQI)",aqi_d:"αñùαñéαñ¡αÑÇαñ░ αñ¬αÑìαñ░αñªαÑéαñ╖αñú (αñ¿αñ«αÑéαñ¿αñ╛ αñíαÑçαñƒαñ╛)αÑñ αñ╕αñéαñ╡αÑçαñªαñ¿αñ╢αÑÇαñ▓ αñ▓αÑïαñù αñÿαñ░ αñ«αÑçαñé αñ░αñ╣αÑçαñé αñöαñ░ N95 αñ«αñ╛αñ╕αÑìαñò αñ▓αñùαñ╛αñÅαñüαÑñ",sos_s:"αñ¼αñ£αñ╝αñ░ αñòαÑç αñ▓αñ┐αñÅ αñªαñ¼αñ╛αñÅαñü",call_s:"αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñòαÑëαñ▓",sos_on:"αñÅαñ╕αñôαñÅαñ╕ αñ¼αñ£αñ╝αñ░ αñÜαñ╛αñ▓αÑé",stop:"αñ¼αñéαñª αñòαñ░αÑçαñé",proto:"αñ¬αÑìαñ░αÑïαñƒαÑïαñƒαñ╛αñçαñ¬:",proto_d:"αñÅαñ╕αñôαñÅαñ╕ αñòαÑçαñ╡αñ▓ αñçαñ╕ αñíαñ┐αñ╡αñ╛αñçαñ╕ αñ¬αñ░ αñàαñ▓αñ╛αñ░αÑìαñ« αñ¼αñ£αñ╛αññαñ╛ αñ╣αÑê, αñòαñ┐αñ╕αÑÇ αñòαÑï αñ╕αÑéαñÜαñ¿αñ╛ αñ¿αñ╣αÑÇαñé αñ¡αÑçαñ£αññαñ╛αÑñ αñåαñ¬αñ╛αññ αñ╕αÑìαñÑαñ┐αññαñ┐ αñ«αÑçαñé 112 αñªαñ¼αñ╛αñÅαñüαÑñ",c_shel:"αñ¿αñ┐αñòαñƒαñ╡αñ░αÑìαññαÑÇ αñåαñ╢αÑìαñ░αñ»",c_shel_d:"αñ«αñ╛αñ¿αñÜαñ┐αññαÑìαñ░ αñ¬αñ░ αñ░αñ╛αñ╣αññ αñ╢αñ┐αñ╡αñ┐αñ░ αñöαñ░ αñÜαñ┐αñòαñ┐αññαÑìαñ╕αñ╛ αñòαÑçαñéαñªαÑìαñ░ αñûαÑïαñ£αÑçαñéαÑñ",c_alert:"αñÜαÑçαññαñ╛αñ╡αñ¿αÑÇ αñªαÑçαñûαÑçαñé",c_alert_d:"αñ¼αñ╛αñóαñ╝, αñ╡αñ╛αñ»αÑü αñùαÑüαñúαñ╡αññαÑìαññαñ╛, αñ▓αÑé αñöαñ░ αñ¡αñ╛αñ░αÑÇ αñ¼αñ╛αñ░αñ┐αñ╢ αñòαÑÇ αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αñ╛αñüαÑñ",c_prep:"αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αññαÑêαñ»αñ╛αñ░αÑÇ",c_prep_d:"αñåαñ¬αñªαñ╛αñôαñé αñòαÑç αñ▓αñ┐αñÅ αñÜαÑçαñòαñ▓αñ┐αñ╕αÑìαñƒ αñöαñ░ αñ╕αÑüαñ░αñòαÑìαñ╖αñ╛ αñòαñªαñ«αÑñ",alerts:"αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αñ╛αñü",alerts_d:"αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αñ╛αñü αñöαñ░ αñ«αÑîαñ╕αñ« αñ¬αñ░αñ╛αñ«αñ░αÑìαñ╢ (αñçαñ╕ αñ¬αÑìαñ░αÑïαñƒαÑïαñƒαñ╛αñçαñ¬ αñ«αÑçαñé αñ¿αñ«αÑéαñ¿αñ╛ αñíαÑçαñƒαñ╛)αÑñ",active:"αñ╕αñòαÑìαñ░αñ┐αñ»",past:"αñ¬αñ┐αñ¢αñ▓αÑÇ",all:"αñ╕αñ¡αÑÇ",map:"αñåαñ╢αÑìαñ░αñ» αñ«αñ╛αñ¿αñÜαñ┐αññαÑìαñ░",map_d:"αñªαñ┐αñ▓αÑìαñ▓αÑÇ αñ«αÑçαñé αñ░αñ╛αñ╣αññ αñåαñ╢αÑìαñ░αñ» αñöαñ░ αñÜαñ┐αñòαñ┐αññαÑìαñ╕αñ╛ αñòαÑçαñéαñªαÑìαñ░αÑñ",search:"αñåαñ╢αÑìαñ░αñ» αñ»αñ╛ αñòαÑìαñ╖αÑçαññαÑìαñ░ αñûαÑïαñ£αÑçαñé",myloc:"αñ«αÑçαñ░αñ╛ αñ╕αÑìαñÑαñ╛αñ¿",map_off:"αñ«αñ╛αñ¿αñÜαñ┐αññαÑìαñ░ αñòαÑç αñ▓αñ┐αñÅ αñçαñéαñƒαñ░αñ¿αÑçαñƒ αñÜαñ╛αñ╣αñ┐αñÅαÑñ αñ¿αÑÇαñÜαÑç αñ╕αÑéαñÜαÑÇ αñëαñ¬αñ▓αñ¼αÑìαñº αñ╣αÑêαÑñ",shelters:"αñåαñ╢αÑìαñ░αñ» αñ¿αñ┐αñ░αÑìαñªαÑçαñ╢αñ┐αñòαñ╛",report:"αñåαñ¬αñªαñ╛ αñòαÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαñ░αÑçαñé",report_d:"αñàαñ¬αñ¿αÑç αñ¬αñ╛αñ╕ αñ╣αÑï αñ░αñ╣αÑÇ αñ¬αÑìαñ░αñ╛αñòαÑâαññαñ┐αñò αñåαñ¬αñªαñ╛ αñòαÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαñ░αÑçαñéαÑñ",cat:"αñ¬αÑìαñ░αñ╛αñòαÑâαññαñ┐αñò αñåαñ¬αñªαñ╛ αñòαñ╛ αñ¬αÑìαñ░αñòαñ╛αñ░",details:"αñòαÑìαñ»αñ╛ αñ╣αÑï αñ░αñ╣αñ╛ αñ╣αÑê αñöαñ░ αñòαñ╣αñ╛αñü?",details_ph:"αñ▓αÑêαñéαñíαñ«αñ╛αñ░αÑìαñò, αñ¬αÑìαñ░αñ¡αñ╛αñ╡αñ┐αññ αñ▓αÑïαñù, αññαññαÑìαñòαñ╛αñ▓ αñûαññαñ░αñ╛",gps:"αñ«αÑçαñ░αñ╛ αñ£αÑÇαñ¬αÑÇαñÅαñ╕ αñ╕αÑìαñÑαñ╛αñ¿ αñ╢αñ╛αñ«αñ┐αñ▓ αñòαñ░αÑçαñé",review:"αñ╕αñ«αÑÇαñòαÑìαñ╖αñ╛",submit:"αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ╕αñ¼αñ«αñ┐αñƒ αñòαñ░αÑçαñé",edit:"αñ¬αÑìαñ░αÑïαñ½αñ╝αñ╛αñçαñ▓ αñ╕αñéαñ¬αñ╛αñªαñ┐αññ αñòαñ░αÑçαñé",myreports:"αñ«αÑçαñ░αÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ",emnums:"αñ«αñ╣αññαÑìαñ╡αñ¬αÑéαñ░αÑìαñú αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñ¿αñéαñ¼αñ░",help:"αñ╕αñ╣αñ╛αñ»αññαñ╛",help_t:"αñàαñ▓αñ╛αñ░αÑìαñ« αñòαÑç αñ▓αñ┐αñÅ SOS αñªαñ¼αñ╛αñÅαñü, αñ»αñ╛ αñåαñ¬αñ╛αññαñòαñ╛αñ▓αÑÇαñ¿ αñ╕αÑçαñ╡αñ╛ αñòαÑç αñ▓αñ┐αñÅ 112 αñ¬αñ░ αñòαÑëαñ▓ αñòαñ░αÑçαñéαÑñ αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αñ╛αñü αñªαÑçαñûαÑçαñé, αñ«αñ╛αñ¿αñÜαñ┐αññαÑìαñ░ αñ¬αñ░ αñåαñ╢αÑìαñ░αñ» αñûαÑïαñ£αÑçαñé, αñ»αñ╛ αñåαñ¬αñªαñ╛ αñòαÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαñ░αÑçαñéαÑñ",settings:"αñ╕αÑçαñƒαñ┐αñéαñùαÑìαñ╕",settings_d:"αñòαñéαñƒαÑìαñ░αñ╛αñ╕αÑìαñƒ, αñ╕αñ╣αÑçαñ£αñ╛ αñíαÑçαñƒαñ╛",sources:"αñ£αñ╛αñ¿αñòαñ╛αñ░αÑÇ αñòαÑç αñ╕αÑìαñ░αÑïαññ",back:"αñ╡αñ╛αñ¬αñ╕",n_home:"αñ╣αÑïαñ«",n_alerts:"αñÜαÑçαññαñ╛αñ╡αñ¿αÑÇ",n_map:"αñ«αñ╛αñ¿αñÜαñ┐αññαÑìαñ░",n_report:"αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ",n_profile:"αñ¬αÑìαñ░αÑïαñ½αñ╝αñ╛αñçαñ▓",
+default_loc:"αñ¿αñê αñªαñ┐αñ▓αÑìαñ▓αÑÇ, αñ¡αñ╛αñ░αññ",gps_loc:"αñåαñ¬αñòαñ╛ αñ£αÑÇαñ¬αÑÇαñÅαñ╕ αñ╕αÑìαñÑαñ╛αñ¿",bulletin:"αñ¼αÑüαñ▓αÑçαñƒαñ┐αñ¿ αñªαÑçαñûαÑçαñé",issued:"αñ£αñ╛αñ░αÑÇ",updated_l:"αñàαñ¬αñíαÑçαñƒ",route:"αñ░αñ╛αñ╕αÑìαññαñ╛",away:"αñòαñ┐αñ«αÑÇ αñªαÑéαñ░",no_dist:"αñªαÑéαñ░αÑÇ αñòαÑç αñ▓αñ┐αñÅ αñ«αÑçαñ░αñ╛ αñ╕αÑìαñÑαñ╛αñ¿ αñªαñ¼αñ╛αñÅαñü",no_alerts:"αñòαÑïαñê αñÜαÑçαññαñ╛αñ╡αñ¿αÑÇ αñ¿αñ╣αÑÇαñéαÑñ",no_reports:"αñåαñ¬αñ¿αÑç αñàαñ¡αÑÇ αññαñò αñòαÑïαñê αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ¿αñ╣αÑÇαñé αñòαÑÇ αñ╣αÑêαÑñ",saved_dev:"αñçαñ╕ αñíαñ┐αñ╡αñ╛αñçαñ╕ αñ¬αñ░ αñ╕αñ╣αÑçαñ£αÑÇ αñùαñê",gps_wait:"αñ╕αÑìαñÑαñ╛αñ¿ αñ▓αñ┐αñ»αñ╛ αñ£αñ╛ αñ░αñ╣αñ╛ αñ╣αÑêΓÇª",gps_ok:"αñ╕αÑìαñÑαñ╛αñ¿ αñ£αÑïαñíαñ╝αñ╛ αñùαñ»αñ╛",gps_fail:"αñ╕αÑìαñÑαñ╛αñ¿ αñëαñ¬αñ▓αñ¼αÑìαñº αñ¿αñ╣αÑÇαñéαÑñ αñàαñ¿αÑüαñ«αññαñ┐ αñ£αñ╛αñüαñÜαÑçαñéαÑñ",need:"αñ¬αñ╣αñ▓αÑç αñåαñ¬αñªαñ╛ αñòαñ╛ αñ¬αÑìαñ░αñòαñ╛αñ░ αñÜαÑüαñ¿αÑçαñé αñöαñ░ αñ╡αñ┐αñ╡αñ░αñú αñ▓αñ┐αñûαÑçαñéαÑñ",sum:"αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ╕αñ╛αñ░αñ╛αñéαñ╢",lcat:"αñ¬αÑìαñ░αñòαñ╛αñ░",ldet:"αñ╡αñ┐αñ╡αñ░αñú",lgps:"αñ£αÑÇαñ¬αÑÇαñÅαñ╕",none:"αñ╢αñ╛αñ«αñ┐αñ▓ αñ¿αñ╣αÑÇαñé",done_t:"αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ╕αñ╣αÑçαñ£αÑÇ αñùαñê",done_b:"αñòαÑçαñ╡αñ▓ αñçαñ╕ αñíαñ┐αñ╡αñ╛αñçαñ╕ αñ¬αñ░ αñ╕αñ╣αÑçαñ£αÑÇ αñùαñêαÑñ αñçαñ╕ αñ¬αÑìαñ░αÑïαñƒαÑïαñƒαñ╛αñçαñ¬ αñ«αÑçαñé αñ╕αñ░αÑìαñ╡αñ░ αñ¿αñ╣αÑÇαñé αñ╣αÑê, αñçαñ╕αñ▓αñ┐αñÅ αñòαñ┐αñ╕αÑÇ αñòαÑï αñ¿αñ╣αÑÇαñé αñ¬αñ╣αÑüαñüαñÜαÑÇαÑñ αññαññαÑìαñòαñ╛αñ▓ αñ«αñªαñª αñòαÑç αñ▓αñ┐αñÅ 112 αñ¬αñ░ αñòαÑëαñ▓ αñòαñ░αÑçαñéαÑñ",close:"αñ¼αñéαñª αñòαñ░αÑçαñé",save:"αñ╕αñ╣αÑçαñ£αÑçαñé",name:"αñ¬αÑéαñ░αñ╛ αñ¿αñ╛αñ«",phone:"αñ½αñ╝αÑïαñ¿ αñ¿αñéαñ¼αñ░",addr:"αñ¬αññαñ╛",medical:"αñÜαñ┐αñòαñ┐αññαÑìαñ╕αñ╛ αñ¿αÑïαñƒ (αñ╡αÑêαñòαñ▓αÑìαñ¬αñ┐αñò)",photo:"αñ¬αÑìαñ░αÑïαñ½αñ╝αñ╛αñçαñ▓ αñ½αñ╝αÑïαñƒαÑï",set_contrast:"αñëαñÜαÑìαñÜ αñòαñéαñƒαÑìαñ░αñ╛αñ╕αÑìαñƒ",clear:"αñ╕αñ╣αÑçαñ£αñ╛ αñíαÑçαñƒαñ╛ αñ«αñ┐αñƒαñ╛αñÅαñü",clear_q:"αñçαñ╕ αñíαñ┐αñ╡αñ╛αñçαñ╕ αñ╕αÑç αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ, αñ╕αñ╣αÑçαñ£αÑç αñåαñ╢αÑìαñ░αñ» αñöαñ░ αñ¬αÑìαñ░αÑïαñ½αñ╝αñ╛αñçαñ▓ αñ«αñ┐αñƒαñ╛αñÅαñü?",src_t:"αñ╕αÑìαñ░αÑïαññ",src_b:"αñÜαÑçαññαñ╛αñ╡αñ¿αñ┐αñ»αñ╛αñü αñ¿αñ«αÑéαñ¿αñ╛ αñíαÑçαñƒαñ╛ αñ╣αÑêαñéαÑñ αñ▓αñ╛αñçαñ╡ αñ╕αñéαñ╕αÑìαñòαñ░αñú αñ«αÑçαñé IMD (αñ«αÑîαñ╕αñ«), CPCB (αñ╡αñ╛αñ»αÑü αñùαÑüαñúαñ╡αññαÑìαññαñ╛) αñöαñ░ NDMA / SDMA (αñåαñ¬αñªαñ╛) αñ╕αÑç αñíαÑçαñƒαñ╛ αñ▓αÑçαñ¿αñ╛ αñÜαñ╛αñ╣αñ┐αñÅαÑñ",confirm_dial:"αñàαñ¡αÑÇ 112 αñ¬αñ░ αñòαÑëαñ▓ αñòαñ░αÑçαñé?",no_geo:"αñçαñ╕ αñíαñ┐αñ╡αñ╛αñçαñ╕ αñ¬αñ░ αñ╕αÑìαñÑαñ╛αñ¿ αñ╕αÑüαñ╡αñ┐αñºαñ╛ αñ╕αñ«αñ░αÑìαñÑαñ┐αññ αñ¿αñ╣αÑÇαñé αñ╣αÑêαÑñ",dflt_name:"αñàαñ¬αñ¿αñ╛ αñ¿αñ╛αñ« αñ£αÑïαñíαñ╝αÑçαñé",dflt_phone:"αñ½αñ╝αÑïαñ¿ αñ¿αñéαñ¼αñ░ αñ£αÑïαñíαñ╝αÑçαñé",dflt_addr:"αñ¬αññαñ╛ αñ£αÑïαñíαñ╝αÑçαñé",
+cats:["αñ¼αñ╛αñóαñ╝","αñ¡αÑéαñòαñéαñ¬","αñ¡αÑéαñ╕αÑìαñûαñ▓αñ¿","αñÜαñòαÑìαñ░αñ╡αñ╛αññ / αññαÑéαñ½αñ╝αñ╛αñ¿","αñ▓αÑé","αñ£αñéαñùαñ▓ αñòαÑÇ αñåαñù"],
+prep:[{t:"αñùαÑï-αñ¼αÑêαñù αñÜαÑçαñòαñ▓αñ┐αñ╕αÑìαñƒ",l:["αñ¬αñ╛αñ¿αÑÇ: αñ¬αÑìαñ░αññαñ┐ αñ╡αÑìαñ»αñòαÑìαññαñ┐ αñ¬αÑìαñ░αññαñ┐αñªαñ┐αñ¿ 3 αñ▓αÑÇαñƒαñ░, 3 αñªαñ┐αñ¿ αñòαÑç αñ▓αñ┐αñÅ","3 αñªαñ┐αñ¿ αñòαñ╛ αñ╕αÑéαñûαñ╛ αñ¡αÑïαñ£αñ¿","αñƒαÑëαñ░αÑìαñÜ, αñ░αÑçαñíαñ┐αñ»αÑï αñöαñ░ αñàαññαñ┐αñ░αñ┐αñòαÑìαññ αñ¼αÑêαñƒαñ░αÑÇ","αñ¬αÑìαñ░αñ╛αñÑαñ«αñ┐αñò αñÜαñ┐αñòαñ┐αññαÑìαñ╕αñ╛ αñòαñ┐αñƒ αñöαñ░ αñ¿αñ┐αñ»αñ«αñ┐αññ αñªαñ╡αñ╛αñçαñ»αñ╛αñü","αñ¬αñ╣αñÜαñ╛αñ¿ αñ¬αññαÑìαñ░αÑïαñé αñòαÑÇ αñ¬αÑìαñ░αññαñ┐αñ»αñ╛αñü αñ£αñ▓αñ░αÑïαñºαñò αñ¬αñ╛αñëαñÜ αñ«αÑçαñé"]},{t:"αñ¼αñ╛αñóαñ╝ αñöαñ░ αñ¡αÑéαñòαñéαñ¬ αñ╕αÑüαñ░αñòαÑìαñ╖αñ╛",l:["αñ¼αñ╛αñóαñ╝: αñèαñüαñÜαÑç αñ╕αÑìαñÑαñ╛αñ¿ αñ¬αñ░ αñ£αñ╛αñÅαñüαÑñ αñ¼αñ╣αññαÑç αñ¬αñ╛αñ¿αÑÇ αñ«αÑçαñé αñ¿ αñÜαñ▓αÑçαñé, αñ¿ αñùαñ╛αñíαñ╝αÑÇ αñÜαñ▓αñ╛αñÅαñüαÑñ","αñ╕αÑüαñ░αñòαÑìαñ╖αñ┐αññ αñ╣αÑï αññαÑï αñ¼αñ┐αñ£αñ▓αÑÇ αñöαñ░ αñùαÑêαñ╕ αñ¼αñéαñª αñòαñ░αÑçαñéαÑñ","αñ¡αÑéαñòαñéαñ¬: αñ¥αÑüαñòαÑçαñé, αñ╕αñ┐αñ░ αñóαñòαÑçαñé αñöαñ░ αñ«αñ£αñ╝αñ¼αÑéαññ αñ½αñ╝αñ░αÑìαñ¿αÑÇαñÜαñ░ αñòαÑç αñ¿αÑÇαñÜαÑç αñ░αÑüαñòαÑçαñéαÑñ","αñûαñ┐αñíαñ╝αñòαñ┐αñ»αÑïαñé, αñªαÑÇαñ╡αñ╛αñ░αÑïαñé αñöαñ░ αñ¼αñ┐αñ£αñ▓αÑÇ αñòαÑç αññαñ╛αñ░αÑïαñé αñ╕αÑç αñªαÑéαñ░ αñ░αñ╣αÑçαñéαÑñ"]},{t:"αñ╡αñ╛αñ»αÑü αñ¬αÑìαñ░αñªαÑéαñ╖αñú αñöαñ░ αñùαñ░αÑìαñ«αÑÇ",l:["αñùαñéαñ¡αÑÇαñ░ αñ¬αÑìαñ░αñªαÑéαñ╖αñú αñ»αñ╛ αñàαññαÑìαñ»αñºαñ┐αñò αñùαñ░αÑìαñ«αÑÇ αñ«αÑçαñé αñÿαñ░ αñòαÑç αñàαñéαñªαñ░ αñ░αñ╣αÑçαñéαÑñ","AQI 400 αñ╕αÑç αñèαñ¬αñ░ αñ╣αÑïαñ¿αÑç αñ¬αñ░ αñ¼αñ╛αñ╣αñ░ N95 αñ«αñ╛αñ╕αÑìαñò αñ¬αñ╣αñ¿αÑçαñéαÑñ","αñ¿αñ┐αñ»αñ«αñ┐αññ αñ░αÑéαñ¬ αñ╕αÑç αñ¬αñ╛αñ¿αÑÇ αñöαñ░ ORS αñ¬αñ┐αñÅαñüαÑñ"]}]}
+};
+const CAT_ICONS=['fa-water','fa-house-crack','fa-hill-rockslide','fa-wind','fa-temperature-high','fa-fire'];
+const CAT_KEYS=["Flood","Earthquake","Landslide","Cyclone / Storm","Heatwave","Forest Fire"];
+
+const NUMBERS=[
+ {en:"National Emergency",hi:"राष्ट्रीय आपातकालीन",n:"112"},
+ {en:"Police",hi:"पुलिस",n:"100"},
+ {en:"Fire",hi:"दमकल",n:"101"},
+ {en:"Ambulance",hi:"एम्बुलेंस",n:"102"},
+ {en:"Disaster Management (Delhi)",hi:"आपदा प्रबंधन (दिल्ली)",n:"1077"},
+ {en:"Women Helpline",hi:"महिला हेल्पलाइन",n:"1091"},
+ {en:"Child Helpline",hi:"चाइल्ड हेल्पलाइन",n:"1098"}
+];
+
+const API_BASE = window.AAGAM_API_BASE || 'http://localhost:3000/api';
+const DEFAULT_ALERTS=[
+ {id:1,title:"Severe Air Quality Warning (AQI > 450)",sev:"high",loc:"Delhi & NCR",issued:"Oct 19, 2026, 08:00 IST",valid:"Valid until Oct 21, 2026",status:"active",text:"Vulnerable people should stay indoors due to severe particulate pollution."},
+ {id:2,title:"Yamuna River Flood Advisory",sev:"high",loc:"Low-lying areas near Old Railway Bridge, Delhi",issued:"Oct 18, 2026, 16:30 IST",valid:"Valid until Oct 20, 2026",status:"active",text:"Water level is above the danger mark. Evacuation teams are deployed near Yamuna Bazar."},
+ {id:3,title:"Heatwave Red Alert",sev:"medium",loc:"North & West regions",issued:"May 15, 2026, 11:00 IST",valid:"Expired",status:"past",text:"Maximum temperatures reached 46°C. Outdoor workers were advised to take precautions."},
+ {id:4,title:"Thunderstorm with Gusty Winds",sev:"medium",loc:"Delhi districts",issued:"Sep 10, 2026, 14:00 IST",valid:"Expired",status:"past",text:"Sudden squalls with winds up to 60 km/h were recorded."}
+];
+const DEFAULT_SHELTERS=[
+ {id:"s1",name:"SDMA Relief Camp, Connaught Place",addr:"Near Central Park, Rajiv Chowk",lat:28.6280,lng:77.2090,cap:"250 of 500 spaces free"},
+ {id:"s2",name:"Yamuna Bazar Community Safe Centre",addr:"Near Old Railway Bridge, Kashmere Gate",lat:28.6650,lng:77.2300,cap:"120 of 300 spaces free"},
+ {id:"s3",name:"AIIMS Emergency Medical Relief Camp",addr:"Sri Aurobindo Marg, Ansari Nagar",lat:28.5672,lng:77.2100,cap:"Trauma care and blood bank"},
+ {id:"s4",name:"Dwarka Sector 12 Sports Complex Shelter",addr:"Sector 12, Dwarka",lat:28.5823,lng:77.0450,cap:"800 of 1200 spaces free"}
+];
+
+let liveAlerts = store.get('aagam_cached_alerts', null) || DEFAULT_ALERTS;
+let liveShelters = store.get('aagam_cached_shelters', null) || DEFAULT_SHELTERS;
+
+const S={lang:store.get('aagam_lang','en'),theme:store.get('aagam_theme',matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),
+ contrast:store.get('aagam_contrast',false),reports:store.get('aagam_reports',[]),
+ profile:store.get('aagam_profile',{name:"",phone:"",addr:"New Delhi",medical:"",photo:""}),
+ loc:null,sos:false,offline:!navigator.onLine,filter:'active',query:''};
+const t=k=>(T[S.lang]&&T[S.lang][k])||T.en[k]||k;
+
+/* ---------- i18n / theme ---------- */
+function applyLang(){
+ document.documentElement.lang=S.lang;
+ $$('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+ $$('[data-ph]').forEach(e=>e.placeholder=t(e.dataset.ph));
+ renderCats();renderAlerts();renderShelters();renderProfile();renderPrep();updateLoc();
+}
+function applyTheme(){
+ document.documentElement.dataset.theme=S.theme;
+ document.documentElement.classList.toggle('hc',S.contrast);
+ $('#theme i').className='fa-solid '+(S.theme==='dark'?'fa-sun':'fa-moon');
+}
+function updateLoc(){
+ $('#loc-text').textContent=S.loc?`${t('gps_loc')}: ${S.loc.lat.toFixed(3)}, ${S.loc.lng.toFixed(3)}`:t('default_loc');
+}
+
+/* ---------- navigation ---------- */
+let map=null;
+function go(id){
+ $$('.view').forEach(v=>v.classList.remove('active'));
+ $('#v-'+id).classList.add('active');
+ $$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+ scrollTo(0,0);
+ if(id==='map'&&map)setTimeout(()=>map.invalidateSize(),150);
+}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
+
+/* ---------- modal ---------- */
+function openModal(title,html){$('#m-title').textContent=title;$('#m-body').innerHTML=html;$('#backdrop').classList.remove('hidden')}
+function closeModal(){$('#backdrop').classList.add('hidden')}
+$('#m-close').onclick=closeModal;
+$('#backdrop').onclick=e=>{if(e.target.id==='backdrop')closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ---------- Outbox & Offline Sync ---------- */
+function getOutbox(){return store.get('aagam_outbox',{sos:[],reports:[]})}
+function saveOutbox(ob){store.set('aagam_outbox',ob)}
+function queueOutbox(type,item){
+ const ob=getOutbox();
+ if(type==='sos')ob.sos.push(item);
+ else if(type==='reports')ob.reports.push(item);
+ saveOutbox(ob);
+}
+async function syncOutbox(){
+ if(!navigator.onLine)return;
+ const ob=getOutbox();
+ if(!ob.sos.length&&!ob.reports.length)return;
+ try{
+  const r=await fetch(`${API_BASE}/sync`,{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify(ob)
+  });
+  if(r.ok){
+   saveOutbox({sos:[],reports:[]});
+   console.log('Outbox synced successfully with AAGAM server');
+  }
+ }catch(e){
+  console.warn('Sync attempt deferred:',e);
+ }
+}
+
+/* ---------- SOS distress beacon & buzzer ---------- */
+let ac=null,osc=null,iv=null,activeSosId=null;
+function startSOS(){
+ if(S.sos)return;
+ try{
+  ac=new(window.AudioContext||window.webkitAudioContext)();
+  osc=ac.createOscillator();const g=ac.createGain();
+  osc.type='sawtooth';g.gain.value=.3;osc.connect(g);g.connect(ac.destination);osc.start();
+  let hi=true;const tick=()=>{osc.frequency.setValueAtTime(hi?880:660,ac.currentTime);hi=!hi};
+  tick();iv=setInterval(tick,400);
+ }catch(e){}
+ S.sos=true;$('#sos-bar').classList.remove('hidden');
+ dispatchSosBeacon();
+}
+function stopSOS(){
+ clearInterval(iv);iv=null;
+ try{osc&&osc.stop();ac&&ac.close()}catch(e){}
+ osc=ac=null;S.sos=false;$('#sos-bar').classList.add('hidden');
+}
+
+async function dispatchSosBeacon(){
+ const clientId='sos-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+ const lat=S.loc?S.loc.lat:28.6139;
+ const lng=S.loc?S.loc.lng:77.2090;
+ const note=[S.profile.name&&`Name: ${S.profile.name}`,S.profile.phone&&`Phone: ${S.profile.phone}`,S.profile.medical&&`Medical: ${S.profile.medical}`].filter(Boolean).join(' | ');
+ const payload={clientId,lat,lng,timestamp:new Date().toISOString(),note:note||'Citizen SOS distress trigger'};
+ 
+ if(navigator.onLine){
+  try{
+   const r=await fetch(`${API_BASE}/sos/trigger`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+   });
+   const data=await r.json();
+   activeSosId=data.sos?.id;
+   console.log('Live SOS distress beacon received by control room:', data);
+  }catch(err){
+   console.warn('Server offline, queuing SOS in outbox:', err);
+   queueOutbox('sos',payload);
+  }
+ }else{
+  queueOutbox('sos',payload);
+ }
+}
+
+$('#sos-btn').onclick=startSOS;$('#sos-stop').onclick=stopSOS;
+$('#call-btn').onclick=e=>{if(!confirm(t('confirm_dial')))e.preventDefault()};
+
+/* ---------- geolocation ---------- */
+function getLoc(ok,fail){
+ if(!navigator.geolocation){alert(t('no_geo'));fail&&fail();return}
+ navigator.geolocation.getCurrentPosition(p=>{
+  S.loc={lat:p.coords.latitude,lng:p.coords.longitude};
+  updateLoc();
+  renderShelters();
+  fetchLiveAlerts();
+  fetchLiveShelters();
+  ok&&ok();
+ },()=>fail&&fail(),{enableHighAccuracy:true,timeout:10000});
+}
+function km(a,b,c,d){const r=x=>x*Math.PI/180,h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 12742*Math.asin(Math.sqrt(h))}
+
+/* ---------- alerts ---------- */
+async function fetchLiveAlerts(){
+ try{
+  const qs=S.loc?`?lat=${S.loc.lat}&lng=${S.loc.lng}&radius=100`:'';
+  const r=await fetch(`${API_BASE}/alerts${qs}`);
+  if(!r.ok)return;
+  const d=await r.json();
+  if(Array.isArray(d.alerts)&&d.alerts.length){
+   liveAlerts=d.alerts.map(a=>({
+    id:a.id,
+    title:a.title,
+    sev:a.severity||'medium',
+    loc:a.district?(a.state?`${a.district}, ${a.state}`:a.district):(a.state||'India'),
+    issued:a.validFrom?new Date(a.validFrom).toLocaleDateString('en-IN',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):(a.sourcePublishedAt||'Recent'),
+    valid:a.validUntil?`Valid until ${new Date(a.validUntil).toLocaleDateString('en-IN',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}`:'Active',
+    status:a.status==='published'?'active':(a.status||'active'),
+    text:a.message||a.advice||'Official alert advisory from disaster management authority.'
+   }));
+   store.set('aagam_cached_alerts',liveAlerts);
+   renderAlerts();
+  }
+ }catch(e){
+  console.warn('Fetch alerts offline fallback');
+ }
+}
+
+function renderAlerts(){
+ const list=liveAlerts.filter(a=>S.filter==='all'||a.status===S.filter);
+ $('#alerts').innerHTML=list.length?list.map(a=>`<div class="card alert ${esc(a.sev)}"><div class="top"><h3>${esc(a.title)}</h3><span class="sev">${esc(a.sev)}</span></div><div class="meta"><span><i class="fa-solid fa-location-dot"></i> ${esc(a.loc)}</span><span><i class="fa-regular fa-clock"></i> ${t('issued')}: ${esc(a.issued)}</span><span><i class="fa-solid fa-hourglass-half"></i> ${esc(a.valid)}</span></div><button class="sm" data-b="${a.id}"><i class="fa-solid fa-file-lines"></i> ${t('bulletin')}</button></div>`).join(''):`<p style="text-align:center;padding:2rem;color:var(--muted)">${t('no_alerts')}</p>`;
+}
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');S.filter=b.dataset.f;renderAlerts()});
+$('#alerts').onclick=e=>{const b=e.target.closest('[data-b]');if(!b)return;const a=liveAlerts.find(x=>x.id==b.dataset.b);if(a)openModal(a.title,`<p><b>${esc(a.sev.toUpperCase())}</b> · ${esc(a.loc)}</p><p>${esc(a.text)}</p><p style="color:var(--muted);font-size:.75rem">${esc(a.issued)} · ${esc(a.valid)}</p>`)};
+
+/* ---------- map & shelters ---------- */
+let shelterMarkersGroup=null;
+function initMap(){
+ const msg=$('#mapmsg');
+ try{
+  map=L.map('map').setView([28.6139,77.2090],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  shelterMarkersGroup=L.layerGroup().addTo(map);
+  updateMapShelters();
+ }catch(e){msg.classList.remove('hidden')}
+}
+
+function updateMapShelters(){
+ if(!map||!shelterMarkersGroup)return;
+ shelterMarkersGroup.clearLayers();
+ liveShelters.forEach(s=>{
+  if(s.lat&&s.lng){
+   L.marker([s.lat,s.lng]).addTo(shelterMarkersGroup).bindPopup(`<b>${esc(s.name)}</b><br>${esc(s.addr)}<br>${esc(s.cap)}`);
+  }
+ });
+}
+
+async function fetchLiveShelters(){
+ try{
+  const lat=S.loc?S.loc.lat:28.6139;
+  const lng=S.loc?S.loc.lng:77.2090;
+  const r=await fetch(`${API_BASE}/shelters?lat=${lat}&lng=${lng}&limit=25`);
+  if(!r.ok)return;
+  const d=await r.json();
+  if(Array.isArray(d.shelters)&&d.shelters.length){
+   liveShelters=d.shelters.map(s=>({
+    id:s.id,
+    name:s.name,
+    addr:s.address||(s.district?`${s.district} district`:'Relief Center'),
+    lat:Number(s.lat),
+    lng:Number(s.lng),
+    cap:s.capacity?`${s.capacity-(s.occupancy||0)} of ${s.capacity} spaces free (${s.status||'open'})`:(s.status||'open'),
+    d:s.distanceKm!==null&&s.distanceKm!==undefined?Number(s.distanceKm):null
+   }));
+   store.set('aagam_cached_shelters',liveShelters);
+   renderShelters();
+   updateMapShelters();
+  }
+ }catch(e){
+  console.warn('Fetch shelters offline fallback');
+ }
+}
+
+function renderShelters(){
+ const q=S.query.toLowerCase();
+ let list=liveShelters.filter(s=>(s.name+' '+s.addr).toLowerCase().includes(q)).map(s=>({...s,d:s.d!==null&&s.d!==undefined?s.d:(S.loc?km(S.loc.lat,S.loc.lng,s.lat,s.lng):null)}));
+ if(S.loc)list.sort((a,b)=>(a.d??999)-(b.d??999));
+ $('#shelters').innerHTML=list.map(s=>`<div class="card shelter"><div><h4>${esc(s.name)}</h4><p>${esc(s.addr)}</p><p><b>${s.d!==null?s.d.toFixed(1)+' '+t('away'):t('no_dist')}</b> · ${esc(s.cap)}</p></div><div class="acts"><a class="sm pri" target="_blank" rel="noopener" href="https://www.openstreetmap.org/directions?to=${s.lat}%2C${s.lng}"><i class="fa-solid fa-diamond-turn-right"></i> ${t('route')}</a></div></div>`).join('');
+}
+$('#search').oninput=e=>{S.query=e.target.value;renderShelters()};
+$('#locate').onclick=()=>getLoc(()=>{if(map){map.setView([S.loc.lat,S.loc.lng],14);L.marker([S.loc.lat,S.loc.lng]).addTo(map).bindPopup(t('gps_loc')).openPopup()}});
+
+/* ---------- reporting (natural disasters) ---------- */
+const REPORT_TYPE_MAP=['flooding','building_damage','landslide','other','other','fire'];
+const HAZARD_MAP=['flood','earthquake','landslide','cyclone','heatwave','forest_fire'];
+
+function renderCats(){
+ const sel=(document.querySelector('input[name=cat]:checked')||{}).value;
+ $('#cats').innerHTML=CAT_KEYS.map((k,i)=>`<label class="cat"><input type="radio" name="cat" value="${i}" ${sel==i?'checked':''} ${i===0?'required':''}><i class="fa-solid ${CAT_ICONS[i]}"></i><span>${t('cats')[i]}</span></label>`).join('');
+}
+$('#gps').onchange=e=>{
+ const s=$('#gps-s');
+ if(e.target.checked){s.textContent=t('gps_wait');getLoc(()=>s.textContent=t('gps_ok')+': '+S.loc.lat.toFixed(4)+', '+S.loc.lng.toFixed(4),()=>{s.textContent=t('gps_fail');e.target.checked=false})}
+ else s.textContent='';
+};
+function formData(){
+ const c=document.querySelector('input[name=cat]:checked'),d=$('#details').value.trim();
+ return c&&d?{cat:+c.value,details:d,gps:$('#gps').checked&&S.loc?S.loc:null}:null;
+}
+$('#review').onclick=()=>{
+ const f=formData();if(!f){alert(t('need'));return}
+ openModal(t('sum'),`<p><b>${t('lcat')}:</b> ${esc(t('cats')[f.cat])}</p><p><b>${t('ldet')}:</b> ${esc(f.details)}</p><p><b>${t('lgps')}:</b> ${f.gps?f.gps.lat.toFixed(4)+', '+f.gps.lng.toFixed(4):t('none')}</p>`);
+};
+$('#form').onsubmit=async e=>{
+ e.preventDefault();const f=formData();if(!f){alert(t('need'));return}
+ const clientId='rep-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+ const lat=f.gps?f.gps.lat:(S.loc?S.loc.lat:28.6139);
+ const lng=f.gps?f.gps.lng:(S.loc?S.loc.lng:77.2090);
+ const catIdx=f.cat;
+ S.reports.unshift({id:Date.now(),cat:catIdx,details:f.details,gps:f.gps,time:new Date().toISOString()});
+ store.set('aagam_reports',S.reports);
+
+ const payload={
+  clientId,
+  lat,
+  lng,
+  type:REPORT_TYPE_MAP[catIdx]||'other',
+  hazard:HAZARD_MAP[catIdx]||null,
+  note:[f.details,S.profile.name&&`Reported by: ${S.profile.name}`,S.profile.phone&&`Phone: ${S.profile.phone}`].filter(Boolean).join(' | '),
+  timestamp:new Date().toISOString()
+ };
+
+ if(navigator.onLine){
+  try{
+   await fetch(`${API_BASE}/reports`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+   });
+   console.log('Report saved to server');
+  }catch(err){
+   queueOutbox('reports',payload);
+  }
+ }else{
+  queueOutbox('reports',payload);
+ }
+
+ e.target.reset();$('#gps-s').textContent='';renderProfile();
+ openModal(t('done_t'),`<p>${t('done_b')}</p><button class="sm pri" onclick="closeModal();go('profile')">${t('myreports')}</button>`);
+};
+/* ---------- profile ---------- */
+function initials(n){return (n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('')||'?').toUpperCase()}
+function renderProfile(){
+ const p=S.profile;
+ $('#avatar').innerHTML=p.photo?`<img class="avatar" src="${esc(p.photo)}" alt="">`:`<div class="avatar initials">${esc(initials(p.name))}</div>`;
+ $('#p-name').textContent=p.name||t('dflt_name');
+ $('#p-phone').innerHTML=`<i class="fa-solid fa-phone"></i> ${esc(p.phone||t('dflt_phone'))}`;
+ $('#p-addr').innerHTML=`<i class="fa-solid fa-location-dot"></i> ${esc(p.addr||t('dflt_addr'))}`;
+ const loc=S.lang==='hi'?'hi-IN':'en-IN';
+ $('#p-reports').innerHTML=S.reports.length?S.reports.map(r=>`<div class="rep"><b>${esc(t('cats')[r.cat])}</b> ┬╖ ${esc(r.details)}<small>${new Date(r.time).toLocaleString(loc)}${r.gps?' ┬╖ '+r.gps.lat.toFixed(3)+', '+r.gps.lng.toFixed(3):''} ┬╖ ${t('saved_dev')}</small></div>`).join(''):`<p style="font-size:.85rem;color:var(--muted)">${t('no_reports')}</p>`;
+ $('#p-nums').innerHTML=NUMBERS.map(n=>`<div class="contact"><div><b>${esc(n[S.lang]||n.en)}</b></div><a class="sm pri" href="tel:${n.n}"><i class="fa-solid fa-phone"></i> ${n.n}</a></div>`).join('');
+}
+$('#edit').onclick=()=>{
+ const p=S.profile;
+ openModal(t('edit'),`<label>${t('photo')}</label><input type="file" id="f-photo" accept="image/*">
+ <label>${t('name')}</label><input type="text" id="f-name" value="${esc(p.name)}">
+ <label>${t('phone')}</label><input type="text" id="f-phone" value="${esc(p.phone)}" inputmode="tel">
+ <label>${t('addr')}</label><input type="text" id="f-addr" value="${esc(p.addr)}">
+ <label>${t('medical')}</label><input type="text" id="f-med" value="${esc(p.medical)}">
+ <button class="sm pri" id="f-save" style="justify-content:center;padding:.6rem">${t('save')}</button>`);
+ let photo=p.photo;
+ $('#f-photo').onchange=e=>{
+  const file=e.target.files[0];
+let liveAlerts = store.get('aagam_cached_alerts', null) || DEFAULT_ALERTS;
+let liveShelters = store.get('aagam_cached_shelters', null) || DEFAULT_SHELTERS;if(!file)return;
+  const img=new Image(),url=URL.createObjectURL(file);
+  img.onload=()=>{const c=document.createElement('canvas'),m=Math.min(img.width,img.height);c.width=c.height=220;c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,220,220);photo=c.toDataURL('image/jpeg',.8);URL.revokeObjectURL(url)};
+  img.src=url;
+ };
+ $('#f-save').onclick=()=>{
+  S.profile={name:$('#f-name').value.trim(),phone:$('#f-phone').value.trim(),addr:$('#f-addr').value.trim(),medical:$('#f-med').value.trim(),photo};
+  store.set('aagam_profile',S.profile);renderProfile();closeModal();
+ };
+};
+$('#open-set').onclick=()=>{
+ openModal(t('settings'),`<div class="setrow"><label for="s-hc">${t('set_contrast')}</label><input type="checkbox" id="s-hc" ${S.contrast?'checked':''}></div><button class="sm" id="s-clear" style="justify-content:center;padding:.6rem">${t('clear')}</button>`);
+ $('#s-hc').onchange=e=>{S.contrast=e.target.checked;store.set('aagam_contrast',S.contrast);applyTheme()};
+ $('#s-clear').onclick=()=>{if(confirm(t('clear_q'))){try{Object.keys(localStorage).filter(k=>k.startsWith('aagam_')).forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()}};
+};
+$('#open-src').onclick=()=>openModal(t('src_t'),`<p>${t('src_b')}</p>`);
+
+/* ---------- preparedness ---------- */
+function renderPrep(){
+ $('#prep').innerHTML=t('prep').map(c=>`<div class="card prep"><h3>${esc(c.t)}</h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+}
+
+/* ---------- online / offline ---------- */
+function setOnline(){
+ S.offline=!navigator.onLine;
+ $('#off').classList.toggle('hidden',!S.offline);
+ $('#mapmsg').classList.toggle('hidden',!S.offline);
+}
+addEventListener('online',()=>{setOnline();syncOutbox();fetchLiveAlerts();fetchLiveShelters();});
+addEventListener('offline',setOnline);
+
+/* ---------- init ---------- */
+$('#theme').onclick=()=>{S.theme=S.theme==='dark'?'light':'dark';store.set('aagam_theme',S.theme);applyTheme()};
+$('#lang').value=S.lang;
+$('#lang').onchange=e=>{S.lang=e.target.value;store.set('aagam_lang',S.lang);applyLang()};
+$('#stamp').textContent=new Date().toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+applyTheme();initMap();setOnline();applyLang();
+fetchLiveAlerts();
+fetchLiveShelters();
+syncOutbox();
+</script>
+</body>
+</html>

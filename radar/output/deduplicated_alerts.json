@@ -1,0 +1,22 @@
+[
+  {
+    "hazard": "Heavy Rain",
+    "severity": "Moderate",
+    "district": "Sample District A",
+    "validUntil": null,
+    "sourceUrl": "SAMPLE_DATA_NOT_A_LIVE_SOURCE",
+    "fetchedAt": "2026-10-19T11:26:50.370075+00:00",
+    "issueDate": "2026-10-17",
+    "isSample": true
+  },
+  {
+    "hazard": "Thunderstorm",
+    "severity": "Low",
+    "district": "Sample District B",
+    "validUntil": null,
+    "sourceUrl": "SAMPLE_DATA_NOT_A_LIVE_SOURCE",
+    "fetchedAt": "2026-10-19T11:26:50.370090+00:00",
+    "issueDate": "2026-10-17",
+    "isSample": true
+  }
+]

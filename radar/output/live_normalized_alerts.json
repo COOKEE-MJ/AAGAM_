@@ -1,0 +1,4402 @@
+[
+  {
+    "hazard": "lightning",
+    "severity": "low",
+    "warningColor": "Yellow",
+    "district": "NICOBAR",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": true,
+    "forecast": {
+      "day1": "4,8",
+      "day2": "1",
+      "day3": "1",
+      "day4": "2",
+      "day5": "2"
+    },
+    "warningColors": {
+      "day1": 3,
+      "day2": 4,
+      "day3": 4,
+      "day4": 3,
+      "day5": 3
+    },
+    "warningColorLabels": {
+      "day1": "Watch (Be Updated)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "Watch (Be Updated)",
+      "day5": "Watch (Be Updated)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:53:40Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "ANJAW",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T08:52:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CHANGLANG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T08:52:31Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "EAST KAMENG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T08:52:44Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "EAST SIANG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T08:52:51Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KURUNG KUMEY",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T09:25:24Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LOHIT",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:41:59Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LOWER DIBANG VALLEY",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:42:16Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LOWER SUBANSIRI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:42:38Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "PAPUM PARE",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:43:40Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "TAWANG",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:04Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "TIRAP",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "UPPER SIANG",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:33Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "UPPER SUBANSIRI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:41Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WEST KAMENG",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:50Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WEST SIANG",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "May be outdated",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T12:44:59Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BAKSA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BARPETA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BONGAIGAON",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CACHAR",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CHIRANG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DARRANG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DHEMAJI",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DHUBRI",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GOALPARA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GOLAGHAT",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "HAILAKANDI",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "JORHAT",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KARIMGANJ",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KOKRAJHAR",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BALRAMPUR-UP",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:48:51Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MORIGAON",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DIMA HASAO",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "NAGAON",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SIBSAGAR",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "TINSUKIA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "UDALGURI",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:30:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "EAST GARO HILLS",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:00:21Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "EAST KHASI HILLS",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:00:27Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SOUTH GARO HILLS",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:00:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WEST GARO HILLS",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:00:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WEST KHASI HILLS",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:01:09Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DIMAPUR",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KOHIMA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LONGLENG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MOKOKCHUNG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MON",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "PHEK",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "TUENSANG",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WOKHA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "ZUNHEBOTO",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T12:10:43Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BISHNUPUR",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:44:40Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CHANDEL",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:44:33Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "IMPHAL EAST",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:45:02Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "IMPHAL WEST",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:45:09Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SENAPATI",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:46:01Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "TAMENGLONG",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:46:01Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "THOUBAL",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:46:01Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "UKHRUL",
+    "state": null,
+    "issueDate": "2026-10-18",
+    "validUntil": "2026-10-19T08:30:00+00:00",
+    "freshness": "Expired",
+    "isStale": true,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-18T12:46:01Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CHAMPHAI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KOLASIB",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LAWNGTLAI2",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "LUNGLEI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SAIHA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SERCHHIP",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T19:20:05Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DHALAI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T13:28:06Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "NORTH TRIPURA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T13:28:06Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SOUTH TRIPURA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T13:28:06Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "WEST TRIPURA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T13:28:06Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GANGTOK",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:34:59Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MANGAN",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:35:07Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "NAMCHI",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:35:10Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GYALSHING",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:35:03Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "JALPAIGURI",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MALDA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BANKURA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BIRBHUM",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "MURSHIDABAD",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "NADIA",
+    "state": null,
+    "issueDate": "2026-10-19",
+    "validUntil": "2026-10-20T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-19T14:51:39Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BHADRAK",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:07Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CUTTACK",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:19Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DEOGARH",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:33Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GANJAM",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:53:19Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "JAGATSINGHPUR",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:16Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "JHARSUGUDA",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:24Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KALAHANDI",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:58Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "KANDHAMAL",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:53:01Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": "lightning",
+    "severity": "low",
+    "warningColor": "Yellow",
+    "district": "KORAPUT",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": true,
+    "forecast": {
+      "day1": "4",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 3,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "Watch (Be Updated)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:53:10Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": "lightning",
+    "severity": "low",
+    "warningColor": "Yellow",
+    "district": "MALKANGIRI",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": true,
+    "forecast": {
+      "day1": "4",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 3,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "Watch (Be Updated)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:53:13Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "PURI",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:53:21Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SAMBALPUR",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:30Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "SUNDARGARH",
+    "state": "ODHISHA",
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T11:52:21Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "BOKARO",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "CHATRA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DEOGAARH",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DHANBAD",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "DUMKA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GARHWA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GIRIDIH",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  },
+  {
+    "hazard": null,
+    "severity": "none",
+    "warningColor": "Green",
+    "district": "GUMLA",
+    "state": null,
+    "issueDate": "2026-10-20",
+    "validUntil": "2026-10-21T08:30:00+00:00",
+    "freshness": "Current",
+    "isStale": false,
+    "hasActiveWarning": false,
+    "forecast": {
+      "day1": "1",
+      "day2": "1",
+      "day3": "1",
+      "day4": "1",
+      "day5": "1"
+    },
+    "warningColors": {
+      "day1": 4,
+      "day2": 4,
+      "day3": 4,
+      "day4": 4,
+      "day5": 4
+    },
+    "warningColorLabels": {
+      "day1": "No Warning (No Action)",
+      "day2": "No Warning (No Action)",
+      "day3": "No Warning (No Action)",
+      "day4": "No Warning (No Action)",
+      "day5": "No Warning (No Action)"
+    },
+    "warningText": {
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": ""
+    },
+    "sourceUrl": "https://reactjs.imd.gov.in/geoserver/imd/ows",
+    "updatedAt": "2026-10-20T10:27:25Z",
+    "fetchedAt": "2026-10-20T06:50:05.201035+00:00",
+    "isSample": false
+  }
+]
