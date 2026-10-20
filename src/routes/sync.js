@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { optionalAuth } = require('../auth');
-const { createSos, createReport, httpErr } = require('../services');
+const { createSos, createReport, updateSosForSync, httpErr } = require('../services');
 
 // POST /api/sync
-// Body: { items: [ { type: 'sos' | 'report', clientId, lat, lng, timestamp, ...fields } ] }
+// Body: { items: [ { type: 'sos' | 'report' | 'sos_update', clientId, ...fields } ] }
 // For type 'report' the damage category goes in `reportType` (flooding|building_damage|road_blocked|landslide|fire|other).
 // Flushes the phone's offline queue in one call. IDEMPOTENT per item via clientId:
 // replaying the same batch (or part of it) never creates duplicates.
@@ -27,8 +27,11 @@ router.post('/', optionalAuth, async (req, res, next) => {
         } else if (it.type === 'report') {
           const { created, report } = await createReport({ ...it, type: it.reportType }, req.user);
           results.push({ ...base, result: created ? 'created' : 'duplicate', id: report.id, status: report.status });
+        } else if (it.type === 'sos_update') {
+          const result = await updateSosForSync(it, req.user);
+          results.push({ ...base, result: result.duplicate ? 'duplicate' : 'updated', id: result.id, status: result.status });
         } else {
-          results.push({ ...base, result: 'error', error: "type must be 'sos' or 'report'" });
+          results.push({ ...base, result: 'error', error: "type must be 'sos', 'report', or 'sos_update'" });
         }
       } catch (e) {
         results.push({ ...base, result: 'error', error: e.message });

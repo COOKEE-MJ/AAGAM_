@@ -15,8 +15,8 @@ router.post('/signup', async (req, res, next) => {
     if (String(password).length < 6) throw httpErr(400, 'password must be at least 6 characters');
     const hash = await bcrypt.hash(String(password), 10);
     const r = await query(
-      `INSERT INTO users (role, name, phone, password_hash, home_district, home_state)
-       VALUES ('citizen',$1,$2,$3,$4,$5) ON CONFLICT (phone) DO NOTHING RETURNING *`,
+      `INSERT INTO users (role, name, phone, password_hash, home_district, home_state, retention_expires_at)
+       VALUES ('citizen',$1,$2,$3,$4,$5,now() + interval '90 days') ON CONFLICT (phone) DO NOTHING RETURNING *`,
       [name, phone, hash, homeDistrict, homeState]
     );
     if (!r.rowCount) throw httpErr(409, 'phone already registered, log in instead');

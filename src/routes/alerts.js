@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { query } = require('../db');
-const { optionalAuth, requireRole, requireAuth } = require('../auth');
+const { optionalAuth, requireRole, requireAuth, getDistrictScope, requireDistrictScope } = require('../auth');
 const { httpErr } = require('../services/incidents');
 const rules = require('../radar/rules');
 
@@ -35,7 +35,7 @@ function radarOrOfficer(req, res, next) {
     req.isRadar = true;
     return next();
   }
-  return requireAuth(req, res, () => requireRole('authority')(req, res, next));
+  return requireAuth(req, res, () => requireRole('authority')(req, res, () => requireDistrictScope(req, res, next)));
 }
 
 // GET /api/alerts?lat&lng&radius&hazard&district
@@ -50,10 +50,9 @@ router.get('/', optionalAuth, async (req, res, next) => {
     const isOfficer = req.user?.role === 'authority';
     if (status && isOfficer) {
       if (status !== 'all') where.push(`a.status = ${add(status)}`);
-      // Enforce officer district scope if assigned
-      if (req.user?.district_scope) {
-        where.push(`a.district = ${add(req.user.district_scope)}`);
-      }
+      const districtScope = getDistrictScope(req.user);
+      if (!districtScope) throw httpErr(403, 'Authority account must have an assigned district scope');
+      where.push(`a.district = ${add(districtScope)}`);
     } else {
       where.push(`a.status = 'published'`, `(a.valid_until IS NULL OR a.valid_until > now())`);
     }
@@ -109,8 +108,9 @@ router.post('/', radarOrOfficer, async (req, res, next) => {
       }
 
       // Enforce officer district scope
-      if (!req.isRadar && req.user?.district_scope && existing.district !== req.user.district_scope) {
-        throw httpErr(403, `Officers can only manage alerts in their assigned district: ${req.user.district_scope}`);
+      const districtScope = getDistrictScope(req.user);
+      if (!req.isRadar && existing.district !== districtScope) {
+        throw httpErr(403, `Officers can only manage alerts in their assigned district: ${districtScope}`);
       }
 
       const sourceUrl = b.sourceUrl || existing.source_url;
@@ -208,8 +208,9 @@ router.post('/', radarOrOfficer, async (req, res, next) => {
     if (!SEVERITIES.includes(b.severity)) throw httpErr(400, 'severity must be low|medium|high|extreme');
 
     // Enforce district scope for officer manual alerts
-    if (!req.isRadar && req.user?.district_scope && b.district !== req.user.district_scope) {
-      throw httpErr(403, `Officers can only post alerts for their assigned district: ${req.user.district_scope}`);
+    const districtScope = getDistrictScope(req.user);
+    if (!req.isRadar && b.district !== districtScope) {
+      throw httpErr(403, `Officers can only post alerts for their assigned district: ${districtScope}`);
     }
 
     const origin = req.isRadar ? 'radar' : 'manual';
@@ -261,7 +262,7 @@ router.post('/', radarOrOfficer, async (req, res, next) => {
 });
 
 // PATCH /api/alerts/:id (Officer approves pending, edits, or withdraws alert)
-router.patch('/:id', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.patch('/:id', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const b = req.body || {};
     const sets = [];
@@ -269,11 +270,12 @@ router.patch('/:id', requireAuth, requireRole('authority'), async (req, res, nex
     const set = (col, v) => { p.push(v); sets.push(`${col} = $${p.length}`); };
 
     // Enforce officer district scope
-    if (req.user?.district_scope) {
+    const districtScope = getDistrictScope(req.user);
+    if (districtScope) {
       const check = await query('SELECT district FROM alerts WHERE id = $1', [req.params.id]);
       if (!check.rowCount) throw httpErr(404, 'alert not found');
-      if (check.rows[0].district !== req.user.district_scope) {
-        throw httpErr(403, `You are only authorized to manage alerts in district: ${req.user.district_scope}`);
+      if (check.rows[0].district !== districtScope) {
+        throw httpErr(403, `You are only authorized to manage alerts in district: ${districtScope}`);
       }
     }
 

@@ -14,7 +14,7 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 (async () => {
   try {
     if (process.argv.includes('--reset')) {
-      await pool.query(`DROP TABLE IF EXISTS sms_log, radar_snapshots, reports, sos_events, shelters, alerts, users, hazard_types CASCADE`);
+      await pool.query(`DROP TABLE IF EXISTS audit_log, sms_log, radar_snapshots, reports, sos_events, shelters, alerts, users, hazard_types CASCADE`);
     }
     const sql = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
     await pool.query(sql);

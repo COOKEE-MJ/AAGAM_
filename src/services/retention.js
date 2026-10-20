@@ -11,8 +11,7 @@ const { query } = require('../db');
 async function purgeExpiredPhotos() {
   const r = await query(
     `UPDATE reports
-     SET photo_data = NULL,
-         note = COALESCE(note, '') || ' [Photo purged per 30-day retention policy]'
+     SET photo_data = NULL
      WHERE photo_data IS NOT NULL
        AND retention_expires_at IS NOT NULL
        AND retention_expires_at <= now()
@@ -28,11 +27,45 @@ async function purgeExpiredPhotos() {
   return r.rowCount;
 }
 
+async function redactExpiredSos() {
+  const r = await query(
+    `UPDATE sos_events
+     SET location = NULL, note = NULL, people_count = NULL, injured = false,
+         user_id = NULL, district = NULL, redacted_at = now()
+     WHERE redacted_at IS NULL AND retention_expires_at IS NOT NULL AND retention_expires_at <= now()
+     RETURNING id`
+  );
+  if (r.rowCount) await query(
+    `INSERT INTO audit_log (actor_role, action, target_type, detail)
+     VALUES ('system', 'privacy.redact_sos', 'sos', $1)`,
+    [JSON.stringify({ redactedCount: r.rowCount, ids: r.rows.map((x) => x.id) })]
+  );
+  return r.rowCount;
+}
+
+async function redactExpiredReports() {
+  const r = await query(
+    `UPDATE reports
+     SET location = NULL, note = NULL, user_id = NULL, district = NULL, redacted_at = now()
+     WHERE redacted_at IS NULL AND pii_retention_expires_at IS NOT NULL AND pii_retention_expires_at <= now()
+     RETURNING id`
+  );
+  if (r.rowCount) await query(
+    `INSERT INTO audit_log (actor_role, action, target_type, detail)
+     VALUES ('system', 'privacy.redact_reports', 'report', $1)`,
+    [JSON.stringify({ redactedCount: r.rowCount, ids: r.rows.map((x) => x.id) })]
+  );
+  return r.rowCount;
+}
+
 async function maskExpiredPhoneNumbers() {
   const r = await query(
     `UPDATE users
-     SET phone = '+91XXXXX' || SUBSTRING(phone FROM LENGTH(phone)-3 FOR 4)
+     SET phone = 'retired-' || id::text, name = 'Former citizen', email = NULL,
+         password_hash = gen_random_uuid()::text,
+         home_district = NULL, home_state = NULL
      WHERE role = 'citizen'
+       AND phone NOT LIKE 'retired-%'
        AND retention_expires_at IS NOT NULL
        AND retention_expires_at <= now()
      RETURNING id`
@@ -49,12 +82,16 @@ async function maskExpiredPhoneNumbers() {
 
 async function runRetentionSweep() {
   const photos = await purgeExpiredPhotos();
+  const sos = await redactExpiredSos();
+  const reports = await redactExpiredReports();
   const phones = await maskExpiredPhoneNumbers();
-  return { photosPurged: photos, phonesMasked: phones, timestamp: new Date().toISOString() };
+  return { photosPurged: photos, sosRedacted: sos, reportsRedacted: reports, accountsAnonymized: phones, timestamp: new Date().toISOString() };
 }
 
 module.exports = {
   purgeExpiredPhotos,
+  redactExpiredSos,
+  redactExpiredReports,
   maskExpiredPhoneNumbers,
   runRetentionSweep,
 };

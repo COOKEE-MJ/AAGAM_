@@ -1,18 +1,18 @@
 # AAGAM: Backend Handover & Developer Guide (Member 2 Lane)
 
-Node.js + Express + PostgreSQL/PostGIS. This service was initialized by M4 (with pair programming) on 18 Oct while M2 was away. **It is complete for every MUST item in the Master Execution Plan (Part 3 and Part 5 contracts) and passes all smoke tests against a real PostGIS database.**
+Node.js + Express + PostgreSQL/PostGIS. This handover describes the backend branch. It is not a statement that the frontend checklist is complete. The automated test commands are documented below; their current result must be established by running them against a configured PostGIS database.
 
 ---
 
 ## Handover Checklist for M2
 
-### What is already done (100% complete):
-- **Database schema with PostGIS**, 11 hazard types, spatial tables (`alerts`, `shelters`, `incidents`, `sms_log`, `users`), seed data for New Delhi, and demo logins.
+### Implemented backend components:
+- **Database schema with PostGIS**, 11 hazard types, spatial tables (`alerts`, `shelters`, `sos_events`, `reports`, `radar_snapshots`, `sms_log`, `users`), seed data for New Delhi, and demo logins.
 - **Contract Endpoints:**
   - `GET /api/alerts`: spatial query with radius, status filtering, deduplication.
   - `GET /api/shelters`: nearest shelter query with capacity & distance in km.
   - `POST /api/sos/trigger`: idempotent SOS creation using `clientId`.
-  - `POST /api/sync`: offline batch queue synchronization (`sos` & `reports`).
+  - `POST /api/sync`: offline batch creation for `sos` and `report`, plus owner-checked `sos_update` items.
   - `POST /api/reports`: crowd-sourced photo reports with AI verification triage.
   - `POST /api/ai/verify-image`: AI verification endpoint (mock/live).
   - `GET /api/heatmap`: PostGIS grid-based aggregation of incidents for command dashboard.
@@ -22,7 +22,9 @@ Node.js + Express + PostgreSQL/PostGIS. This service was initialized by M4 (with
   - `POST /api/alerts` & `PATCH /api/alerts/:id`: create, publish, withdraw alerts.
   - `POST /api/shelters` & `PATCH /api/shelters/:id`: occupancy adjustments and status updates.
 - **JWT Authentication:** Two roles (`citizen`, `authority`), bcrypt password hashing, token validation middleware.
-- **Verification & Testing:** All 16 unit tests and 23 automated smoke tests passing.
+- **Verification:** `npm test` and `npm run smoke` are available. The smoke suite requires a running PostGIS-backed API; do not report a passing result until they have been run.
+
+See [backend-contract.md](backend-contract.md) for request/response examples and [privacy-notice.md](privacy-notice.md) for the notice text that the client must show before collecting personal data.
 
 ---
 
@@ -31,6 +33,7 @@ Node.js + Express + PostgreSQL/PostGIS. This service was initialized by M4 (with
 ```bash
 # 1. Environment configuration
 cp .env.example .env
+# Set JWT_SECRET in .env to a random value of at least 32 characters before starting.
 
 # 2. Database service (Postgres 16 + PostGIS)
 # Ensure PostgreSQL service is active or run:

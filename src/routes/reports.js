@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { query } = require('../db');
-const { optionalAuth, requireAuth, requireRole } = require('../auth');
+const { optionalAuth, requireAuth, requireRole, requireDistrictScope, getDistrictScope } = require('../auth');
 const { createReport, httpErr, reportSelect, REPORT_TYPES } = require('../services');
 
 // In-memory sliding window rate limiter: max 15 reports per 10 minutes per IP/user
@@ -95,7 +95,7 @@ router.post('/', optionalAuth, async (req, res, next) => {
     // If duplicate was flagged, attach to report
     if (created && duplicateId) {
       await query(
-        `UPDATE reports SET possible_duplicate_of = $1, retention_expires_at = now() + interval '30 days' WHERE id = $2`,
+        `UPDATE reports SET possible_duplicate_of = $1 WHERE id = $2`,
         [duplicateId, report.id]
       );
       report.possibleDuplicateOf = duplicateId;
@@ -108,7 +108,7 @@ router.post('/', optionalAuth, async (req, res, next) => {
 });
 
 // GET /api/reports (Authority queue filtered by status & officer district scope)
-router.get('/', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.get('/', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const { status = 'needs_review' } = req.query;
     const p = [];
@@ -120,9 +120,7 @@ router.get('/', requireAuth, requireRole('authority'), async (req, res, next) =>
     }
 
     // Enforce officer district scope if assigned
-    if (req.user?.district_scope) {
-      where.push(`ST_DWithin(r.location, (SELECT center FROM alerts WHERE district = ${add(req.user.district_scope)} AND center IS NOT NULL LIMIT 1), 50000)`);
-    }
+    where.push(`r.district = ${add(getDistrictScope(req.user))}`);
 
     const sql = `${fullReportSelect} ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY r.created_at DESC LIMIT 200`;
     res.json({ reports: (await query(sql, p)).rows });
@@ -141,9 +139,9 @@ router.get('/mine', requireAuth, async (req, res, next) => {
 });
 
 // GET /api/reports/:id/photo (Authorized photo inspection)
-router.get('/:id/photo', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.get('/:id/photo', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
-    const r = await query('SELECT photo_data FROM reports WHERE id = $1', [req.params.id]);
+    const r = await query('SELECT photo_data FROM reports WHERE id = $1 AND district = $2', [req.params.id, getDistrictScope(req.user)]);
     if (!r.rowCount || !r.rows[0].photo_data) throw httpErr(404, 'No photo attached to this report');
     res.json({ photoData: r.rows[0].photo_data });
   } catch (e) {
@@ -152,7 +150,7 @@ router.get('/:id/photo', requireAuth, requireRole('authority'), async (req, res,
 });
 
 // PATCH /api/reports/:id (Officer approves, rejects, or requests more information)
-router.patch('/:id', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.patch('/:id', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const { status, rejectReason = null, officerNotes = null } = req.body || {};
     const allowed = ['verified', 'rejected', 'needs_more_info'];
@@ -169,9 +167,9 @@ router.patch('/:id', requireAuth, requireRole('authority'), async (req, res, nex
     const r = await query(
       `UPDATE reports
        SET status = $1, reject_reason = $2, officer_notes = $3, reviewed_by = $4, reviewed_at = now(), updated_at = now()
-       WHERE id = $5
+       WHERE id = $5 AND district = $6
        RETURNING id`,
-      [status, status === 'rejected' ? rejectReason : null, officerNotes || null, req.user.sub, req.params.id]
+      [status, status === 'rejected' ? rejectReason : null, officerNotes || null, req.user.sub, req.params.id, getDistrictScope(req.user)]
     );
 
     if (!r.rowCount) throw httpErr(404, 'Report not found');

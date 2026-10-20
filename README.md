@@ -90,10 +90,12 @@ flowchart LR
 
 ## ⚖️ Five Golden Product Rules
 
+These are product requirements. This backend branch implements only the API and database portions; it does not establish that the citizen PWA displays these states or controls.
+
 | # | Rule | Core Principle & Technical Guarantee |
 |:---:|---|---|
-| **1** | **Prepare First, Connect Second** | Alerts, shelter lists, and map tiles are cached locally while online so they remain 100% accessible with zero cellular signal. |
-| **2** | **Nothing Disappears Silently** | Every SOS and photo report displays a transparent status: `Queued` ➔ `Sent` ➔ `Acknowledged` ➔ `Dispatched` ➔ `Resolved`. |
+| **1** | **Prepare First, Connect Second** | Product target: alerts, shelter lists, and map tiles should be cached locally while online. The client implementation is not in this backend branch. |
+| **2** | **Nothing Disappears Silently** | Product target: display each SOS/report status. `Queued` means saved on this phone only; it has not been sent, and does not mean responders have been notified or help is coming. |
 | **3** | **AI Assists, Humans Decide** | Computer vision triage flags high-confidence damage ($\ge 0.70$). District officers retain full authority to approve or reject. |
 | **4** | **Every Alert Proves Its Source** | Every warning displays official publication timestamps and direct links back to IMD, CWC, or NDMA source bulletins. |
 | **5** | **Strict Privacy by Role** | Citizens never see other citizens' phone numbers or SOS coordinates. Officers only access data within their assigned district. |
@@ -161,6 +163,8 @@ flowchart TD
 
 ## 📱 Screen-by-Screen Walkthrough
 
+This section is a UI specification, not evidence that those screens are implemented. The backend branch does not include the citizen app or command dashboard.
+
 ### 1. Citizen PWA (Mobile Phone)
 
 <p align="center">
@@ -220,7 +224,7 @@ flowchart TD
 
 ## 📶 The Offline Sync Engine
 
-How AAGAM ensures zero distress calls are dropped when mobile towers fail:
+The following is the product target, not a verified claim about this backend branch. The PWA, service worker, IndexedDB queue and airplane-mode reload flow are not included here. The backend provides `POST /api/sync`; see the backend contract for its supported item types.
 
 | Feature | Offline Availability | Technical Implementation |
 |---|:---:|---|
@@ -276,6 +280,8 @@ cd AAGAM_
 
 # 2. Configure environment from safe template
 cp .env.example .env
+# Set JWT_SECRET in .env to a random value of at least 32 characters before starting the API.
+# Generate one with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 # 3. Install dependencies
 npm install
@@ -303,11 +309,11 @@ npm run smoke
 
 | Security Item | Status | Guarantee |
 |---|:---:|---|
-| **Database & API Passwords** | 🔒 **PROTECTED** | Local `.env` is listed in `.gitignore` and has **NEVER** been committed to git history. |
-| **Citizen PII** | 🔒 **ENCRYPTED** | Phone numbers and exact coordinates are accessible exclusively by authorized district officers. |
-| **Role-Based Access (RBAC)** | 🔒 **ENFORCED** | Public users and citizens receive `403 Forbidden` if attempting to query command heatmaps or queues. |
-| **Idempotency Safeguard** | 🔒 **VERIFIED** | Every SOS carries a unique `clientId`; duplicate network packets never trigger duplicate alerts. |
-| **Data Retention (DPDPA 2023)** | 🔒 **AUTOMATED** | Incident photos purged after 30 days; phone numbers masked after 90 days. Runs once at start and then every 24 hours using a simple timer. For a real deployment this would move to a proper scheduler (cron / pg_cron). |
+| **Database & API Passwords** | 🔒 **CONFIGURED** | `.env` is ignored; the example leaves `JWT_SECRET` blank. Set a random value of at least 32 characters before starting. This does not establish that a secret was never committed in earlier history. |
+| **Citizen PII** | 🔒 **RESTRICTED BY ROLE AND DISTRICT** | Citizen self-service reads are owner-filtered; scoped officers can access records assigned to their district. Expired SOS/report location and note data are redacted. |
+| **Role-Based Access (RBAC)** | 🔒 **ENFORCED** | Heatmap, queues, and officer actions require an authority JWT and district scope. |
+| **Idempotency Safeguard** | 🔒 **SERVER ENFORCED** | SOS and report client IDs are unique; replays do not create another record. Other owners cannot retrieve a record by replaying its ID. |
+| **Data Retention** | 🔒 **AUTOMATED** | Photos are purged after 30 days; SOS location/notes after 90 days; report location/notes after 90 days; citizen account identifiers are anonymized after 90 days. The service runs at startup and every 24 hours. |
 
 ---
 

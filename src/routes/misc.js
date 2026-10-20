@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { query, httpErr } = require('../config');
-const { requireAuth, requireRole } = require('../auth');
+const { requireAuth, requireRole, requireDistrictScope, getDistrictScope } = require('../auth');
 const { verifyImage } = require('../verify');
 const { HAZARD_LIST } = require('../hazards');
 
@@ -26,19 +26,26 @@ router.post('/ai/verify-image', async (req, res, next) => {
 });
 
 // GET /api/sms-log (officer): lets the demo show "SMS sent (mocked)" entries
-router.get('/sms-log', requireAuth, requireRole('authority'), async (_req, res, next) => {
+router.get('/sms-log', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
-    const rows = (await query('SELECT id, to_phone AS "toPhone", body, mode, created_at AS "createdAt" FROM sms_log ORDER BY id DESC LIMIT 100')).rows;
+    const rows = (await query(`SELECT m.id, m.to_phone AS "toPhone", m.body, m.mode, m.created_at AS "createdAt"
+      FROM sms_log m JOIN sos_events s ON s.id = m.related_sos
+      WHERE s.district = $1 ORDER BY m.id DESC LIMIT 100`, [getDistrictScope(req.user)])).rows;
     res.json({ sms: rows });
   } catch (e) { next(e); }
 });
 
 // GET /api/audit-log (officer): view recent audit trail entries
-router.get('/audit-log', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.get('/audit-log', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const { targetType, targetId, limit = 100 } = req.query;
-    const where = [];
-    const p = [];
+    const where = [`(
+      (target_type = 'sos' AND EXISTS (SELECT 1 FROM sos_events s WHERE s.id::text = audit_log.target_id AND s.district = $1)) OR
+      (target_type = 'report' AND EXISTS (SELECT 1 FROM reports r WHERE r.id::text = audit_log.target_id AND r.district = $1)) OR
+      (target_type = 'alert' AND EXISTS (SELECT 1 FROM alerts a WHERE a.id::text = audit_log.target_id AND a.district = $1)) OR
+      (target_type = 'shelter' AND EXISTS (SELECT 1 FROM shelters h WHERE h.id::text = audit_log.target_id AND h.district = $1))
+    )`];
+    const p = [getDistrictScope(req.user)];
     if (targetType) { p.push(targetType); where.push(`target_type = $${p.length}`); }
     if (targetId) { p.push(String(targetId)); where.push(`target_id = $${p.length}`); }
     p.push(Number(limit) || 100);

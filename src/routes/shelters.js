@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { query } = require('../db');
-const { requireAuth, requireRole } = require('../auth');
+const { requireAuth, requireRole, requireDistrictScope, getDistrictScope } = require('../auth');
 const { httpErr } = require('../services/incidents');
 
 const COLS = `s.id, s.name, s.type, s.district, s.address, s.capacity, s.occupancy, s.status, s.facilities,
@@ -40,10 +40,11 @@ router.get('/', async (req, res, next) => {
 });
 
 // POST /api/shelters (officer)  - stretch, but the seed script can also fill the table
-router.post('/', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.post('/', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const b = req.body || {};
     for (const f of ['name', 'district', 'lat', 'lng', 'capacity']) if (b[f] === undefined || b[f] === '') throw httpErr(400, `${f} required`);
+    if (b.district !== getDistrictScope(req.user)) throw httpErr(403, 'You can only create shelters in your assigned district');
     const cap = Number(b.capacity), occ = Number(b.occupancy || 0);
     const r = await query(
       `INSERT INTO shelters (name,type,district,address,location,capacity,occupancy,status,facilities,suitable_for,contact,source_name,source_url)
@@ -56,10 +57,11 @@ router.post('/', requireAuth, requireRole('authority'), async (req, res, next) =
 });
 
 // PATCH /api/shelters/:id (officer): occupancy, closed/open, contact, capacity
-router.patch('/:id', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.patch('/:id', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
-    const cur = await query('SELECT capacity, occupancy, status FROM shelters WHERE id = $1', [req.params.id]);
+    const cur = await query('SELECT capacity, occupancy, status, district FROM shelters WHERE id = $1', [req.params.id]);
     if (!cur.rowCount) throw httpErr(404, 'shelter not found');
+    if (cur.rows[0].district !== getDistrictScope(req.user)) throw httpErr(403, 'You can only manage shelters in your assigned district');
     const b = req.body || {};
     const capacity = b.capacity !== undefined ? Number(b.capacity) : cur.rows[0].capacity;
     let occupancy = b.occupancy !== undefined ? Number(b.occupancy) : cur.rows[0].occupancy;

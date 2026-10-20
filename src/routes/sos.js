@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { query } = require('../db');
-const { optionalAuth, requireAuth, requireRole } = require('../auth');
+const { optionalAuth, requireAuth, requireRole, requireDistrictScope, getDistrictScope } = require('../auth');
 const { createSos, listSos, httpErr, sosSelect } = require('../services');
 
 // Allowed officer state transitions. Citizens may only cancel their own SOS.
@@ -63,28 +63,10 @@ router.post('/trigger', optionalAuth, async (req, res, next) => {
 });
 
 // GET /api/sos (Authority queue restricted to designated district scope)
-router.get('/', requireAuth, requireRole('authority'), async (req, res, next) => {
+router.get('/', requireAuth, requireRole('authority'), requireDistrictScope, async (req, res, next) => {
   try {
     const { status } = req.query;
-    let sos = await listSos({ status });
-
-    // Enforce district scope for authority officers
-    if (req.user?.district_scope) {
-      const scopeCheck = await query(
-        `SELECT ST_Y(center::geometry) AS lat, ST_X(center::geometry) AS lng FROM alerts WHERE district = $1 AND center IS NOT NULL LIMIT 1`,
-        [req.user.district_scope]
-      );
-      if (scopeCheck.rowCount) {
-        const { lat: dLat, lng: dLng } = scopeCheck.rows[0];
-        // Filter in-memory using distance calculation (50km district radius)
-        sos = sos.filter((item) => {
-          if (!item.lat || !item.lng) return true;
-          const d = Math.hypot(item.lat - dLat, item.lng - dLng) * 111; // ~km
-          return d <= 60;
-        });
-      }
-    }
-
+    const sos = await listSos({ status, district: getDistrictScope(req.user) });
     res.json({ sos });
   } catch (e) {
     next(e);
@@ -133,21 +115,10 @@ router.patch('/:id', requireAuth, async (req, res, next) => {
       await audit(req, 'sos.cancel', row.id, { by: 'citizen' });
     } else {
       // Officer role: enforce district scope
-      if (req.user.district_scope) {
-        const scopeAlert = await query(
-          `SELECT center FROM alerts WHERE district = $1 AND center IS NOT NULL LIMIT 1`,
-          [req.user.district_scope]
-        );
-        if (scopeAlert.rowCount) {
-          const within = await query(
-            `SELECT ST_DWithin(location, $1::geography, 60000) AS in_scope FROM sos_events WHERE id = $2`,
-            [scopeAlert.rows[0].center, row.id]
-          );
-          if (within.rows[0]?.in_scope === false) {
-            throw httpErr(403, `You are only authorized for SOS events in district: ${req.user.district_scope}`);
-          }
-        }
-      }
+      const scope = getDistrictScope(req.user);
+      if (!scope) throw httpErr(403, 'Authority account must have an assigned district scope');
+      const scoped = await query('SELECT district FROM sos_events WHERE id = $1', [row.id]);
+      if (scoped.rows[0]?.district !== scope) throw httpErr(403, `You are only authorized for SOS events in district: ${scope}`);
 
       if (!b.status) throw httpErr(400, 'status required');
       if (!(NEXT[row.status] || []).includes(b.status)) {

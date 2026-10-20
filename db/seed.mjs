@@ -43,9 +43,10 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
     for (const u of data.users) {
       const hash = await bcrypt.hash(u.password, 10);
       const res = await pool.query(
-        `INSERT INTO users (role, name, email, phone, password_hash, home_district, home_state, district_scope)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-         ON CONFLICT (phone) DO UPDATE SET email=EXCLUDED.email, password_hash=EXCLUDED.password_hash, district_scope=EXCLUDED.district_scope
+        `INSERT INTO users (role, name, email, phone, password_hash, home_district, home_state, district_scope, retention_expires_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, CASE WHEN $1 = 'citizen' THEN now() + interval '90 days' ELSE NULL END)
+         ON CONFLICT (phone) DO UPDATE SET email=EXCLUDED.email, password_hash=EXCLUDED.password_hash, district_scope=EXCLUDED.district_scope,
+           retention_expires_at=COALESCE(users.retention_expires_at, EXCLUDED.retention_expires_at)
          RETURNING id`,
         [u.role, u.name, u.email, u.phone, hash, u.homeDistrict, u.homeState, u.districtScope]
       );
@@ -78,20 +79,20 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
     for (const s of data.sosEvents) {
       const when = new Date(Date.now() - (s.createdAgoMin || 10) * 60 * 1000);
       await pool.query(
-        `INSERT INTO sos_events (client_id, user_id, location, hazard, created_on_phone_at, people_count, injured, note, status)
-         VALUES ($1, $2, ST_MakePoint($4, $3)::geography, $5, $6, $7, $8, $9, $10)
+        `INSERT INTO sos_events (client_id, user_id, location, hazard, created_on_phone_at, people_count, injured, note, status, district, retention_expires_at)
+         VALUES ($1, $2, ST_MakePoint($4, $3)::geography, $5, $6, $7, $8, $9, $10, $11, now() + interval '90 days')
          ON CONFLICT (client_id) DO NOTHING`,
-        [s.clientId, citizenId, s.location.lat, s.location.lng, s.hazard, when, s.peopleCount, s.injured, s.note, s.status]
+        [s.clientId, citizenId, s.location.lat, s.location.lng, s.hazard, when, s.peopleCount, s.injured, s.note, s.status, data.district]
       );
     }
 
     // 6. Reports
     for (const r of data.reports) {
       await pool.query(
-        `INSERT INTO reports (client_id, user_id, location, type, hazard, photo_data, note, ai_label, ai_confidence, ai_mode, status)
-         VALUES ($1, $2, ST_MakePoint($4, $3)::geography, $5, $6, $7, $8, $9, $10, $11, $12)
+        `INSERT INTO reports (client_id, user_id, location, type, hazard, photo_data, note, ai_label, ai_confidence, ai_mode, status, district, retention_expires_at, pii_retention_expires_at)
+         VALUES ($1, $2, ST_MakePoint($4, $3)::geography, $5, $6, $7, $8, $9, $10, $11, $12, $13, CASE WHEN $7::text IS NOT NULL THEN now() + interval '30 days' ELSE NULL END, now() + interval '90 days')
          ON CONFLICT (client_id) DO NOTHING`,
-        [r.clientId, citizenId, r.location.lat, r.location.lng, r.type, r.hazard, r.hasPhoto ? 'data:image/jpeg;base64,mockphoto' : null, r.note, r.aiLabel, r.aiConfidence, r.aiMode, r.status]
+        [r.clientId, citizenId, r.location.lat, r.location.lng, r.type, r.hazard, r.hasPhoto ? 'data:image/jpeg;base64,mockphoto' : null, r.note, r.aiLabel, r.aiConfidence, r.aiMode, r.status, data.district]
       );
     }
 

@@ -105,6 +105,16 @@ CREATE TABLE IF NOT EXISTS sos_events (
 CREATE INDEX IF NOT EXISTS sos_loc_gix ON sos_events USING gist (location);
 CREATE INDEX IF NOT EXISTS sos_status_idx ON sos_events (status);
 
+-- District scope and retention/redaction support. These ALTERs also upgrade existing databases.
+ALTER TABLE sos_events ADD COLUMN IF NOT EXISTS district text;
+ALTER TABLE sos_events ADD COLUMN IF NOT EXISTS redacted_at timestamptz;
+ALTER TABLE sos_events ALTER COLUMN location DROP NOT NULL;
+CREATE INDEX IF NOT EXISTS sos_district_status_idx ON sos_events (district, status);
+UPDATE sos_events s SET district = u.home_district
+  FROM users u WHERE s.user_id = u.id AND s.district IS NULL;
+UPDATE sos_events SET retention_expires_at = received_at + interval '90 days'
+  WHERE retention_expires_at IS NULL;
+
 -- 6. Incident Reports (Crowdsourced damage photos with AI triage & review options)
 CREATE TABLE IF NOT EXISTS reports (
   id                    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -130,6 +140,19 @@ CREATE TABLE IF NOT EXISTS reports (
 );
 CREATE INDEX IF NOT EXISTS reports_loc_gix ON reports USING gist (location);
 CREATE INDEX IF NOT EXISTS reports_status_idx ON reports (status);
+ALTER TABLE reports ADD COLUMN IF NOT EXISTS district text;
+ALTER TABLE reports ADD COLUMN IF NOT EXISTS pii_retention_expires_at timestamptz;
+ALTER TABLE reports ADD COLUMN IF NOT EXISTS redacted_at timestamptz;
+ALTER TABLE reports ALTER COLUMN location DROP NOT NULL;
+CREATE INDEX IF NOT EXISTS reports_district_status_idx ON reports (district, status);
+UPDATE reports r SET district = u.home_district
+  FROM users u WHERE r.user_id = u.id AND r.district IS NULL;
+UPDATE reports SET retention_expires_at = created_at + interval '30 days'
+  WHERE photo_data IS NOT NULL AND retention_expires_at IS NULL;
+UPDATE reports SET pii_retention_expires_at = created_at + interval '90 days'
+  WHERE pii_retention_expires_at IS NULL;
+UPDATE users SET retention_expires_at = created_at + interval '90 days'
+  WHERE role = 'citizen' AND retention_expires_at IS NULL;
 
 -- 7. Mock SMS Gateway (Offline fallback logs)
 CREATE TABLE IF NOT EXISTS sms_log (
