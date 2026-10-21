@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- SAMPLE FEED created for testing AAGAM radar rules and RSS extraction -->
+<rss version="2.0">
+  <channel>
+    <title>SAMPLE alert feed</title>
+    <item>
+      <title>Orange alert: Heavy rainfall warning</title>
+      <description>Heavy rain likely over the district. Orange alert.</description>
+      <pubDate>Mon, 19 Oct 2026 06:00:00 GMT</pubDate>
+      <link>https://mausam.imd.gov.in/sample</link>
+      <category>Puri</category>
+    </item>
+    <item>
+      <title>Flood: river above danger level</title>
+      <description>Severe flood situation expected.</description>
+      <pubDate>Mon, 19 Oct 2026 06:10:00 GMT</pubDate>
+      <link>https://www.example-news.com/flood</link>
+      <category>Cuttack</category>
+    </item>
+  </channel>
+</rss>
+

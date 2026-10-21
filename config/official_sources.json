@@ -1,0 +1,76 @@
+{
+ "_readme": "Official sources the radar should watch. 'feed_url' is EMPTY on purpose where we could not verify a machine-readable feed address from this environment (gov sites blocked automated reads). Fill feed_url ONLY with an address you opened yourself. Never add non-government sources here - those need officer approval anyway.",
+ "sources": [
+  {
+   "name": "NDMA SACHET (national CAP alerts)",
+   "hazards": [
+    "all"
+   ],
+   "page_url": "https://sachet.ndma.gov.in/",
+   "feed_url": "",
+   "notes": "Best source: CAP RSS feeds exist per the portal description; exact feed URL to be confirmed by M3 from the portal's own CAP RSS link."
+  },
+  {
+   "name": "IMD Mausam (weather warnings)",
+   "hazards": [
+    "cyclone",
+    "heavy_rain",
+    "cloudburst",
+    "lightning",
+    "heatwave",
+    "cold_wave",
+    "hailstorm",
+    "dust_storm"
+   ],
+   "page_url": "https://mausam.imd.gov.in/",
+   "feed_url": "",
+   "notes": "District/sub-division warnings with colour codes. Page is dynamic; needs TinyFish Fetch/Agent."
+  },
+  {
+   "name": "CWC (flood forecasts)",
+   "hazards": [
+    "flood"
+   ],
+   "page_url": "https://cwc.gov.in/",
+   "feed_url": "",
+   "notes": "Danger-level information per river station."
+  },
+  {
+   "name": "INCOIS (tsunami / ocean alerts)",
+   "hazards": [
+    "tsunami",
+    "cyclone"
+   ],
+   "page_url": "https://incois.gov.in/",
+   "feed_url": "",
+   "notes": "Tsunami bulletins from the Indian Tsunami Early Warning Centre."
+  },
+  {
+   "name": "National Center for Seismology",
+   "hazards": [
+    "earthquake"
+   ],
+   "page_url": "https://seismo.gov.in/",
+   "feed_url": "",
+   "notes": "Latest earthquake list with magnitude, depth, place."
+  },
+  {
+   "name": "GSI Bhusanket (landslide susceptibility)",
+   "hazards": [
+    "landslide"
+   ],
+   "page_url": "https://bhusanket.gsi.gov.in/",
+   "feed_url": "",
+   "notes": "Susceptibility maps, not a live warning feed."
+  },
+  {
+   "name": "Forest Survey of India (fire alerts)",
+   "hazards": [
+    "forest_fire"
+   ],
+   "page_url": "https://fsi.nic.in/",
+   "feed_url": "",
+   "notes": "Agency verified via FSI Van Agni and SACHET."
+  }
+ ]
+}

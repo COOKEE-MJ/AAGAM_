@@ -1,0 +1,32 @@
+{
+  "name": "aagam-api",
+  "version": "0.1.0",
+  "description": "AAGAM backend (Member 2): Express + PostgreSQL/PostGIS",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:up": "docker compose up -d db",
+    "db:init": "node db/init.mjs",
+    "db:seed": "node seed/build-seed.mjs && node db/seed.mjs",
+    "db:reset": "node db/init.mjs --reset && npm run db:seed",
+    "test": "node --test tests/rules.test.mjs",
+    "smoke": "node tests/smoke.mjs",
+    "vision": "python3 vision/server.py",
+    "radar:push": "python3 radar/push_to_api.py",
+    "radar:push:dry": "python3 radar/push_to_api.py --dry-run",
+    "test:vision": "python3 -m unittest vision/test_triage.py"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0"
+  }
+}

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aagam - Natural Disaster Command Portal</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .pulse-ring {
+      box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7);
+      animation: pulse-ring 1.8s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+    @keyframes pulse-ring {
+      to {
+        box-shadow: 0 0 0 16px rgba(225, 29, 72, 0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 overflow-hidden h-screen flex">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between hidden md:flex">
+    <div>
+      <!-- AAGAM BRANDING -->
+      <div class="flex items-center gap-3 px-6 py-6 border-b border-slate-800">
+        <div class="bg-rose-600 p-2 rounded-lg text-white shadow-lg shadow-rose-600/40">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <span class="font-black text-lg text-white tracking-wider block leading-tight">AAGAM</span>
+          <span class="text-[10px] text-rose-400 font-semibold uppercase tracking-widest">Disaster Response</span>
+        </div>
+      </div>
+
+      <!-- Interactive Sidebar Navigation -->
+      <nav class="px-4 py-6 space-y-1" id="sidebar-nav">
+        <a href="#" onclick="switchTab('overview', this)" class="flex items-center gap-3 px-4 py-3 bg-rose-600 text-white rounded-xl font-medium shadow-lg shadow-rose-600/35 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Overview
+        </a>
+        <a href="#" onclick="switchTab('heatmap', this)" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Disaster Heatmap
+        </a>
+        <a href="#" onclick="switchTab('reports', this)" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Incident Reports
+        </a>
+        <a href="#" onclick="switchTab('cases', this)" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg> Rescue Cases
+        </a>
+        <a href="#" onclick="switchTab('analytics', this)" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> Impact Analytics
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-4 border-t border-slate-800">
+      <a href="#" onclick="switchTab('settings', this)" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Settings
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 flex flex-col overflow-y-auto">
+    
+    <!-- TOP HEADER -->
+    <header class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+      <div>
+        <h1 class="text-xl font-bold text-slate-900">Aagam Disaster Command Center</h1>
+        <p class="text-xs text-slate-500">Emergency & Natural Disaster Response Operations for <span id="region-subtitle" class="font-semibold text-slate-700">National Capital Territory of Delhi</span></p>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Region Dropdown (Delhi Default, Punjab, Haryana, Uttarakhand) -->
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-medium">
+          <span>Region:</span>
+          <select id="regionSelect" onchange="handleRegionChange(this.value)" class="bg-transparent font-semibold text-rose-600 focus:outline-none cursor-pointer">
+            <option value="delhi">Delhi (Default)</option>
+            <option value="punjab">Punjab</option>
+            <option value="haryana">Haryana</option>
+            <option value="uttarakhand">Uttarakhand</option>
+          </select>
+        </div>
+
+        <div id="liveTelemetryBadge" class="bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 flex items-center gap-1.5 cursor-pointer" onclick="refreshData()" title="Click to refresh live feed">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> <span id="telemetryStatus">Live API Connected</span>
+        </div>
+
+        <div id="officerBadge" class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl cursor-pointer" onclick="openOfficerModal()" title="Officer Session">
+          <div class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow">
+            A
+          </div>
+          <span id="officerName" class="text-xs font-bold text-slate-700 hidden sm:inline">Officer</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- DYNAMIC CONTENT VIEW AREA -->
+    <div class="p-8 space-y-6 flex-1" id="main-content-area">
+      <!-- Populated dynamically -->
+    </div>
+  </main>
+
+  <!-- BROADCAST ALERT MODAL -->
+  <div id="broadcastModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-lg text-slate-900">Broadcast Official Emergency Warning</h3>
+        <button onclick="closeBroadcastModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+      </div>
+      <form id="broadcastForm" onsubmit="handleBroadcastSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Hazard Type</label>
+          <select id="b-hazard" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm font-medium">
+            <option value="cyclone">Cyclone / Severe Storm</option>
+            <option value="flood">Flash Flood / River Inundation</option>
+            <option value="earthquake">Earthquake</option>
+            <option value="landslide">Landslide</option>
+            <option value="heavy_rain">Heavy Rainfall</option>
+            <option value="heatwave">Heat Wave</option>
+            <option value="dust_storm">Dust Storm</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Severity Level</label>
+            <select id="b-severity" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm font-medium">
+              <option value="extreme">Extreme (Red Alert)</option>
+              <option value="high" selected>High (Orange Alert)</option>
+              <option value="medium">Medium (Yellow Alert)</option>
+              <option value="low">Low (Advisory)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Target District</label>
+            <input type="text" id="b-district" value="New Delhi" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm" required />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Alert Title</label>
+          <input type="text" id="b-title" placeholder="e.g. Yamuna High Water Evacuation Order" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm" required />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Actionable Public Advice</label>
+          <textarea id="b-message" rows="3" placeholder="Instruct citizens on safety measures, shelter assembly, and helpline contact" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm" required></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeBroadcastModal()" class="px-4 py-2 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-bold rounded-xl bg-rose-600 text-white shadow-lg hover:bg-rose-700">Broadcast Immediately</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- RESCUE DISPATCH MODAL -->
+  <div id="dispatchModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-lg text-slate-900">Dispatch Emergency Rescue Team</h3>
+        <button onclick="closeDispatchModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+      </div>
+      <form id="dispatchForm" onsubmit="handleDispatchSubmit(event)" class="space-y-3">
+        <input type="hidden" id="d-sos-id" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Target SOS Case</label>
+          <p id="d-case-info" class="text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-slate-800 font-medium"></p>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Assign Rescue Unit / Notes</label>
+          <textarea id="d-note" rows="3" placeholder="e.g. NDRF Boat Unit 4 deployed via Ring Road. ETA 8 mins." class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sm" required></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeDispatchModal()" class="px-4 py-2 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-xs font-bold rounded-xl bg-rose-600 text-white shadow-lg hover:bg-rose-700">Confirm Dispatch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- OFFICER SESSION MODAL -->
+  <div id="officerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-base text-slate-900">Authority Officer Credentials</h3>
+        <button onclick="closeOfficerModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+      </div>
+      <div class="space-y-2 text-xs text-slate-600">
+        <p><b>Active Account:</b> <span id="m-officer-email" class="text-rose-600 font-semibold">officer@demo.local</span></p>
+        <p><b>Role:</b> Authority Officer</p>
+        <p><b>Jurisdiction:</b> Designated Emergency Command Scope</p>
+        <p><b>API Server:</b> <code class="bg-slate-100 px-1 py-0.5 rounded text-[11px]">http://localhost:3000/api</code></p>
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex justify-end">
+        <button type="button" onclick="closeOfficerModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-900 text-white hover:bg-slate-800">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA & STATE REPOSITORY SCRIPT -->
+  <script>
+    const API_BASE = window.AAGAM_API_BASE || (location.protocol.startsWith('http') && location.port === '3000' ? location.origin + '/api' : 'http://localhost:3000/api');
+    let officerToken = localStorage.getItem('aagam_officer_token') || null;
+    let officerUser = null;
+
+    // Local regional fallback repository
+    const dataRepo = {
+      delhi: {
+        name: "National Capital Territory of Delhi",
+        center: [28.6139, 77.2090],
+        zoom: 11,
+        stats: { total: "0", resolved: "0", progress: "0", pending: "0" },
+        issues: [],
+        points: [],
+        activity: [],
+        reports: [],
+        cases: [],
+        analytics: { avgResponseTime: "8.4 Minutes", totalEvacuated: "320", rescueTeamsActive: "14 Units", containmentRate: "88.5%" }
+      },
+      punjab: {
+        name: "Punjab",
+        center: [31.1471, 75.3412],
+        zoom: 9,
+        stats: { total: "89", resolved: "64", progress: "18", pending: "7" },
+        issues: [
+          { name: 'River Flooding (Sutlej/Beas Basin)', count: 45, percent: '50%' },
+          { name: 'Severe Hailstorm & Crop Damage', count: 24, percent: '27%' },
+          { name: 'Earthquake Tremors', count: 20, percent: '23%' }
+        ],
+        points: [
+          { lat: 31.6340, lng: 74.8723, intensity: 'High', zone: 'Amritsar Flood Basin', reportsCount: 38 },
+          { lat: 30.9010, lng: 75.8573, intensity: 'Medium', zone: 'Ludhiana District', reportsCount: 30 },
+          { lat: 30.7333, lng: 76.7794, intensity: 'Low', zone: 'Mohali Border', reportsCount: 21 }
+        ],
+        activity: [
+          { text: 'Sutlej river water level warning issued for Amritsar', time: '14m ago', type: 'rose' },
+          { text: 'Flood rescue boat deployed in Ludhiana sector', time: '35m ago', type: 'emerald' }
+        ],
+        reports: [
+          { id: "REP-PB-FL1", disaster: "Sutlej Basin Overflow", location: "Firozpur & Amritsar rural", reportedBy: "890 Citizens", solutionRate: "65%", status: "Active Rescue" },
+          { id: "REP-PB-HS2", disaster: "Severe Hailstorm", location: "Jalandhar Farms", reportedBy: "210 Citizens", solutionRate: "100%", status: "Resolved" }
+        ],
+        cases: [
+          { id: "CAS-401", disaster: "River Embankment Breach", location: "Amritsar Outskirts", affected: "2,300 People", percentSolved: "55%", status: "Active Rescue", severity: "Emergency" }
+        ],
+        analytics: { avgResponseTime: "15.1 Minutes", totalEvacuated: "6,200", rescueTeamsActive: "22 Units", containmentRate: "81.0%" }
+      },
+      haryana: {
+        name: "Haryana",
+        center: [29.0588, 76.0856],
+        zoom: 9,
+        stats: { total: "64", resolved: "48", progress: "12", pending: "4" },
+        issues: [
+          { name: 'Agricultural Drought / Heatwave', count: 30, percent: '47%' },
+          { name: 'Flash Flooding (Yamuna/Ghaggar)', count: 20, percent: '31%' },
+          { name: 'Earthquake Tremors', count: 14, percent: '22%' }
+        ],
+        points: [
+          { lat: 28.4595, lng: 77.0266, intensity: 'Medium', zone: 'Gurugram Waterlogging', reportsCount: 28 },
+          { lat: 29.9659, lng: 76.8383, intensity: 'High', zone: 'Ambala Flood Zone', reportsCount: 36 }
+        ],
+        activity: [
+          { text: 'Drainage overflow emergency managed in Gurugram', time: '20m ago', type: 'emerald' },
+          { text: 'Ghaggar river level monitored near Ambala', time: '50m ago', type: 'rose' }
+        ],
+        reports: [
+          { id: "REP-HR-FL1", disaster: "Urban Flash Flood", location: "Gurugram Cyber City Underpasses", reportedBy: "410 Citizens", solutionRate: "92%", status: "Contained" }
+        ],
+        cases: [
+          { id: "CAS-601", disaster: "Flash Flood Submergence", location: "Ambala Highway", affected: "450 People", percentSolved: "85%", status: "In Progress", severity: "High" }
+        ],
+        analytics: { avgResponseTime: "10.8 Minutes", totalEvacuated: "1,540", rescueTeamsActive: "18 Units", containmentRate: "86.5%" }
+      },
+      uttarakhand: {
+        name: "Uttarakhand",
+        center: [30.0668, 79.0193],
+        zoom: 8,
+        stats: { total: "198", resolved: "120", progress: "52", pending: "26" },
+        issues: [
+          { name: 'Major Landslide / Rockfall', count: 88, percent: '44%' },
+          { name: 'Cloudburst & Flash Flood (Himalayan)', count: 70, percent: '35%' },
+          { name: 'Severe Earthquake Faultline Activity', count: 40, percent: '21%' }
+        ],
+        points: [
+          { lat: 30.3165, lng: 78.0322, intensity: 'High', zone: 'Dehradun Valley Landslide', reportsCount: 65 },
+          { lat: 29.3803, lng: 79.4636, intensity: 'High', zone: 'Nainital Lake Overflow', reportsCount: 54 },
+          { lat: 30.5550, lng: 79.3200, intensity: 'High', zone: 'Chamoli Cloudburst Zone', reportsCount: 79 }
+        ],
+        activity: [
+          { text: 'Major landslide blocking Badrinath highway cleared partially', time: '5m ago', type: 'emerald' },
+          { text: 'Cloudburst alert triggered in Chamoli district', time: '19m ago', type: 'rose' }
+        ],
+        reports: [
+          { id: "REP-UK-LS1", disaster: "Mountain Landslide & Road Blockade", location: "Rishikesh-Badrinath Highway", reportedBy: "1,450 Citizens", solutionRate: "50%", status: "Active Rescue" },
+          { id: "REP-UK-CB2", disaster: "Cloudburst Flash Flood", location: "Chamoli & Uttarkashi", reportedBy: "890 Citizens", solutionRate: "40%", status: "Emergency Response" }
+        ],
+        cases: [
+          { id: "CAS-101", disaster: "Cloudburst & Debris Flow", location: "Chamoli District", affected: "3,400 People", percentSolved: "45%", status: "Active Rescue", severity: "Critical" },
+          { id: "CAS-102", disaster: "Landslide Trapped Vehicles", location: "Mussoorie-Dehradun Route", affected: "90 People", percentSolved: "80%", status: "In Progress", severity: "High" }
+        ],
+        analytics: { avgResponseTime: "24.2 Minutes", totalEvacuated: "9,100", rescueTeamsActive: "58 Units", containmentRate: "64.0%" }
+      }
+    };
+
+    let currentTab = 'overview';
+    let map = null;
+    let currentMarkers = [];
+    let liveSos = [];
+    let liveReports = [];
+    let liveAlerts = [];
+    let liveHeatmap = null;
+
+    /* ---------- AUTHENTICATION ---------- */
+    async function ensureOfficerAuth() {
+      if (officerToken) return officerToken;
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'officer@demo.local', password: 'Demo@1234' })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          officerToken = data.token;
+          officerUser = data.user;
+          localStorage.setItem('aagam_officer_token', officerToken);
+          document.getElementById('officerName').textContent = data.user?.role === 'authority' ? 'Officer' : 'Admin';
+          return officerToken;
+        }
+      } catch (e) {
+        console.warn('API server offline or login failed:', e.message);
+      }
+      return null;
+    }
+
+    function authHeaders() {
+      return officerToken ? { 'Authorization': `Bearer ${officerToken}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+    }
+
+    /* ---------- LIVE DATA FETCHING ---------- */
+    async function refreshData() {
+      await ensureOfficerAuth();
+      const badge = document.getElementById('telemetryStatus');
+      const badgeContainer = document.getElementById('liveTelemetryBadge');
+      
+      try {
+        const [sosRes, repRes, alRes, hmRes] = await Promise.all([
+          fetch(`${API_BASE}/sos`, { headers: authHeaders() }),
+          fetch(`${API_BASE}/reports?status=all`, { headers: authHeaders() }),
+          fetch(`${API_BASE}/alerts`, { headers: authHeaders() }),
+          fetch(`${API_BASE}/heatmap`, { headers: authHeaders() })
+        ]);
+
+        if (sosRes.ok) {
+          const sData = await sosRes.json();
+          liveSos = sData.sos || [];
+        }
+        if (repRes.ok) {
+          const rData = await repRes.json();
+          liveReports = rData.reports || [];
+        }
+        if (alRes.ok) {
+          const aData = await alRes.json();
+          liveAlerts = aData.alerts || [];
+        }
+        if (hmRes.ok) {
+          liveHeatmap = await hmRes.json();
+        }
+
+        integrateLiveDataIntoDelhi();
+        badge.textContent = 'Live API Synchronized';
+        badgeContainer.className = 'bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 flex items-center gap-1.5 cursor-pointer';
+        renderCurrentTab();
+      } catch (err) {
+        console.warn('Error syncing with backend:', err);
+        badge.textContent = 'Telemetry Disconnected';
+        badgeContainer.className = 'bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl text-xs font-semibold text-amber-700 flex items-center gap-1.5 cursor-pointer';
+      }
+    }
+
+    function timeAgo(dateString) {
+      if (!dateString) return 'Just now';
+      const sec = Math.floor((new Date() - new Date(dateString)) / 1000);
+      if (sec < 60) return `${Math.max(1, sec)}s ago`;
+      const min = Math.floor(sec / 60);
+      if (min < 60) return `${min}m ago`;
+      const hr = Math.floor(min / 60);
+      if (hr < 24) return `${hr}h ago`;
+      return `${Math.floor(hr / 24)}d ago`;
+    }
+
+    function integrateLiveDataIntoDelhi() {
+      const d = dataRepo.delhi;
+      const totalCount = liveSos.length + liveReports.length;
+      const resolvedCount = liveSos.filter(s => s.status === 'resolved').length + liveReports.filter(r => r.status === 'verified').length;
+      const progressCount = liveSos.filter(s => s.status === 'dispatched' || s.status === 'acknowledged').length;
+      const pendingCount = liveSos.filter(s => s.status === 'new').length + liveReports.filter(r => r.status === 'needs_review').length;
+
+      d.stats.total = String(totalCount);
+      d.stats.resolved = String(resolvedCount);
+      d.stats.progress = String(progressCount);
+      d.stats.pending = String(pendingCount);
+
+      // Disaster Types breakdown
+      const hazardCounts = {};
+      [...liveSos, ...liveReports, ...liveAlerts].forEach(item => {
+        const h = item.hazard || item.type || 'other';
+        const label = h.replace(/_/g, ' ').replace(/\w/g, l => l.toUpperCase());
+        hazardCounts[label] = (hazardCounts[label] || 0) + 1;
+      });
+      const totalHaz = Object.values(hazardCounts).reduce((a, b) => a + b, 0) || 1;
+      d.issues = Object.entries(hazardCounts).slice(0, 5).map(([name, count]) => ({
+        name,
+        count,
+        percent: `${Math.round((count / totalHaz) * 100)}%`
+      }));
+
+      // Heatmap points
+      if (liveHeatmap && Array.isArray(liveHeatmap.cells)) {
+        d.points = liveHeatmap.cells.map(c => ({
+          lat: c.lat,
+          lng: c.lng,
+          intensity: (c.sosCount + c.reportCount) > 10 ? 'High' : (c.sosCount + c.reportCount) > 3 ? 'Medium' : 'Low',
+          zone: `${c.hazards ? c.hazards.join(', ') : 'Incident Cluster'} Sector`,
+          reportsCount: c.count || (c.sosCount + c.reportCount)
+        }));
+      }
+
+      // Add individual SOS pins if heatmap cells are empty
+      if (d.points.length === 0 && liveSos.length > 0) {
+        d.points = liveSos.filter(s => s.lat && s.lng).slice(0, 15).map(s => ({
+          lat: s.lat,
+          lng: s.lng,
+          intensity: s.injured ? 'High' : 'Medium',
+          zone: s.note ? s.note.slice(0, 30) : 'SOS Distress Point',
+          reportsCount: s.peopleCount || 1
+        }));
+      }
+
+      // Live Feed Activity
+      const feedItems = [];
+      [...liveSos].sort((a, b) => new Date(b.receivedAt || b.createdOnPhoneAt) - new Date(a.receivedAt || a.createdOnPhoneAt)).slice(0, 5).forEach(s => {
+        feedItems.push({
+          text: `🚨 SOS: ${s.note || (s.hazard ? s.hazard + ' emergency' : 'Distress beacon')} [${s.status.toUpperCase()}]`,
+          time: timeAgo(s.createdOnPhoneAt || s.receivedAt),
+          type: s.status === 'resolved' ? 'emerald' : s.status === 'dispatched' ? 'amber' : 'rose'
+        });
+      });
+      [...liveReports].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5).forEach(r => {
+        feedItems.push({
+          text: `📋 Report: ${r.type} ${r.note ? '- ' + r.note.slice(0, 25) : ''} [${r.status}]`,
+          time: timeAgo(r.createdAt),
+          type: r.status === 'verified' ? 'emerald' : 'rose'
+        });
+      });
+      d.activity = feedItems.slice(0, 6);
+
+      // Reports Table
+      d.reports = liveReports.map(r => ({
+        id: r.id.slice(0, 8),
+        fullId: r.id,
+        disaster: (r.hazard || r.type || 'Disaster').toUpperCase(),
+        location: r.lat && r.lng ? `${r.lat.toFixed(3)}, ${r.lng.toFixed(3)}` : 'Reported GPS Location',
+        reportedBy: r.note || 'Citizen Mobile App',
+        solutionRate: r.aiConfidence ? `AI: ${(Number(r.aiConfidence)*100).toFixed(0)}%` : 'Direct',
+        hasPhoto: !!r.hasPhoto,
+        aiLabel: r.aiLabel || '',
+        status: r.status
+      }));
+
+      // Cases Table (from SOS)
+      d.cases = liveSos.map(s => ({
+        id: 'SOS-' + s.id.slice(0, 6),
+        fullId: s.id,
+        disaster: (s.hazard || 'Distress Beacon').toUpperCase(),
+        location: s.lat && s.lng ? `${s.lat.toFixed(3)}, ${s.lng.toFixed(3)}` : 'GPS Coordinates',
+        affected: s.peopleCount ? `${s.peopleCount} ${s.injured ? '(Injured)' : 'People'}` : (s.injured ? 'Injured Person' : '1 Citizen'),
+        percentSolved: s.status === 'resolved' ? '100%' : s.status === 'dispatched' ? '65%' : s.status === 'acknowledged' ? '30%' : '10%',
+        status: s.status === 'new' ? 'New Distress' : s.status.charAt(0).toUpperCase() + s.status.slice(1),
+        rawStatus: s.status,
+        severity: s.injured ? 'Critical' : s.status === 'new' ? 'Emergency' : 'Moderate'
+      }));
+    }
+
+    /* ---------- TAB RENDERING ---------- */
+    function renderCurrentTab() {
+      const regionKey = document.getElementById('regionSelect').value;
+      const d = dataRepo[regionKey] || dataRepo.delhi;
+      const contentArea = document.getElementById('main-content-area');
+
+      if (currentTab === 'overview') {
+        contentArea.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Disaster Reports</span>
+              <h2 id="stat-total" class="text-3xl font-extrabold text-slate-900 my-3">${d.stats.total}</h2>
+              <span class="text-xs font-semibold text-rose-600">Active Emergency Mode</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Resolved / Safe</span>
+              <h2 id="stat-resolved" class="text-3xl font-extrabold text-slate-900 my-3">${d.stats.resolved}</h2>
+              <span class="text-xs font-semibold text-emerald-600">Evacuated & Secured</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Rescue in Progress</span>
+              <h2 id="stat-progress" class="text-3xl font-extrabold text-slate-900 my-3">${d.stats.progress}</h2>
+              <span class="text-xs font-semibold text-amber-600">Teams Deployed</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Critical Pending</span>
+              <h2 id="stat-pending" class="text-3xl font-extrabold text-slate-900 my-3">${d.stats.pending}</h2>
+              <span class="text-xs font-semibold text-rose-500">High Priority Attention</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+              <div class="flex justify-between items-center mb-4">
+                <h3 id="map-title" class="font-bold text-slate-900 text-lg">Natural Disaster Heatmap — ${d.name}</h3>
+                <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                  <span>Low Risk</span><div class="w-20 h-2.5 rounded-full bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-600"></div><span>High Risk</span>
+                </div>
+              </div>
+              <div class="flex-1 w-full h-[380px] rounded-xl overflow-hidden border border-slate-100 z-0" id="map"></div>
+            </div>
+            <div class="space-y-6 flex flex-col">
+              <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1">
+                <h3 class="font-bold text-slate-900 text-base mb-4">Disaster Types Reported</h3>
+                <div id="issues-list" class="space-y-4">
+                  ${d.issues.length ? d.issues.map(i => `<div class="flex items-center justify-between"><span class="text-sm font-medium text-slate-700">${i.name}</span><div class="flex items-center gap-3"><span class="text-sm font-bold text-slate-900">${i.count}</span><span class="text-xs font-semibold text-slate-400 w-8 text-right">${i.percent}</span></div></div>`).join('') : '<p class="text-xs text-slate-400">No active disaster events recorded.</p>'}
+                </div>
+              </div>
+              <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                  <h3 class="font-bold text-slate-900 text-base">Live Incident Feed</h3>
+                  <button onclick="refreshData()" class="text-xs text-rose-600 font-semibold hover:underline">Sync Feed</button>
+                </div>
+                <div id="activity-list" class="space-y-3">
+                  ${d.activity.length ? d.activity.map(a => `<div class="flex items-center justify-between text-xs py-2 border-b border-slate-100 last:border-none"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-${a.type}-500"></span><span class="text-slate-700 font-medium">${a.text}</span></div><span class="text-slate-400">${a.time}</span></div>`).join('') : '<p class="text-xs text-slate-400">Feed idle. Telemetry operational.</p>'}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        setTimeout(() => {
+          if (map) { map.remove(); map = null; }
+          map = L.map('map').setView(d.center, d.zoom);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+          renderMarkers(d.points);
+        }, 50);
+
+      } else if (currentTab === 'heatmap') {
+        contentArea.innerHTML = `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[750px]">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-bold text-slate-900 text-xl">Dedicated Region Severity Map — ${d.name}</h3>
+              <div class="flex items-center gap-3 text-xs">
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span> Critical Area</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Warning Zone</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Under Control</span>
+                <button onclick="refreshData()" class="ml-4 px-3 py-1.5 bg-slate-900 text-white rounded-lg font-bold">Refresh GIS</button>
+              </div>
+            </div>
+            <div class="flex-1 w-full rounded-xl overflow-hidden border border-slate-100 z-0" id="fullscreen-map"></div>
+          </div>`;
+        setTimeout(() => {
+          const fsMap = L.map('fullscreen-map').setView(d.center, d.zoom);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(fsMap);
+          d.points.forEach(pt => {
+            let color = pt.intensity === 'High' ? '#e11d48' : pt.intensity === 'Medium' ? '#f59e0b' : '#10b981';
+            L.circleMarker([pt.lat, pt.lng], { color, fillColor: color, fillOpacity: 0.6, radius: 45, weight: 1 }).addTo(fsMap)
+             .bindPopup(`<b>${pt.zone}</b><br>Risk Level: ${pt.intensity}<br>Incidents: ${pt.reportsCount}`);
+          });
+        }, 50);
+
+      } else if (currentTab === 'reports') {
+        contentArea.innerHTML = `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-slate-900 text-xl">Aagam Incident Reports — ${d.name}</h3>
+                <p class="text-xs text-slate-500 mt-1">Crowdsourced natural disaster alerts and verified rescue logs (${d.reports.length} loaded).</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="refreshData()" class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-200 transition">↻ Sync</button>
+                <button onclick="openBroadcastModal()" class="bg-rose-600 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow hover:bg-rose-700 transition">+ Broadcast Alert</button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm text-slate-600">
+                <thead class="bg-slate-50 text-xs uppercase text-slate-500 border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-3">Report ID</th>
+                    <th class="px-4 py-3">Disaster Event</th>
+                    <th class="px-4 py-3">Location Coordinates</th>
+                    <th class="px-4 py-3">Citizen Note / Context</th>
+                    <th class="px-4 py-3">Verification</th>
+                    <th class="px-4 py-3">Photo</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${d.reports.map(r => `
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-3 font-semibold text-slate-900">${r.id}</td>
+                      <td class="px-4 py-3 font-medium text-slate-800">${r.disaster}</td>
+                      <td class="px-4 py-3 text-xs text-slate-500">${r.location}</td>
+                      <td class="px-4 py-3 text-xs text-slate-700 max-w-xs truncate" title="${r.reportedBy}">${r.reportedBy}</td>
+                      <td class="px-4 py-3"><span class="font-semibold text-rose-600">${r.solutionRate}</span>${r.aiLabel ? `<div class="text-[10px] text-slate-400">label: ${r.aiLabel}</div>` : ''}</td>
+                      <td class="px-4 py-3">${r.hasPhoto ? `<button onclick="viewReportPhoto('${r.fullId}')" class="px-2.5 py-1 bg-sky-600 text-white rounded-lg text-xs font-bold hover:bg-sky-700 shadow-sm">View photo</button>` : `<span class="text-xs text-slate-400">No photo</span>`}</td>
+                      <td class="px-4 py-3"><span class="px-2.5 py-1 text-xs font-semibold rounded-full ${r.status === 'verified' ? 'bg-emerald-50 text-emerald-600' : r.status === 'rejected' ? 'bg-slate-100 text-slate-500' : 'bg-rose-50 text-rose-600'}">${r.status}</span></td>
+                      <td class="px-4 py-3 text-right space-x-1 whitespace-nowrap">
+                        ${r.status === 'needs_review' ? `
+                          <button onclick="verifyReport('${r.fullId}')" class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700 shadow-sm">Verify</button>
+                          <button onclick="rejectReport('${r.fullId}')" class="px-2.5 py-1 bg-slate-200 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-300">Reject</button>
+                        ` : `<span class="text-xs text-slate-400 font-semibold">Processed</span>`}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+
+      } else if (currentTab === 'cases') {
+        contentArea.innerHTML = `
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-slate-900 text-xl">Aagam Active Rescue Operations — ${d.name}</h3>
+                <p class="text-xs text-slate-500 mt-1">Live tracking of ongoing disaster relief cases and affected populations (${d.cases.length} loaded).</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="refreshData()" class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-200 transition">↻ Sync</button>
+                <button onclick="openGenericDispatchModal()" class="bg-rose-600 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow hover:bg-rose-700 transition">+ Dispatch Rescue Unit</button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm text-slate-600">
+                <thead class="bg-slate-50 text-xs uppercase text-slate-500 border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-3">Case ID</th>
+                    <th class="px-4 py-3">Emergency Type</th>
+                    <th class="px-4 py-3">Location Coordinates</th>
+                    <th class="px-4 py-3">Population Affected</th>
+                    <th class="px-4 py-3">Resolution Progress</th>
+                    <th class="px-4 py-3">Severity</th>
+                    <th class="px-4 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${d.cases.map(c => `
+                    <tr class="hover:bg-slate-50">
+                      <td class="px-4 py-3 font-semibold text-slate-900">${c.id}</td>
+                      <td class="px-4 py-3 font-medium text-slate-800">${c.disaster}</td>
+                      <td class="px-4 py-3 text-xs text-slate-500">${c.location}</td>
+                      <td class="px-4 py-3 text-xs font-bold text-slate-700">${c.affected}</td>
+                      <td class="px-4 py-3"><span class="font-semibold text-emerald-600">${c.percentSolved}</span></td>
+                      <td class="px-4 py-3"><span class="px-2 py-0.5 text-xs font-bold rounded ${c.severity === 'Critical' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}">${c.severity}</span></td>
+                      <td class="px-4 py-3 text-right space-x-1 whitespace-nowrap">
+                        ${c.rawStatus === 'new' ? `
+                          <button onclick="ackSos('${c.fullId}')" class="px-2.5 py-1 bg-amber-500 text-white rounded-lg text-xs font-bold hover:bg-amber-600 shadow-sm">Acknowledge</button>
+                          <button onclick="openDispatchModalFor('${c.fullId}', '${c.disaster}', '${c.location}')" class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 shadow-sm">Dispatch</button>
+                        ` : c.rawStatus === 'acknowledged' ? `
+                          <button onclick="openDispatchModalFor('${c.fullId}', '${c.disaster}', '${c.location}')" class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 shadow-sm">Dispatch</button>
+                        ` : c.rawStatus === 'dispatched' ? `
+                          <button onclick="resolveSos('${c.fullId}')" class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700 shadow-sm">Mark Safe</button>
+                        ` : `<span class="text-xs text-emerald-600 font-bold">Resolved ✓</span>`}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+
+      } else if (currentTab === 'analytics') {
+        contentArea.innerHTML = `
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Avg Response Time</span>
+                <h2 class="text-2xl font-extrabold text-slate-900 mt-2">${d.analytics.avgResponseTime}</h2>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Evacuated</span>
+                <h2 class="text-2xl font-extrabold text-emerald-600 mt-2">${d.analytics.totalEvacuated} People</h2>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Active Rescue Units</span>
+                <h2 class="text-2xl font-extrabold text-rose-600 mt-2">${d.analytics.rescueTeamsActive}</h2>
+              </div>
+              <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Containment Rate</span>
+                <h2 class="text-xl font-bold text-slate-900 mt-2">${d.analytics.containmentRate}</h2>
+              </div>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center py-16">
+              <h3 class="text-lg font-bold text-slate-800">Aagam Impact & Mitigation Analytics — ${d.name}</h3>
+              <p class="text-slate-500 text-sm mt-1">Real-time telemetry and state disaster management database integration active.</p>
+            </div>
+          </div>`;
+
+      } else if (currentTab === 'settings') {
+        contentArea.innerHTML = `
+          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6 max-w-xl">
+            <h3 class="font-bold text-slate-900 text-xl border-b border-slate-100 pb-3">Command Portal & Officer Settings</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Backend Server Base URL</label>
+                <input type="text" value="${API_BASE}" readonly class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm font-mono text-slate-700" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Officer Authentication JWT</label>
+                <textarea rows="3" readonly class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-mono text-slate-600">${officerToken || 'No token active'}</textarea>
+              </div>
+              <div class="pt-4 flex gap-3">
+                <button onclick="localStorage.removeItem('aagam_officer_token'); officerToken=null; refreshData();" class="px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold hover:bg-rose-700">Re-authenticate Officer</button>
+                <button onclick="refreshData()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 border border-slate-200">Flush & Sync Cache</button>
+              </div>
+            </div>
+          </div>`;
+      }
+    }
+
+    function renderMarkers(points) {
+      if (!map) return;
+      currentMarkers.forEach(m => map.removeLayer(m));
+      currentMarkers = [];
+
+      points.forEach(pt => {
+        let color = pt.intensity === 'High' ? '#e11d48' : pt.intensity === 'Medium' ? '#f59e0b' : '#10b981';
+        let radius = pt.intensity === 'High' ? 38 : pt.intensity === 'Medium' ? 28 : 18;
+        let marker = L.circleMarker([pt.lat, pt.lng], { color, fillColor: color, fillOpacity: 0.5, radius, weight: 1 }).addTo(map);
+        marker.bindPopup(`<b>${pt.zone}</b><br>Risk Level: ${pt.intensity}<br>Incidents: ${pt.reportsCount}`);
+        currentMarkers.push(marker);
+      });
+    }
+
+    function handleRegionChange(key) {
+      const d = dataRepo[key] || dataRepo.delhi;
+      document.getElementById('region-subtitle').innerText = d.name;
+      renderCurrentTab();
+    }
+
+    function switchTab(tabName, element) {
+      currentTab = tabName;
+      document.querySelectorAll('#sidebar-nav a').forEach(a => {
+        a.classList.remove('bg-rose-600', 'text-white', 'shadow-lg', 'shadow-rose-600/35');
+        a.classList.add('hover:bg-slate-800', 'hover:text-white');
+      });
+      element.classList.add('bg-rose-600', 'text-white', 'shadow-lg', 'shadow-rose-600/35');
+      element.classList.remove('hover:bg-slate-800', 'hover:text-white');
+
+      renderCurrentTab();
+    }
+
+    /* ---------- OFFICER ACTIONS (REPORTS & SOS MUTATIONS) ---------- */
+    async function viewReportPhoto(id) {
+      await ensureOfficerAuth();
+      const ov = document.createElement('div');
+      ov.className = 'fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4';
+      ov.onclick = (e) => { if (e.target === ov) ov.remove(); };
+      ov.innerHTML = '<div class="bg-white rounded-2xl p-4 max-w-3xl w-full max-h-[90vh] overflow-auto shadow-2xl">' +
+        '<div class="flex justify-between items-center mb-3"><h3 class="font-bold text-slate-900">Citizen report photo</h3>' +
+        '<button class="text-slate-500 text-2xl leading-none px-2" aria-label="Close">&times;</button></div>' +
+        '<div id="photoBody" class="text-sm text-slate-500">Loading photo...</div></div>';
+      ov.querySelector('button').onclick = () => ov.remove();
+      document.body.appendChild(ov);
+      const body = ov.querySelector('#photoBody');
+      try {
+        const res = await fetch(`${API_BASE}/reports/${id}/photo`, { headers: authHeaders() });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.photoData) throw new Error(data.error || ('HTTP ' + res.status));
+        const img = document.createElement('img');
+        img.src = data.photoData; img.alt = 'Citizen report photo';
+        img.className = 'max-w-full max-h-[70vh] mx-auto rounded-lg border border-slate-200';
+        body.replaceChildren(img);
+      } catch (e) {
+        body.textContent = 'Could not load the photo: ' + e.message;
+      }
+    }
+
+    async function verifyReport(id) {
+      if (!confirm('Mark this incident report as VERIFIED by Authority Officer?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/reports/${id}`, {
+          method: 'PATCH',
+          headers: authHeaders(),
+          body: JSON.stringify({ status: 'verified', officerNotes: 'Verified by on-duty authority officer' })
+        });
+        if (res.ok) {
+          alert('Report marked as VERIFIED.');
+          refreshData();
+        } else {
+          alert('Failed to update report status.');
+        }
+      } catch (e) {
+        alert('Server request failed: ' + e.message);
+      }
+    }
+
+    async function rejectReport(id) {
+      const reason = prompt('Enter rejection reason (e.g. duplicate, unrelated, spam):', 'Unrelated or duplicate report');
+      if (!reason) return;
+      try {
+        const res = await fetch(`${API_BASE}/reports/${id}`, {
+          method: 'PATCH',
+          headers: authHeaders(),
+          body: JSON.stringify({ status: 'rejected', rejectReason: reason })
+        });
+        if (res.ok) {
+          alert('Report marked as REJECTED.');
+          refreshData();
+        } else {
+          alert('Failed to update report status.');
+        }
+      } catch (e) {
+        alert('Server request failed: ' + e.message);
+      }
+    }
+
+    async function ackSos(id) {
+      try {
+        const res = await fetch(`${API_BASE}/sos/${id}`, {
+          method: 'PATCH',
+          headers: authHeaders(),
+          body: JSON.stringify({ status: 'acknowledged', dispatchNote: 'Officer acknowledged distress beacon' })
+        });
+        if (res.ok) {
+          refreshData();
+        } else {
+          alert('Failed to acknowledge SOS case.');
+        }
+      } catch (e) {
+        alert('Server request failed: ' + e.message);
+      }
+    }
+
+    async function resolveSos(id) {
+      if (!confirm('Mark this emergency SOS case as RESOLVED and citizens rescued/safe?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/sos/${id}`, {
+          method: 'PATCH',
+          headers: authHeaders(),
+          body: JSON.stringify({ status: 'resolved', dispatchNote: 'Evacuation & relief completed successfully' })
+        });
+        if (res.ok) {
+          alert('Case marked as RESOLVED.');
+          refreshData();
+        } else {
+          alert('Failed to resolve SOS case.');
+        }
+      } catch (e) {
+        alert('Server request failed: ' + e.message);
+      }
+    }
+
+    /* ---------- MODAL CONTROLS ---------- */
+    function openBroadcastModal() {
+      document.getElementById('broadcastModal').classList.remove('hidden');
+    }
+    function closeBroadcastModal() {
+      document.getElementById('broadcastModal').classList.add('hidden');
+    }
+
+    async function handleBroadcastSubmit(e) {
+      e.preventDefault();
+      await ensureOfficerAuth();
+      const payload = {
+        hazard: document.getElementById('b-hazard').value,
+        severity: document.getElementById('b-severity').value,
+        district: document.getElementById('b-district').value,
+        title: document.getElementById('b-title').value,
+        message: document.getElementById('b-message').value,
+        lat: 28.6139,
+        lng: 77.2090,
+        radiusKm: 40,
+        sourceName: 'AAGAM Authority Command Portal',
+        sourceUrl: 'https://mausam.imd.gov.in'
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/alerts`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          alert('Official disaster warning broadcasted successfully!');
+          closeBroadcastModal();
+          refreshData();
+        } else {
+          const err = await res.json();
+          alert('Broadcast failed: ' + (err.error || 'Server rejected alert'));
+        }
+      } catch (err) {
+        alert('Server request failed: ' + err.message);
+      }
+    }
+
+    function openDispatchModalFor(sosId, disaster, location) {
+      document.getElementById('d-sos-id').value = sosId;
+      document.getElementById('d-case-info').textContent = `${disaster} @ ${location}`;
+      document.getElementById('dispatchModal').classList.remove('hidden');
+    }
+    function openGenericDispatchModal() {
+      const pending = liveSos.find(s => s.status === 'new' || s.status === 'acknowledged');
+      if (pending) {
+        openDispatchModalFor(pending.id, pending.hazard || 'EMERGENCY', `${pending.lat?.toFixed(3)}, ${pending.lng?.toFixed(3)}`);
+      } else {
+        alert('No pending SOS cases currently requiring dispatch.');
+      }
+    }
+    function closeDispatchModal() {
+      document.getElementById('dispatchModal').classList.add('hidden');
+    }
+
+    async function handleDispatchSubmit(e) {
+      e.preventDefault();
+      const sosId = document.getElementById('d-sos-id').value;
+      const note = document.getElementById('d-note').value;
+      try {
+        const res = await fetch(`${API_BASE}/sos/${sosId}`, {
+          method: 'PATCH',
+          headers: authHeaders(),
+          body: JSON.stringify({ status: 'dispatched', dispatchNote: note })
+        });
+        if (res.ok) {
+          alert('Rescue unit dispatched and assigned successfully!');
+          closeDispatchModal();
+          refreshData();
+        } else {
+          alert('Failed to record dispatch transition.');
+        }
+      } catch (err) {
+        alert('Server request failed: ' + err.message);
+      }
+    }
+
+    function openOfficerModal() {
+      document.getElementById('officerModal').classList.remove('hidden');
+    }
+    function closeOfficerModal() {
+      document.getElementById('officerModal').classList.add('hidden');
+    }
+
+    // Startup execution: Auto-login & live data pull
+    refreshData();
+    setInterval(refreshData, 12000); // Poll telemetry every 12 seconds
+  </script>
+</body>
+</html>
